@@ -92,7 +92,6 @@ namespace ConEmuIntegration
 
             var macro = "Shell(\"new_console\", \"\", \"{cmd}\")";
             ExecuteGuiMacro(macro);
-            ExecuteGuiMacro(macro);
         }
 
         private string ExtendPath(string file)
