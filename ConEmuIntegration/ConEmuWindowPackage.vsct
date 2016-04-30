@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" 
+              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+    
+  <Commands package="guidConEmuWindowPackage">
+    <Buttons>
+      <Button guid="guidConEmuWindowPackageCmdSet" id="ConEmuWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1"/>
+        <Icon guid="guidImages" id="bmpConsole" />
+        <Strings>
+          <ButtonText>ConEmu Console</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\ConEmuWindowPackage.ico" usedList="bmpConsole"/>
+    </Bitmaps>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
+      
+    <GuidSymbol name="guidConEmuWindowPackageCmdSet" value="{5df544d6-c00a-4471-936b-d5441108ccfd}">
+      <IDSymbol name="ConEmuWindowCommandId" value="0x0100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidImages" value="{51d24e77-218b-4bb4-8a7b-c77fb698b830}" >
+      <IDSymbol name="bmpConsole" value="1" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
