@@ -1,6 +1,6 @@
 # ConEmu Integration
 
-<img src="Images/extension.png" style="width: 25px;"/>
+<img src="Images/extension.png" width="75"/>
 
 Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]).
 
@@ -17,7 +17,7 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 ## ConEmu
 ConEmu-Maximus5 is a Windows console emulator with tabs, which represents multiple consoles as one customizable GUI window with various features.
 
-<img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" style="width: 25px;"/>
+<img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="75"/>
 
 ConEmu project: [ConEmu GitHub](https://github.com/Maximus5/ConEmu)<br />
 ConEmu integration:
