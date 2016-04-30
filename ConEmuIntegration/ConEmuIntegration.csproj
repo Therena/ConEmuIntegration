@@ -51,13 +51,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ConEmuMacro.cs" />
-    <Compile Include="ConEmuWindow.cs" />
-    <Compile Include="ConEmuWindowCommand.cs" />
-    <Compile Include="ConEmuWindowControl.xaml.cs">
+    <Compile Include="ToolWindow\ConEmuMacro.cs" />
+    <Compile Include="ToolWindow\ConEmuWindow.cs" />
+    <Compile Include="ToolWindow\ConEmuWindowCommand.cs" />
+    <Compile Include="ToolWindow\ConEmuWindowControl.xaml.cs">
       <DependentUpon>ConEmuWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConEmuWindowPackage.cs" />
+    <Compile Include="ToolWindow\ConEmuWindowPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,7 +71,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ConEmuWindowControl.xaml">
+    <Page Include="ToolWindow\ConEmuWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
