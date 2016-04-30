@@ -69,12 +69,12 @@ namespace ConEmuIntegration
 
         public void RunConEmu()
         {
-            string conemu = GetConEmu();
+            string conemu = ExtendPath("ConEmu.exe");
             string parameter = "-NoKeyHooks " + 
                 "-InsideWnd 0x" + plnConEmu.Handle.ToString("X") + " " +
                 "-LoadCfgFile \"" + m_ConfigFile.FullName + "\" " +
                 " -Dir \"" + Directory.GetCurrentDirectory() + "\"" +
-                " -detached";
+                " -detached -cmd \"{cmd}\"";
             try
             {
                 m_ConEmuProcess = Process.Start(conemu, parameter);
@@ -89,25 +89,30 @@ namespace ConEmuIntegration
                     MessageBoxImage.Error);
                 throw;
             }
+
+            var macro = "Shell(\"new_console\", \"\", \"{cmd}\")";
+            ExecuteGuiMacro(macro);
+            ExecuteGuiMacro(macro);
         }
 
-        private string GetConEmu()
+        private string ExtendPath(string file)
         {
             foreach (var path in m_SearchPaths)
             {
-                FileInfo file = new FileInfo(Path.Combine(path, "ConEmu.exe"));
-                if(file.Exists)
+                FileInfo fileInfo = new FileInfo(Path.Combine(path, file));
+                if(fileInfo.Exists)
                 {
-                    return file.FullName;
-                }
-
-                FileInfo file64 = new FileInfo(Path.Combine(path, "ConEmu64.exe"));
-                if (file64.Exists)
-                {
-                    return file64.FullName;
+                    return fileInfo.FullName;
                 }
             }
-            return "ConEmu.exe";
+            return file;
+        }
+
+        private void ExecuteGuiMacro(string macro)
+        {
+            string conemu = ExtendPath("ConEmuCD.dll");
+            var macroHelper = new ConEmuMacro(conemu);
+            macroHelper.Execute(m_ConEmuProcess.Id.ToString(), macro);
         }
     }
 }

@@ -51,6 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ConEmuMacro.cs" />
     <Compile Include="ConEmuWindow.cs" />
     <Compile Include="ConEmuWindowCommand.cs" />
     <Compile Include="ConEmuWindowControl.xaml.cs">
