@@ -17,6 +17,8 @@ using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using ConEmuIntegration.ConEmu;
+using System.Windows;
 
 namespace ConEmuIntegration
 {
@@ -99,9 +101,14 @@ namespace ConEmuIntegration
         /// <param name="e">The event args.</param>
         private void ShowToolWindow(object sender, EventArgs e)
         {
-            // Get the instance number 0 of this tool window. This window is single instance so this instance
-            // is actually the only one.
-            // The last flag is set to true so that if the tool window does not exists it will be created.
+            if(ProductEnvironment.Instance.CheckConEmu() == false)
+            {
+                var caption = ProductEnvironment.Instance.GetWindowCaption();
+                MessageBox.Show("Unable to find the ConEmu installation", caption, 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             ToolWindowPane window = this.package.FindToolWindow(typeof(ConEmuWindow), 0, true);
             if ((null == window) || (null == window.Frame))
             {

@@ -17,6 +17,7 @@ using System;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using ConEmuIntegration.ConEmu;
 
 namespace ConEmuIntegration
 {
@@ -27,7 +28,7 @@ namespace ConEmuIntegration
 
         public ConEmuWindow() : base(null)
         {
-            this.Caption = "ConEmu Console";
+            this.Caption = ProductEnvironment.Instance.GetWindowCaption();
             m_Control = new ConEmuWindowControl();
             this.Content = m_Control;
         }
@@ -45,12 +46,6 @@ namespace ConEmuIntegration
                 var windowFrame = (IVsWindowFrame)this.Frame;
                 windowFrame.Hide();
             }
-        }
-
-        protected override void OnClose()
-        {
-            base.OnClose();
-            m_Control.Cleanup();
         }
     }
 }
