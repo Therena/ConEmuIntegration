@@ -197,7 +197,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Settings\ConEmu.xml" />
+    <EmbeddedResource Include="Settings\ConEmu.xml" />
     <VSCTCompile Include="ConEmuWindowPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>

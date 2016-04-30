@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -27,9 +28,13 @@ namespace ConEmuIntegration
         private Process m_ConEmuProcess;
         private List<string> m_SearchPaths;
 
+        private FileInfo m_ConfigFile;
+
         public ConEmuWindowControl()
         {
             this.InitializeComponent();
+
+            m_ConfigFile = new FileInfo(ExportConfiguration());
 
             m_SearchPaths = new List<string>();
             m_SearchPaths.Add(Directory.GetCurrentDirectory());
@@ -37,12 +42,37 @@ namespace ConEmuIntegration
             m_SearchPaths.Add(@"C:\Users\David Roller\Downloads\conemu-inside-master\conemu-inside-master\ConEmuInside\bin\Debug\ConEmu");
         }
 
+        public void Cleanup()
+        {
+            if(m_ConfigFile.Exists)
+            {
+                m_ConfigFile.Delete();
+            }
+        }
+
+        private string ExportConfiguration()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            var configFile = "ConEmuIntegration.Settings.ConEmu.xml";
+
+            var configFileContent = "";
+            using (var stream = new StreamReader(assembly.GetManifestResourceStream(configFile)))
+            {
+                configFileContent = stream.ReadToEnd();
+            }
+
+            string configFilePath = Path.GetTempFileName() + ".xml";
+            File.WriteAllText(configFilePath, configFileContent);
+
+            return configFilePath;
+        }
+
         public void RunConEmu()
         {
             string conemu = GetConEmu();
             string parameter = "-NoKeyHooks " + 
                 "-InsideWnd 0x" + plnConEmu.Handle.ToString("X") + " " +
-                "-LoadCfgFile \"" + @"C:\SRC\GitHub\ConEmuIntegration\ConEmuIntegration\Settings\ConEmu.xml" + "\" " +
+                "-LoadCfgFile \"" + m_ConfigFile.FullName + "\" " +
                 " -Dir \"" + Directory.GetCurrentDirectory() + "\"" +
                 " -detached";
             try

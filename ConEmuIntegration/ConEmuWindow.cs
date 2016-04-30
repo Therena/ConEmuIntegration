@@ -46,5 +46,11 @@ namespace ConEmuIntegration
                 windowFrame.Hide();
             }
         }
+
+        protected override void OnClose()
+        {
+            base.OnClose();
+            m_Control.Cleanup();
+        }
     }
 }
