@@ -1,11 +1,7 @@
 # ConEmuIntegration
 
-<!-- Replace this badge with your own-->
-[![Build status](https://ci.appveyor.com/api/projects/status/hv6uyc059rqbc6fj?svg=true)](https://ci.appveyor.com/project/madskristensen/extensibilitytools)
-
 <!-- Update the VS Gallery link after you upload the VSIX-->
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery])
-or get the [CI build](http://vsixgallery.com/extension/da4195aa-018f-4bb3-9443-37f4f5e16d94/).
+Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]).
 
 ---------------------------------------
 
@@ -15,18 +11,9 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 ## Features
 
-- Feature 1
-- Feature 2
-  - Sub feature
+- Integration of ConEmu as ToolWindow to Visual Studio
 
-### Feature 1
-Describe feature 1. Add screenshots/code samples etc.
-
-### Feature 2
-Describe feature 2. Add screenshots/code samples etc.
-
-#### Sub feature
-Describe sub feature. Add screenshots/code samples etc.
+### Integration of ConEmu as ToolWindow to Visual Studio
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
