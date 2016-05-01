@@ -1,7 +1,6 @@
 # ConEmu Integration
 
 <img src="Images/extension.png" width="80" />
----------------------------------------
 
 <b>ConEmu Integration</b><br />
 
