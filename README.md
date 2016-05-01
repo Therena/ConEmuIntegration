@@ -33,15 +33,15 @@ and [NuGet Package](https://www.nuget.org/packages/ConEmu.Control.WinForms/)
 
 ### Integration of ConEmu as ToolWindow to Visual Studio
 This extension integrates ConEmu as tool window in Visual Studio.
-<img src="Images/ConEmuVisualStudio.png" width="750"/>
+<img src="Images/ConEmuVisualStudio.png" width="600"/>
 
 ### ConEmu Tool Window can be opens from "View" menu
 The ConEmu tool window can be open from the view menu of Visual Studio
-<img src="Images/ComEmuInViewMenu.png" width="500"/>
+<img src="Images/ComEmuInViewMenu.png" width="400"/>
 
 ### Integration of ConEmu in Solution Explorer
 The current opened folder in ConEmu can be changed directly from solution explorer.
-<img src="Images/ConEmuSolutionExplorer.png" width="500"/>
+<img src="Images/ConEmuSolutionExplorer.png" width="400"/>
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
