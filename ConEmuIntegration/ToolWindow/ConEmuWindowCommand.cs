@@ -18,7 +18,6 @@ using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using ConEmuIntegration.ConEmu;
-using System.Windows;
 
 namespace ConEmuIntegration
 {
@@ -101,11 +100,8 @@ namespace ConEmuIntegration
         /// <param name="e">The event args.</param>
         private void ShowToolWindow(object sender, EventArgs e)
         {
-            if(ProductEnvironment.Instance.CheckConEmu() == false)
+            if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
             {
-                var caption = ProductEnvironment.Instance.GetWindowCaption();
-                MessageBox.Show("Unable to find the ConEmu installation", caption, 
-                    MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

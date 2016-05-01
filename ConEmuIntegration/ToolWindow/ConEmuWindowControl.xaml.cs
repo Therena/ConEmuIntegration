@@ -14,10 +14,8 @@
 // limitations under the License.
 //
 using ConEmuIntegration.ConEmu;
-using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace ConEmuIntegration
@@ -33,6 +31,11 @@ namespace ConEmuIntegration
 
         public void RunConEmu()
         {
+            if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
+            {
+                return;
+            }
+
             string conemu = ProductEnvironment.Instance.GetConEmuExecutable();
             string configFile = ProductEnvironment.Instance.GetConfigurationFile();
             string parameter = "-NoKeyHooks " + 
@@ -40,20 +43,8 @@ namespace ConEmuIntegration
                 "-LoadCfgFile \"" + configFile + "\" " +
                 " -Dir \"" + Directory.GetCurrentDirectory() + "\"" +
                 " -detached -cmd \"{cmd}\"";
-            try
-            {
-                m_ConEmuProcess = Process.Start(conemu, parameter);
-            }
-            catch (System.ComponentModel.Win32Exception ex)
-            {
-                var caption = ProductEnvironment.Instance.GetWindowCaption();
-                MessageBox.Show(ex.Message + Environment.NewLine + Environment.NewLine +
-                    "Command:" + Environment.NewLine + conemu + Environment.NewLine + 
-                    Environment.NewLine + ex.GetType().FullName + 
-                    " (" + ex.NativeErrorCode.ToString() + ")",
-                    caption, MessageBoxButton.OK, MessageBoxImage.Error);
-                throw;
-            }
+
+            m_ConEmuProcess = Process.Start(conemu, parameter);
 
             var macro = "Shell(\"new_console\", \"\", \"{cmd}\")";
             ExecuteGuiMacro(macro);
@@ -61,7 +52,7 @@ namespace ConEmuIntegration
 
         private void ExecuteGuiMacro(string macro)
         {
-            string conemu = ProductEnvironment.Instance.GetConLibrary();
+            string conemu = ProductEnvironment.Instance.GetConEmuLibrary();
             var macroHelper = new ConEmuMacro(conemu);
             macroHelper.Execute(m_ConEmuProcess.Id.ToString(), macro);
         }

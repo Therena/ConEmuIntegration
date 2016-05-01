@@ -52,6 +52,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ConEmu\ProductEnvironment.cs" />
+    <Compile Include="Settings\OptionPageGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ToolWindow\ConEmuMacro.cs" />
     <Compile Include="ToolWindow\ConEmuWindow.cs" />
     <Compile Include="ToolWindow\ConEmuWindowCommand.cs" />
@@ -199,7 +202,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <EmbeddedResource Include="Settings\ConEmu.xml" />
+    <EmbeddedResource Include="Settings\ConEmu.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <VSCTCompile Include="ConEmuWindowPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>

@@ -13,10 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using ConEmuIntegration.Settings;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Windows;
 
 namespace ConEmuIntegration.ConEmu
 {
@@ -24,6 +27,8 @@ namespace ConEmuIntegration.ConEmu
     {
         private List<string> m_TempFiles;
         private List<string> m_SearchPaths;
+
+        public Package Package { get; set; }
 
         private static ProductEnvironment m_Instance = new ProductEnvironment();
         public static ProductEnvironment Instance
@@ -41,7 +46,6 @@ namespace ConEmuIntegration.ConEmu
             m_SearchPaths = new List<string>();
             m_SearchPaths.Add(Directory.GetCurrentDirectory());
             m_SearchPaths.AddRange(Environment.ExpandEnvironmentVariables("%PATH%").Split(';'));
-            m_SearchPaths.Add(@"C:\Users\David Roller\Downloads\conemu-inside-master\conemu-inside-master\ConEmuInside\bin\Debug\ConEmu");
         }
 
         ~ProductEnvironment()
@@ -54,16 +58,35 @@ namespace ConEmuIntegration.ConEmu
 
         public bool CheckConEmu()
         {
-            if (File.Exists(GetConEmuExecutable()) == false)
+            var conemu = GetConEmuExecutable();
+            if (string.IsNullOrWhiteSpace(conemu) || 
+                File.Exists(conemu) == false)
             {
                 return false;
             }
 
-            if (File.Exists(GetConLibrary()) == false)
+            var conemulib = GetConEmuLibrary();
+            if (string.IsNullOrWhiteSpace(conemulib) || 
+                File.Exists(conemulib) == false)
             {
                 return false;
             }
             return true;
+        }
+
+        public bool CheckConEmuAndDisplay()
+        {
+            bool result = CheckConEmu();
+            if(result == false)
+            {
+                var caption = Instance.GetWindowCaption();
+                MessageBox.Show(
+                    "Unable to find the ConEmu installation" + 
+                    Environment.NewLine + Environment.NewLine + 
+                    "Please set the paths of your ConEmu installation in the Visual Studio options pane", 
+                    caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return result;
         }
 
         public string GetConfigurationFile()
@@ -91,14 +114,28 @@ namespace ConEmuIntegration.ConEmu
 
         public string GetConEmuExecutable()
         {
-            string conemu = ExtendPath("ConEmu.exe");
-            return conemu;
+            if (this.Package != null)
+            {
+                var page = (OptionPageGrid)this.Package.GetDialogPage(typeof(OptionPageGrid));
+                if (page != null)
+                {
+                    return page.ConEmuPath;
+                }
+            }
+            return ExtendPath("ConEmu.exe");
         }
 
-        public string GetConLibrary()
+        public string GetConEmuLibrary()
         {
-            string conemu = ExtendPath("ConEmuCD.dll");
-            return conemu;
+            if(this.Package != null)
+            {
+                var page = (OptionPageGrid)this.Package.GetDialogPage(typeof(OptionPageGrid));
+                if (page != null)
+                {
+                    return page.ConEmuLibraryPath;
+                }
+            }
+            return ExtendPath("ConEmuCD.dll");
         }
 
         public string ExtendPath(string file)
@@ -111,7 +148,7 @@ namespace ConEmuIntegration.ConEmu
                     return fileInfo.FullName;
                 }
             }
-            return file;
+            return string.Empty;
         }
 
     }
