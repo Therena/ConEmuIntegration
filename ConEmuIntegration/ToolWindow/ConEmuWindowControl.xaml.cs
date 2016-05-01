@@ -18,12 +18,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Controls;
 
-namespace ConEmuIntegration
+namespace ConEmuIntegration.ToolWindow
 {
     public partial class ConEmuWindowControl : UserControl
     {
-        private Process m_ConEmuProcess;
-
         public ConEmuWindowControl()
         {
             this.InitializeComponent();
@@ -44,7 +42,7 @@ namespace ConEmuIntegration
                 " -Dir \"" + Directory.GetCurrentDirectory() + "\"" +
                 " -detached -cmd \"{cmd}\"";
 
-            m_ConEmuProcess = Process.Start(conemu, parameter);
+            ProductEnvironment.Instance.ConEmuProcess = Process.Start(conemu, parameter);
 
             var macro = "Shell(\"new_console\", \"\", \"{cmd}\")";
             ExecuteGuiMacro(macro);
@@ -52,9 +50,14 @@ namespace ConEmuIntegration
 
         private void ExecuteGuiMacro(string macro)
         {
+            if (ProductEnvironment.Instance.ConEmuProcess == null)
+            {
+                return;
+            }
+
             string conemu = ProductEnvironment.Instance.GetConEmuLibrary();
             var macroHelper = new ConEmuMacro(conemu);
-            macroHelper.Execute(m_ConEmuProcess.Id.ToString(), macro);
+            macroHelper.Execute(ProductEnvironment.Instance.ConEmuProcess.Id.ToString(), macro);
         }
     }
 }

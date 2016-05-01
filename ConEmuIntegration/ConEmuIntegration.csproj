@@ -55,13 +55,15 @@
     <Compile Include="Settings\OptionPageGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SolutionExplorer\OpenConEmuHere.cs" />
+    <Compile Include="SolutionExplorer\OpenInConEmu.cs" />
     <Compile Include="ToolWindow\ConEmuMacro.cs" />
     <Compile Include="ToolWindow\ConEmuWindow.cs" />
     <Compile Include="ToolWindow\ConEmuWindowCommand.cs" />
     <Compile Include="ToolWindow\ConEmuWindowControl.xaml.cs">
       <DependentUpon>ConEmuWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindow\ConEmuWindowPackage.cs" />
+    <Compile Include="ConEmuWindowPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

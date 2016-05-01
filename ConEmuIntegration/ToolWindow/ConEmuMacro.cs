@@ -17,7 +17,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace ConEmuIntegration
+namespace ConEmuIntegration.ToolWindow
 {
     internal sealed class ConEmuMacro
     {

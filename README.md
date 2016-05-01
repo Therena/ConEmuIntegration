@@ -19,7 +19,7 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which represents multip
 
 <img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="75"/>
 
-ConEmu project: [ConEmu GitHub](https://github.com/Maximus5/ConEmu)<br />
+ConEmu project: [GitHub](https://github.com/Maximus5/ConEmu)<br />
 ConEmu integration:
 [GitHub](https://github.com/Maximus5/conemu-inside)
 and [NuGet Package](https://www.nuget.org/packages/ConEmu.Control.WinForms/)

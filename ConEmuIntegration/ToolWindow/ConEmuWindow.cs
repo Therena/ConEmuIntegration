@@ -19,7 +19,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using ConEmuIntegration.ConEmu;
 
-namespace ConEmuIntegration
+namespace ConEmuIntegration.ToolWindow
 {
     [Guid("4893abc5-3f3b-4868-9fcf-dd4bb3bd7b37")]
     public class ConEmuWindow : ToolWindowPane

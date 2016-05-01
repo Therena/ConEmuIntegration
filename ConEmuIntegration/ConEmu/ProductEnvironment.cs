@@ -17,6 +17,7 @@ using ConEmuIntegration.Settings;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -29,6 +30,7 @@ namespace ConEmuIntegration.ConEmu
         private List<string> m_SearchPaths;
 
         public Package Package { get; set; }
+        public Process ConEmuProcess { get; set; }
 
         private static ProductEnvironment m_Instance = new ProductEnvironment();
         public static ProductEnvironment Instance

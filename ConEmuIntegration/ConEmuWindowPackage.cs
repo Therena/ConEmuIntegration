@@ -18,6 +18,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using ConEmuIntegration.Settings;
 using ConEmuIntegration.ConEmu;
+using ConEmuIntegration.ToolWindow;
 
 namespace ConEmuIntegration
 {
@@ -52,6 +53,7 @@ namespace ConEmuIntegration
         {
             ConEmuWindowCommand.Initialize(this);
             base.Initialize();
+            ConEmuIntegration.SolutionExplorer.OpenConEmuHere.Initialize(this);
         }
 
         #endregion

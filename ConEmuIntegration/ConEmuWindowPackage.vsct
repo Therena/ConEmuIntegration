@@ -1,35 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" 
-              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <Extern href="stdidcmd.h"/>
-  <Extern href="vsshlids.h"/>
-    
-  <Commands package="guidConEmuWindowPackage">
-    <Buttons>
-      <Button guid="guidConEmuWindowPackageCmdSet" id="ConEmuWindowCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1"/>
-        <Icon guid="guidImages" id="bmpConsole" />
-        <Strings>
-          <ButtonText>ConEmu Console</ButtonText>
-        </Strings>
-      </Button>
-    </Buttons>
+    <Extern href="stdidcmd.h" />
+    <Extern href="vsshlids.h" />
 
-    <Bitmaps>
-      <Bitmap guid="guidImages" href="Resources\ConEmuWindowPackage.ico" usedList="bmpConsole"/>
-    </Bitmaps>
-  </Commands>
+    <Commands package="guidConEmuWindowPackage">
+        <Buttons>
+            <Button guid="guidConEmuWindowPackageCmdSet" id="ConEmuWindowCommandId" priority="0x0100" type="Button">
+                <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+                <Icon guid="guidImages" id="bmpConsole" />
+                <Strings>
+                    <ButtonText>ConEmu Console</ButtonText>
+                </Strings>
+            </Button>
+            <Button guid="guidConEmuWindowPackageCmdSet1" id="cmdidOpenConEmuHere" priority="0x0100" type="Button">
+                <Parent guid="guidConEmuWindowPackageCmdSet1" id="OpenConEmuGroup" />
+                <Icon guid="guidImages" id="bmpConsole" />
+                <Strings>
+                    <ButtonText>Open folder in ConEmu</ButtonText>
+                </Strings>
+            </Button>
+        </Buttons>
 
-  <Symbols>
-    <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
-      
-    <GuidSymbol name="guidConEmuWindowPackageCmdSet" value="{5df544d6-c00a-4471-936b-d5441108ccfd}">
-      <IDSymbol name="ConEmuWindowCommandId" value="0x0100" />
-    </GuidSymbol>
+        <Bitmaps>
+            <Bitmap guid="guidImages" href="Resources\ConEmuWindowPackage.ico" usedList="bmpConsole" />
+        </Bitmaps>
+        <Groups>
+            <Group guid="guidConEmuWindowPackageCmdSet1" id="OpenConEmuGroup" priority="0x0300">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
+            </Group>
+            <Group guid="guidConEmuWindowPackageCmdSet1" id="OpenConEmuGroup" priority="0x0300">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+            </Group>
+        </Groups>
+    </Commands>
 
-    <GuidSymbol name="guidImages" value="{51d24e77-218b-4bb4-8a7b-c77fb698b830}" >
-      <IDSymbol name="bmpConsole" value="1" />
-    </GuidSymbol>
-  </Symbols>
+    <Symbols>
+        <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
+
+        <GuidSymbol name="guidConEmuWindowPackageCmdSet" value="{5df544d6-c00a-4471-936b-d5441108ccfd}">
+            <IDSymbol name="ConEmuWindowCommandId" value="0x0100" />
+        </GuidSymbol>
+
+        <GuidSymbol name="guidImages" value="{51d24e77-218b-4bb4-8a7b-c77fb698b830}">
+            <IDSymbol name="bmpConsole" value="1" />
+        </GuidSymbol>
+
+        <GuidSymbol value="{c75f2974-4759-448c-bf2a-c400d83fe990}" name="guidConEmuWindowPackageCmdSet1">
+            <IDSymbol value="4128" name="OpenConEmuGroup" />
+            <IDSymbol value="256" name="cmdidOpenConEmuHere" />
+        </GuidSymbol>
+    </Symbols>
 </CommandTable>
