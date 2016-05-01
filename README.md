@@ -1,12 +1,16 @@
 # ConEmu Integration
 
 <table>
-    <tr><td><img src="Images/extension.png" width="100" /></td>
-    <td>
-        ConEmu Integration<br /><br />
-        Using the console emulator ConEmu within Visual Studio.<br />
-        Download this extension from the <a href="https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]">VS Gallery</a>
-    </td></tr>
+    <tr>
+        <td style="border:none;">
+            <img src="Images/extension.png" width="100" />
+        </td>
+        <td style="border:none;">
+            ConEmu Integration<br /><br />
+            Using the console emulator ConEmu within Visual Studio.<br />
+            Download this extension from the <a href="https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]">VS Gallery</a>
+        </td>
+    </tr>
 </table>
 ---------------------------------------
 
@@ -17,19 +21,20 @@ See the ConEmu section for further detail about the console emulator.
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 ## ConEmu
-ConEmu-Maximus5 is a Windows console emulator which is not part of this Visual Studio extension.<br />
-Please download and install it seperatly. You can find them using the links below.
-
-<div style="margin:0px auto; width:100%">
-    <div style="float:left; margin:0; width:10%;">
+<table>
+    <tr>
+        <td style="border:none;">
         <img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="50" />
-    </div>
-    <div style="float:left; margin:0; width:90%;">
+        </td>
+        <td style="border:none;">
         ConEmu project: <a href="https://github.com/Maximus5/ConEmu">GitHub</a><br />
         ConEmu integration: <a href="https://github.com/Maximus5/conemu-inside">GitHub</a> and <a href="https://www.nuget.org/packages/ConEmu.Control.WinForms/">NuGet Package</a>
-    </div>
-</div>
-<br /><br />
+        </td>
+    </tr>
+</table>
+
+ConEmu-Maximus5 is a Windows console emulator which is not part of this Visual Studio extension.<br />
+Please download and install it seperatly. You can find them using the links below.
 
 ## Features
 
@@ -40,12 +45,15 @@ Please download and install it seperatly. You can find them using the links belo
 ### Integration of ConEmu as ToolWindow to Visual Studio
 This extension integrates ConEmu as tool window in Visual Studio.
 <img src="Images/ConEmuVisualStudio.png" width="600" />
+
 ### ConEmu Tool Window can be opens from "View" menu
 The ConEmu tool window can be open from the view menu of Visual Studio
 <img src="Images/ComEmuInViewMenu.png" width="400" />
+
 ### Integration of ConEmu in Solution Explorer
 The current opened folder in ConEmu can be changed directly from solution explorer.
 <img src="Images/ConEmuSolutionExplorer.png" width="400" />
+
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
 if you want to contribute to this project.
