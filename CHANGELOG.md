@@ -12,3 +12,5 @@ on the official Visual Studio extension gallery.
 **2016-04-30**
 
 - [x] Integration of ConEmu as ToolWindow to Visual Studio
+- [x] ConEmu Tool Window can be opens from "View" menu
+- [x] Integration of ConEmu in Solution Explorer
