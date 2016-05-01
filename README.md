@@ -1,16 +1,13 @@
 # ConEmu Integration
 
-<div style="margin:0px auto; width:100%">
-    <div style="float:left; margin:0; width:25%;">
-        <img src="Images/extension.png" width="100" />
-    </div>
-    <div style="float:left; margin:0; width:75%;">
+<table>
+    <tr><td><img src="Images/extension.png" width="100" /></td>
+    <td>
         ConEmu Integration<br /><br />
         Using the console emulator ConEmu within Visual Studio.<br />
         Download this extension from the <a href="https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]">VS Gallery</a>
-    </div>
-</div>
-<br /><br /><br />
+    </td></tr>
+</table>
 ---------------------------------------
 
 This project integrates the console emulator ConEmu in Visual Studio.<br />
