@@ -20,7 +20,7 @@ Please download and install it seperatly. You can find them using the links belo
 
 <img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="50" />
 
-ConEmu project: <a href="https://github.com/Maximus5/ConEmu">GitHub</a>
+ConEmu project: <a href="https://github.com/Maximus5/ConEmu">GitHub</a><br />
 ConEmu integration: <a href="https://github.com/Maximus5/conemu-inside">GitHub</a> and <a href="https://www.nuget.org/packages/ConEmu.Control.WinForms/">NuGet Package</a>
 
 ## Features
