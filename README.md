@@ -1,6 +1,6 @@
 # ConEmu Integration
 
-<img src="Images/extension.png" width="75"/>
+<img src="Images/extension.png" width="100"/>
 
 Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]).
 
@@ -18,7 +18,7 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 ConEmu-Maximus5 is a Windows console emulator which is not part of this Visual Studio extension.<br />
 Please download and install it seperatly. You can find them using the links below.
 
-<img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="75"/>
+<img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="50"/>
 
 ConEmu project: [GitHub](https://github.com/Maximus5/ConEmu)<br />
 ConEmu integration:
