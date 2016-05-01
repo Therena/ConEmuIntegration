@@ -15,7 +15,8 @@ See the ConEmu section for further detail about the console emulator.
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 ## ConEmu
-ConEmu-Maximus5 is a Windows console emulator with tabs, which represents multiple consoles as one customizable GUI window with various features.
+ConEmu-Maximus5 is a Windows console emulator which is not part of this Visual Studio extension.<br />
+Please download and install it seperatly. You can find them using the links below.
 
 <img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="75"/>
 
@@ -29,6 +30,12 @@ and [NuGet Package](https://www.nuget.org/packages/ConEmu.Control.WinForms/)
 - Integration of ConEmu as ToolWindow to Visual Studio
 
 ### Integration of ConEmu as ToolWindow to Visual Studio
+
+This extension integrates ConEmu as tool window in Visual Studio.
+<img src="Images/ConEmuVisualStudio.png" width="750"/>
+
+Current opened folder in ConEmu can be changed directly from solution explorer.
+<img src="Images/ConEmuSolutionExplorer.png" width="500"/>
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
