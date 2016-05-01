@@ -14,10 +14,17 @@
                 </Strings>
             </Button>
             <Button guid="guidConEmuWindowPackageCmdSet1" id="cmdidOpenConEmuHere" priority="0x0100" type="Button">
-                <Parent guid="guidConEmuWindowPackageCmdSet1" id="OpenConEmuGroup" />
+                <Parent guid="guidConEmuWindowPackageCmdSet1" id="ConEmuGroup" />
                 <Icon guid="guidImages" id="bmpConsole" />
                 <Strings>
                     <ButtonText>Open folder in ConEmu</ButtonText>
+                </Strings>
+            </Button>
+            <Button guid="guidConEmuWindowPackageCmdSet2" id="cmdidExecuteInConEmu" priority="0x0100" type="Button">
+                <Parent guid="guidConEmuWindowPackageCmdSet2" id="ConEmuGroup" />
+                <Icon guid="guidImages" id="bmpConsole" />
+                <Strings>
+                    <ButtonText>Execute in ConEmu</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
@@ -25,12 +32,16 @@
         <Bitmaps>
             <Bitmap guid="guidImages" href="Resources\ConEmuWindowPackage.ico" usedList="bmpConsole" />
         </Bitmaps>
+        
         <Groups>
-            <Group guid="guidConEmuWindowPackageCmdSet1" id="OpenConEmuGroup" priority="0x0300">
+            <Group guid="guidConEmuWindowPackageCmdSet1" id="ConEmuGroup" priority="0x0301">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
             </Group>
-            <Group guid="guidConEmuWindowPackageCmdSet1" id="OpenConEmuGroup" priority="0x0300">
+            <Group guid="guidConEmuWindowPackageCmdSet1" id="ConEmuGroup" priority="0x0301">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+            </Group>
+            <Group guid="guidConEmuWindowPackageCmdSet2" id="ConEmuGroup" priority="0x0300">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
             </Group>
         </Groups>
     </Commands>
@@ -47,8 +58,13 @@
         </GuidSymbol>
 
         <GuidSymbol value="{c75f2974-4759-448c-bf2a-c400d83fe990}" name="guidConEmuWindowPackageCmdSet1">
-            <IDSymbol value="4128" name="OpenConEmuGroup" />
+            <IDSymbol value="4128" name="ConEmuGroup" />
             <IDSymbol value="256" name="cmdidOpenConEmuHere" />
+        </GuidSymbol>
+
+        <GuidSymbol value="{074e29bb-eb5c-4400-9ef0-f8abfbbe337b}" name="guidConEmuWindowPackageCmdSet2">
+            <IDSymbol value="4128" name="ConEmuGroup" />
+            <IDSymbol value="256" name="cmdidExecuteInConEmu" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>

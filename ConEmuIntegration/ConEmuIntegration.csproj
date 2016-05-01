@@ -55,6 +55,7 @@
     <Compile Include="Settings\OptionPageGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SolutionExplorer\ExecuteInConEmu.cs" />
     <Compile Include="SolutionExplorer\OpenConEmuHere.cs" />
     <Compile Include="SolutionExplorer\OpenInConEmu.cs" />
     <Compile Include="ToolWindow\ConEmuMacro.cs" />
