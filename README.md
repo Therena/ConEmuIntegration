@@ -1,11 +1,11 @@
 # ConEmu Integration
 
-<table>
+<table style="border:none;outline:none;border-collapse:collapse;">
     <tr>
-        <td style="border:none;">
+        <td style="border:none;outline:none;border-collapse:collapse;">
             <img src="Images/extension.png" width="100" />
         </td>
-        <td style="border:none;">
+        <td style="border:none;outline:none;border-collapse:collapse;">
             ConEmu Integration<br /><br />
             Using the console emulator ConEmu within Visual Studio.<br />
             Download this extension from the <a href="https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]">VS Gallery</a>
@@ -21,12 +21,12 @@ See the ConEmu section for further detail about the console emulator.
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 ## ConEmu
-<table>
+<table style="border:none;outline:none;border-collapse:collapse;">
     <tr>
-        <td style="border:none;">
+        <td style="border:none;outline:none;border-collapse:collapse;">
         <img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="50" />
         </td>
-        <td style="border:none;">
+        <td style="border:none;outline:none;border-collapse:collapse;">
         ConEmu project: <a href="https://github.com/Maximus5/ConEmu">GitHub</a><br />
         ConEmu integration: <a href="https://github.com/Maximus5/conemu-inside">GitHub</a> and <a href="https://www.nuget.org/packages/ConEmu.Control.WinForms/">NuGet Package</a>
         </td>
