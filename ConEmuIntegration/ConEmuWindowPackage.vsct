@@ -69,7 +69,7 @@
         </GuidSymbol>
 
         <GuidSymbol name="guidConEmuWindowPackageCmdSet" value="{5df544d6-c00a-4471-936b-d5441108ccfd}">
-            <IDSymbol value="100" name="ConEmuWindowCommandId" />
+            <IDSymbol name="ConEmuWindowCommandId" value="0x0100" />
         </GuidSymbol>
 
         <GuidSymbol name="guidImages" value="{51d24e77-218b-4bb4-8a7b-c77fb698b830}">
