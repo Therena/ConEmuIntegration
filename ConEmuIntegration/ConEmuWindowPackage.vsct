@@ -66,11 +66,6 @@
             </Group>
         </Groups>
     </Commands>
-    
-    <VisibilityConstraints>
-        <VisibilityItem guid="guidConEmuWindowPackageCmdSet3" id="cmdidOpenOutpathInConEmu"
-                        context="UICONTEXT_SolutionHasSingleProject" />
-    </VisibilityConstraints>
 
     <Symbols>
         <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
