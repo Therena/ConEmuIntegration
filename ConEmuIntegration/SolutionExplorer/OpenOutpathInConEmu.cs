@@ -15,27 +15,24 @@
 //
 using System;
 using System.ComponentModel.Design;
+using System.Globalization;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using ConEmuIntegration.ConEmu;
-using ConEmuIntegration.ToolWindow;
+using EnvDTE80;
+using EnvDTE;
+using ConEmuIntegration.Helper;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
-    /// <summary>
-    /// Command handler
-    /// </summary>
-    internal sealed class OpenConEmuHere
+    internal sealed class OpenOutpathInConEmu
     {
         public const int CommandId = 256;
-        
-        public static readonly Guid CommandSet = new Guid("c75f2974-4759-448c-bf2a-c400d83fe990");
-        
+
+        public static readonly Guid CommandSet = new Guid("5f17d8c2-738d-4d1b-8f18-8458da05717d");
+
         private readonly Package package;
 
-        private OpenInConEmu m_OpenInConEmu;
-        
-        private OpenConEmuHere(Package package)
+        private OpenOutpathInConEmu(Package package)
         {
             if (package == null)
             {
@@ -43,7 +40,6 @@ namespace ConEmuIntegration.SolutionExplorer
             }
 
             this.package = package;
-            m_OpenInConEmu = new OpenInConEmu();
 
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
@@ -53,13 +49,13 @@ namespace ConEmuIntegration.SolutionExplorer
                 commandService.AddCommand(menuItem);
             }
         }
-        
-        public static OpenConEmuHere Instance
+
+        public static OpenOutpathInConEmu Instance
         {
             get;
             private set;
         }
-        
+
         private IServiceProvider ServiceProvider
         {
             get
@@ -67,29 +63,35 @@ namespace ConEmuIntegration.SolutionExplorer
                 return this.package;
             }
         }
-        
+
         public static void Initialize(Package package)
         {
-            Instance = new OpenConEmuHere(package);
+            Instance = new OpenOutpathInConEmu(package);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
+            var dte = this.ServiceProvider.GetService(typeof(SDTE)) as DTE2;
+            if (dte.SelectedItems.Count <= 0)
             {
                 return;
             }
 
-            ToolWindowPane window = this.package.FindToolWindow(typeof(ConEmuWindow), 0, true);
-            if ((null == window) || (null == window.Frame))
+            var folders = new Folders();
+            foreach (SelectedItem selectedItem in dte.SelectedItems)
             {
-                throw new NotSupportedException("Cannot create tool window");
+                if (selectedItem.Project != null)
+                {
+                    var path = folders.GetOutputPath(selectedItem.Project);
+                    if (string.IsNullOrWhiteSpace(path))
+                    {
+                        return;
+                    }
+
+                    ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
+                        path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                }
             }
-
-            m_OpenInConEmu.Open();
-
-            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
     }
 }

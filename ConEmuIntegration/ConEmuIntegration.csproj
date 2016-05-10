@@ -59,6 +59,7 @@
     <Compile Include="SolutionExplorer\ExecuteInConEmu.cs" />
     <Compile Include="SolutionExplorer\OpenConEmuHere.cs" />
     <Compile Include="SolutionExplorer\OpenInConEmu.cs" />
+    <Compile Include="SolutionExplorer\OpenOutpathInConEmu.cs" />
     <Compile Include="ToolWindow\ConEmuMacro.cs" />
     <Compile Include="ToolWindow\ConEmuWindow.cs" />
     <Compile Include="ToolWindow\ConEmuWindowCommand.cs" />
@@ -206,6 +207,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="SolutionExplorer\Resources\OpenOutpathInConEmu.png" />
     <EmbeddedResource Include="Settings\ConEmu.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

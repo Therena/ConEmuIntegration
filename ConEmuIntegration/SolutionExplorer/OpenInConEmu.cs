@@ -114,8 +114,8 @@ namespace ConEmuIntegration.SolutionExplorer
                 var path = folders.GetProjectPath(selectedItem.Project);
                 var fullPath = new FileInfo(path);
 
-                ExecuteGuiMacro("Print(@\"cd " +
-                    fullPath.Directory.FullName.Replace("\"", "\"\"") + "\",\"\n\")");
+                ExecuteGuiMacro("Print(@\"cd \"\"" +
+                    fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
                 return true;
             }
             return false;
