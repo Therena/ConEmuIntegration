@@ -27,6 +27,8 @@
             <Button guid="guidConEmuWindowPackageCmdSet1" id="cmdidOpenConEmuHere" priority="0x0100" type="Button">
                 <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
                 <Icon guid="guidImages" id="bmpConsole" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
                 <Strings>
                     <ButtonText>Open folder in ConEmu</ButtonText>
                 </Strings>
@@ -34,12 +36,16 @@
             <Button guid="guidConEmuWindowPackageCmdSet2" id="cmdidExecuteInConEmu" priority="0x0100" type="Button">
                 <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
                 <Icon guid="guidImages" id="bmpConsole" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
                 <Strings>
                     <ButtonText>Execute in ConEmu</ButtonText>
                 </Strings>
             </Button>
             <Button guid="guidConEmuWindowPackageCmdSet3" id="cmdidOpenOutpathInConEmu" priority="0x0100" type="Button">
                 <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
                 <Icon guid="guidImages" id="bmpConsole" />
                 <Strings>
                     <ButtonText>Open outpath in ConEmu</ButtonText>
@@ -60,6 +66,11 @@
             </Group>
         </Groups>
     </Commands>
+    
+    <VisibilityConstraints>
+        <VisibilityItem guid="guidConEmuWindowPackageCmdSet3" id="cmdidOpenOutpathInConEmu"
+                        context="UICONTEXT_SolutionHasSingleProject" />
+    </VisibilityConstraints>
 
     <Symbols>
         <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />

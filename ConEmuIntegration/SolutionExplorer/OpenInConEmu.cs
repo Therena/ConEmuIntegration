@@ -15,7 +15,6 @@
 //
 using ConEmuIntegration.ConEmu;
 using ConEmuIntegration.Helper;
-using ConEmuIntegration.ToolWindow;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell.Interop;

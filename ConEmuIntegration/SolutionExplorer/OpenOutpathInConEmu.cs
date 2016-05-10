@@ -15,7 +15,6 @@
 //
 using System;
 using System.ComponentModel.Design;
-using System.Globalization;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using EnvDTE80;
@@ -45,9 +44,34 @@ namespace ConEmuIntegration.SolutionExplorer
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandID);
+                var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
+                menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
+        }
+
+        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
+        {
+            OleMenuCommand menuItem = (OleMenuCommand)sender;
+            IVsMonitorSelection vsMonSel = (IVsMonitorSelection)this.ServiceProvider.GetService(typeof(SVsShellMonitorSelection));
+
+            var dte = this.ServiceProvider.GetService(typeof(SDTE)) as DTE2;
+            if (dte.SelectedItems.Count <= 0)
+            {
+                menuItem.Visible = false;
+                return;
+            }
+
+            foreach (SelectedItem selectedItem in dte.SelectedItems)
+            {
+                if (selectedItem.Project != null)
+                {
+                    menuItem.Visible = true;
+                    return;
+                }
+            }
+
+            menuItem.Visible = false;
         }
 
         public static OpenOutpathInConEmu Instance
