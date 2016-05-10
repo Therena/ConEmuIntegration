@@ -17,7 +17,7 @@
                 <Parent guid="guidConEmuWindowPackageCmdSet1" id="ConEmuGroup" />
                 <Icon guid="guidImages" id="bmpConsole" />
                 <Strings>
-                    <ButtonText>Open project folder in ConEmu</ButtonText>
+                    <ButtonText>Open folder in ConEmu</ButtonText>
                 </Strings>
             </Button>
             <Button guid="guidConEmuWindowPackageCmdSet2" id="cmdidExecuteInConEmu" priority="0x0100" type="Button">
@@ -31,7 +31,7 @@
                 <Parent guid="guidConEmuWindowPackageCmdSet3" id="ConEmuGroup" />
                 <Icon guid="guidImages" id="bmpConsole" />
                 <Strings>
-                    <ButtonText>Open outpath folder in ConEmu</ButtonText>
+                    <ButtonText>Open outpath in ConEmu</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
