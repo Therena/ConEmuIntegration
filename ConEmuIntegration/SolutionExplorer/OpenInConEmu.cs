@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 using ConEmuIntegration.ConEmu;
+using ConEmuIntegration.Helper;
 using ConEmuIntegration.ToolWindow;
 using EnvDTE;
 using EnvDTE80;
@@ -100,21 +101,6 @@ namespace ConEmuIntegration.SolutionExplorer
             macroHelper.Execute(ProductEnvironment.Instance.ConEmuProcess.Id.ToString(), macro);
         }
 
-        private bool HasProperty(Properties properties, string propertyName)
-        {
-            if (properties != null)
-            {
-                foreach (Property item in properties)
-                {
-                    if (item != null && item.Name == propertyName)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
         private bool FolderOfProject(SelectedItem selectedItem, string property)
         {
             if (selectedItem.Project == null)
@@ -122,23 +108,17 @@ namespace ConEmuIntegration.SolutionExplorer
                 return false;
             }
 
-            var project = selectedItem.Project;
-            if (HasProperty(project.Properties, property) == false)
+            var folders = new Folders();
+            if (selectedItem.Project != null)
             {
-                return false;
+                var path = folders.GetProjectPath(selectedItem.Project);
+                var fullPath = new FileInfo(path);
+
+                ExecuteGuiMacro("Print(@\"cd " +
+                    fullPath.Directory.FullName.Replace("\"", "\"\"") + "\",\"\n\")");
+                return true;
             }
-
-            var fullPathProperty = project.Properties.Item(property);
-            if (fullPathProperty == null)
-            {
-                return false;
-            }
-
-            var fullPath = new FileInfo(fullPathProperty.Value.ToString());
-            ExecuteGuiMacro("Print(@\"cd " + 
-                fullPath.Directory.FullName.Replace("\"", "\"\"") + "\",\"\n\")");
-
-            return true;
+            return false;
         }
     }
 }

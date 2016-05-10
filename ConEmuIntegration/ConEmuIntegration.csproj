@@ -52,6 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ConEmu\ProductEnvironment.cs" />
+    <Compile Include="Helper\Folders.cs" />
     <Compile Include="Settings\OptionPageGrid.cs">
       <SubType>Component</SubType>
     </Compile>
