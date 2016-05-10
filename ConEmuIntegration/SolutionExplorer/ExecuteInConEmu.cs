@@ -32,7 +32,9 @@ namespace ConEmuIntegration.SolutionExplorer
         public static readonly Guid CommandSet = new Guid("074e29bb-eb5c-4400-9ef0-f8abfbbe337b");
         
         private readonly Package package;
-        
+
+        private OpenInConEmu m_OpenInConEmu;
+
         private ExecuteInConEmu(Package package)
         {
             if (package == null)
@@ -41,6 +43,7 @@ namespace ConEmuIntegration.SolutionExplorer
             }
 
             this.package = package;
+            m_OpenInConEmu = new OpenInConEmu();
 
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
@@ -120,6 +123,7 @@ namespace ConEmuIntegration.SolutionExplorer
 
             var file = Path.Combine(projectPath, outputPath, outputFileName);
             ExecuteGuiMacro("Print(@\"\"\"" + file.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+            DisplayConEmu();
         }
 
         public void ExecuteGuiMacro(string macro)
@@ -132,6 +136,23 @@ namespace ConEmuIntegration.SolutionExplorer
             string conemu = ProductEnvironment.Instance.GetConEmuLibrary();
             var macroHelper = new ConEmuMacro(conemu);
             macroHelper.Execute(ProductEnvironment.Instance.ConEmuProcess.Id.ToString(), macro);
+        }
+
+        public void DisplayConEmu()
+        {
+            if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
+            {
+                return;
+            }
+
+            ToolWindowPane window = this.package.FindToolWindow(typeof(ConEmuWindow), 0, true);
+            if ((null == window) || (null == window.Frame))
+            {
+                throw new NotSupportedException("Cannot create tool window");
+            }
+
+            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
 
         private bool HasProperty(Properties properties, string propertyName)

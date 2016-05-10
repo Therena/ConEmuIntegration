@@ -83,22 +83,11 @@ namespace ConEmuIntegration.SolutionExplorer
             }
 
             var fullPath = new FileInfo(fullPathProperty.Value.ToString());
-            ExecuteGuiMacro("Print(@\"cd " + 
+            ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd " + 
                 fullPath.Directory.FullName.Replace("\"", "\"\"") + "\",\"\n\")");
+            ExecuteInConEmu.Instance.DisplayConEmu();
 
             return true;
-        }
-
-        private void ExecuteGuiMacro(string macro)
-        {
-            if (ProductEnvironment.Instance.ConEmuProcess == null)
-            {
-                return;
-            }
-
-            string conemu = ProductEnvironment.Instance.GetConEmuLibrary();
-            var macroHelper = new ConEmuMacro(conemu);
-            macroHelper.Execute(ProductEnvironment.Instance.ConEmuProcess.Id.ToString(), macro);
         }
 
         private bool FolderOfProject(SelectedItem selectedItem, string property)
@@ -114,8 +103,9 @@ namespace ConEmuIntegration.SolutionExplorer
                 var path = folders.GetProjectPath(selectedItem.Project);
                 var fullPath = new FileInfo(path);
 
-                ExecuteGuiMacro("Print(@\"cd \"\"" +
+                ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
                     fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                ExecuteInConEmu.Instance.DisplayConEmu();
                 return true;
             }
             return false;

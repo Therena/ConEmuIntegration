@@ -34,7 +34,7 @@ namespace ConEmuIntegration.SolutionExplorer
         private readonly Package package;
 
         private OpenInConEmu m_OpenInConEmu;
-        
+
         private OpenConEmuHere(Package package)
         {
             if (package == null)
@@ -75,21 +75,8 @@ namespace ConEmuIntegration.SolutionExplorer
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
-            {
-                return;
-            }
-
-            ToolWindowPane window = this.package.FindToolWindow(typeof(ConEmuWindow), 0, true);
-            if ((null == window) || (null == window.Frame))
-            {
-                throw new NotSupportedException("Cannot create tool window");
-            }
-
             m_OpenInConEmu.Open();
-
-            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            ExecuteInConEmu.Instance.DisplayConEmu();
         }
     }
 }
