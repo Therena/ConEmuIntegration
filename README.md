@@ -5,7 +5,7 @@
 <b>ConEmu Integration</b><br />
 
 Using the console emulator ConEmu within Visual Studio.<br />
-Download this extension from the <a href="https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]">VS Gallery</a>
+Download this extension from the <a href="https://visualstudiogallery.msdn.microsoft.com/a0536370-40e4-4141-8f51-5f00d0434012">VS Gallery</a>
 
 This project integrates the console emulator ConEmu in Visual Studio.<br />
 ConEmu is not part of this extension and needs to be downloaded / installed seperatly.<br />
