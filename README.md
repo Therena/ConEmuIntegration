@@ -52,11 +52,11 @@ Therefor open the settings of Visual Studio and navigate to the "ConEmu Integrat
 
 Please set the following two paths in this section of the configuration.<br/>
 The path to the conemu executable file:<br/>
-<img src="Images/SettingsConEmuExe.png" width="400" />
+<img src="Images/SettingsConEmuExe.png" width="400" /><br/>
 E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe<br/>
 
 The path to the conemu CD library file:<br/>
-<img src="Images/SettingsConEmuCDDll.png" width="400" />
+<img src="Images/SettingsConEmuCDDll.png" width="400" /><br/>
 E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu\ConEmuCD.dll<br/>
 
 ## Contribute
