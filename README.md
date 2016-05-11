@@ -8,14 +8,14 @@ Using the console emulator ConEmu within Visual Studio.<br />
 Download this extension from the <a href="https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]">VS Gallery</a>
 
 This project integrates the console emulator ConEmu in Visual Studio.<br />
-ConEmu is not part of this extension and needs to be installed seperatly.<br />
+ConEmu is not part of this extension and needs to be downloaded / installed seperatly.<br />
 See the ConEmu section for further detail about the console emulator.
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 ## ConEmu
 
-ConEmu-Maximus5 is a Windows console emulator which is not part of this Visual Studio extension.
+ConEmu is a Windows console emulator which is not part of this Visual Studio extension.
 Please download and install it seperatly. You can find them using the links below.
 
 <img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width="50" />
@@ -28,6 +28,9 @@ ConEmu integration: <a href="https://github.com/Maximus5/conemu-inside">GitHub</
 - Integration of ConEmu as ToolWindow to Visual Studio
 - ConEmu Tool Window can be opens from "View" menu
 - Integration of ConEmu in Solution Explorer
+    - Open the containing folder of the item in conemu
+    - Open the output path of the project in conemu
+    - Execute the from the project created binary using conemu
 
 ### Integration of ConEmu as ToolWindow to Visual Studio
 This extension integrates ConEmu as tool window in Visual Studio.
@@ -39,7 +42,22 @@ The ConEmu tool window can be open from the view menu of Visual Studio
 
 ### Integration of ConEmu in Solution Explorer
 The current opened folder in ConEmu can be changed directly from solution explorer.
+The output file of your project can be also executed in conemu.
 <img src="Images/ConEmuSolutionExplorer.png" width="400" />
+
+## Settings
+Please download / install the ConEmu seperatly. It isn't part of this extension.
+After you have downloaded / installed ConEmu please set the paths in the settings of this extension.
+Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
+
+Please set the following two paths in this section of the configuration.
+The path to the conemu executable file:
+![Settings Con Emu Exe](Images/SettingsConEmuExe.png)
+E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe
+
+The path to the conemu CD library file:
+![Settings Con Emu C D Dll](Images/SettingsConEmuCDDll.png)
+E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu\ConEmuCD.dll
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)

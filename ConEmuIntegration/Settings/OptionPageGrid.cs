@@ -20,12 +20,12 @@ namespace ConEmuIntegration.Settings
 {
     internal sealed class OptionPageGrid : DialogPage
     {
-        [Category("ConEmu")]
+        [Category("ConEmu Integration")]
         [DisplayName("Executable")]
         [Description("Path to the ConEmu executable (ConEmu[64].exe) file")]
         public string ConEmuPath { get; set; }
 
-        [Category("ConEmu")]
+        [Category("ConEmu Integration")]
         [DisplayName("Library")]
         [Description("Path to the ConEmu library (ConEmuCD[64].dll) file")]
         public string ConEmuLibraryPath { get; set; }

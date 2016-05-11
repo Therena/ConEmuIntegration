@@ -24,7 +24,7 @@
                     <ButtonText>ConEmu Console</ButtonText>
                 </Strings>
             </Button>
-            <Button guid="guidConEmuWindowPackageCmdSet1" id="cmdidOpenConEmuHere" priority="0x0100" type="Button">
+            <Button guid="guidConEmuWindowPackageCmdSet1" id="cmdidOpenConEmuHere" priority="0x0101" type="Button">
                 <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
                 <Icon guid="guidImages" id="bmpConsole" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
@@ -42,7 +42,7 @@
                     <ButtonText>Execute in ConEmu</ButtonText>
                 </Strings>
             </Button>
-            <Button guid="guidConEmuWindowPackageCmdSet3" id="cmdidOpenOutpathInConEmu" priority="0x0100" type="Button">
+            <Button guid="guidConEmuWindowPackageCmdSet3" id="cmdidOpenOutpathInConEmu" priority="0x0102" type="Button">
                 <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
