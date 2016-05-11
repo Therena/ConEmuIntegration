@@ -50,14 +50,14 @@ Please download / install the ConEmu seperatly. It isn't part of this extension.
 After you have downloaded / installed ConEmu please set the paths in the settings of this extension.
 Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
 
-Please set the following two paths in this section of the configuration.
-The path to the conemu executable file:
+Please set the following two paths in this section of the configuration.<br/>
+The path to the conemu executable file:<br/>
 <img src="Images/SettingsConEmuExe.png" width="400" />
-E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe
+E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe<br/>
 
-The path to the conemu CD library file:
+The path to the conemu CD library file:<br/>
 <img src="Images/SettingsConEmuCDDll.png" width="400" />
-E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu\ConEmuCD.dll
+E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu\ConEmuCD.dll<br/>
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
