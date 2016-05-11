@@ -41,8 +41,8 @@ The ConEmu tool window can be open from the view menu of Visual Studio
 <img src="Images/ComEmuInViewMenu.png" width="400" />
 
 ### Integration of ConEmu in Solution Explorer
-The current opened folder in ConEmu can be changed directly from solution explorer.
-The output file of your project can be also executed in conemu.
+The current opened folder in ConEmu can be changed directly from solution explorer.<br/>
+The output file of your project can be also executed in conemu.<br/>
 <img src="Images/ConEmuSolutionExplorer.png" width="400" />
 
 ## Settings
@@ -52,11 +52,11 @@ Therefor open the settings of Visual Studio and navigate to the "ConEmu Integrat
 
 Please set the following two paths in this section of the configuration.
 The path to the conemu executable file:
-![Settings Con Emu Exe](Images/SettingsConEmuExe.png)
+<img src="Images/SettingsConEmuExe.png" width="400" />
 E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe
 
 The path to the conemu CD library file:
-![Settings Con Emu C D Dll](Images/SettingsConEmuCDDll.png)
+<img src="Images/SettingsConEmuCDDll.png" width="400" />
 E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu\ConEmuCD.dll
 
 ## Contribute
