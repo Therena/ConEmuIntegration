@@ -33,17 +33,17 @@ ConEmu integration: <a href="https://github.com/Maximus5/conemu-inside">GitHub</
     - Execute the from the project created binary using conemu
 
 ### Integration of ConEmu as ToolWindow to Visual Studio
-This extension integrates ConEmu as tool window in Visual Studio.
-<img src="Images/ConEmuVisualStudio.png" width="600" />
+This extension integrates ConEmu as tool window in Visual Studio.<br/>
+<img src="Images/ConEmuVisualStudio.png" width="600" /><br/>
 
 ### ConEmu Tool Window can be opens from "View" menu
-The ConEmu tool window can be open from the view menu of Visual Studio
-<img src="Images/ComEmuInViewMenu.png" width="400" />
+The ConEmu tool window can be open from the view menu of Visual Studio<br/>
+<img src="Images/ComEmuInViewMenu.png" width="400" /><br/>
 
 ### Integration of ConEmu in Solution Explorer
 The current opened folder in ConEmu can be changed directly from solution explorer.<br/>
 The output file of your project can be also executed in conemu.<br/>
-<img src="Images/ConEmuSolutionExplorer.png" width="400" />
+<img src="Images/ConEmuSolutionExplorer.png" width="400" /><br/>
 
 ## Settings
 Please download / install the ConEmu seperatly. It isn't part of this extension.
