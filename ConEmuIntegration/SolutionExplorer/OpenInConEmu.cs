@@ -82,7 +82,7 @@ namespace ConEmuIntegration.SolutionExplorer
             }
 
             var fullPath = new FileInfo(fullPathProperty.Value.ToString());
-            ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd " + 
+            ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d " + 
                 fullPath.Directory.FullName.Replace("\"", "\"\"") + "\",\"\n\")");
             ExecuteInConEmu.Instance.DisplayConEmu();
 

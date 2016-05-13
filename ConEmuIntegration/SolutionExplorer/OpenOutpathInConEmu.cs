@@ -112,7 +112,7 @@ namespace ConEmuIntegration.SolutionExplorer
                         return;
                     }
 
-                    ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
+                    ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
                         path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
                     ExecuteInConEmu.Instance.DisplayConEmu();
                 }
