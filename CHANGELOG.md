@@ -1,6 +1,7 @@
 # Roadmap
 
-Nothing on the roadmap currently
+- [x] Add the possibility to use quotes for the paths in the VS settings
+- [x] Add a possibility to adjust the some more ConEmu settings in the VS settings
 
 # Changelog
 
