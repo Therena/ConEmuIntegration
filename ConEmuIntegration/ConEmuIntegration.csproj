@@ -207,7 +207,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\alert.png" />
+    <Resource Include="Resources\alert.png" />
     <Content Include="Resources\Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

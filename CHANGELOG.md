@@ -1,6 +1,5 @@
 # Roadmap
 
-- [ ] Add the possibility to use quotes for the paths in the VS settings
 - [ ] Add a possibility to adjust the some more ConEmu settings in the VS settings
 
 # Changelog
@@ -21,3 +20,10 @@ on the official Visual Studio extension gallery.
 **2016-05-11**
 
 - [x] Execute the project output file within conemu
+
+## 1.0.0.2
+
+**2016-05-14**
+
+- [x] Add the possibility to use quotes for the paths in the VS settings
+- [x] Handled some more possible exceptional cases

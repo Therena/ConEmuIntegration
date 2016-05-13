@@ -41,7 +41,7 @@
         <Image Grid.Column="0" 
                Grid.Row="0"
                Margin="5,5,5,5"
-               Source="/ConEmuIntegration;component/Resources/alert.png" />
+               Source="pack://application:,,,/ConEmuIntegration;component/Resources/alert.png" />
 
         <TextBlock Grid.Column="1" 
                    Grid.Row="0"
