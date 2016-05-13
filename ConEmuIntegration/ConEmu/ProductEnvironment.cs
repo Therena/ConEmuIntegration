@@ -82,31 +82,43 @@ namespace ConEmuIntegration.ConEmu
             if(result == false)
             {
                 var caption = Instance.GetWindowCaption();
-                MessageBox.Show(
-                    "Unable to find the ConEmu installation" + 
-                    Environment.NewLine + Environment.NewLine + 
-                    "Please set the paths of your ConEmu installation in the Visual Studio options pane", 
-                    caption, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                ExceptionMessageBox box = new ExceptionMessageBox();
+                box.SetException("Unable to find the ConEmu installation",
+                    "Unable to find the ConEmu installation" +
+                    Environment.NewLine + Environment.NewLine +
+                    "Please set the paths of your ConEmu installation in the Visual Studio options pane");
+                box.ShowDialog();
             }
             return result;
         }
 
         public string GetConfigurationFile()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            var configFile = "ConEmuIntegration.Settings.ConEmu.xml";
-
-            var configFileContent = "";
-            using (var stream = new StreamReader(assembly.GetManifestResourceStream(configFile)))
+            try
             {
-                configFileContent = stream.ReadToEnd();
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                var configFile = "ConEmuIntegration.Settings.ConEmu.xml";
+
+                var configFileContent = "";
+                using (var stream = new StreamReader(assembly.GetManifestResourceStream(configFile)))
+                {
+                    configFileContent = stream.ReadToEnd();
+                }
+
+                string configFilePath = Path.GetTempFileName() + ".xml";
+                File.WriteAllText(configFilePath, configFileContent);
+
+                m_TempFiles.Add(configFilePath);
+                return configFilePath;
             }
-
-            string configFilePath = Path.GetTempFileName() + ".xml";
-            File.WriteAllText(configFilePath, configFileContent);
-
-            m_TempFiles.Add(configFilePath);
-            return configFilePath;
+            catch(Exception error)
+            {
+                ExceptionMessageBox box = new ExceptionMessageBox();
+                box.SetException(error);
+                box.ShowDialog();
+                throw error;
+            }
         }
 
         public string GetWindowCaption()

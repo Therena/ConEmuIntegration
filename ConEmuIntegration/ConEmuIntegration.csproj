@@ -52,6 +52,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ConEmu\ProductEnvironment.cs" />
+    <Compile Include="ExceptionMessageBox.xaml.cs">
+      <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper\Folders.cs" />
     <Compile Include="Settings\OptionPageGrid.cs">
       <SubType>Component</SubType>
@@ -81,6 +84,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ExceptionMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ToolWindow\ConEmuWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,6 +207,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\alert.png" />
     <Content Include="Resources\Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
