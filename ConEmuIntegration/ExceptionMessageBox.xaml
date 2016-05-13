@@ -23,7 +23,7 @@
         mc:Ignorable="d"
         Background="#2C3D5B"
         WindowStartupLocation="CenterOwner"
-        Title="Exception Occured" 
+        Title="ConEmu Integration - Exception Occured" 
         Height="500" Width="500">
     <Grid>
         <Grid.RowDefinitions>

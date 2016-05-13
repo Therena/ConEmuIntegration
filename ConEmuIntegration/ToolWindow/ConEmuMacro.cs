@@ -57,88 +57,126 @@ namespace ConEmuIntegration.ToolWindow
 
         private void ExecuteLegacy(string asWhere, string asMacro)
         {
-            if (m_ConEmuHandle == IntPtr.Zero)
+            try
             {
-                return;
-            }
+                if (m_ConEmuHandle == IntPtr.Zero)
+                {
+                    return;
+                }
 
-            string cmdLine = " -GuiMacro";
-            if (string.IsNullOrEmpty(asWhere) == false)
-            {
-                cmdLine += ":" + asWhere;
-            }
-            else
-            {
-                cmdLine += " " + asMacro;
-            }
+                string cmdLine = " -GuiMacro";
+                if (string.IsNullOrEmpty(asWhere) == false)
+                {
+                    cmdLine += ":" + asWhere;
+                }
+                else
+                {
+                    cmdLine += " " + asMacro;
+                }
 
-            Environment.SetEnvironmentVariable("ConEmuMacroResult", null);
-            m_fnConsoleMain3.Invoke(3, cmdLine);
+                Environment.SetEnvironmentVariable("ConEmuMacroResult", null);
+                m_fnConsoleMain3.Invoke(3, cmdLine);
+            }
+            catch (Exception error)
+            {
+                ExceptionMessageBox box = new ExceptionMessageBox();
+                box.SetException(error);
+                box.ShowDialog();
+            }
         }
 
         private void ExecuteHelper(string asWhere, string asMacro)
         {
-            if (m_fnGuiMacro != null)
+            try
             {
-                IntPtr bstrPtr = IntPtr.Zero;
-                int result = m_fnGuiMacro.Invoke(asWhere, asMacro, out bstrPtr);
-                if(result != 133 /*CERR_GUIMACRO_SUCCEEDED*/ || result != 134 /*CERR_GUIMACRO_FAILED*/)
+                if (m_fnGuiMacro != null)
                 {
-                    return; // Sucess
-                }
+                    IntPtr bstrPtr = IntPtr.Zero;
+                    int result = m_fnGuiMacro.Invoke(asWhere, asMacro, out bstrPtr);
+                    if (result != 133 /*CERR_GUIMACRO_SUCCEEDED*/ || result != 134 /*CERR_GUIMACRO_FAILED*/)
+                    {
+                        return; // Sucess
+                    }
 
-                if (bstrPtr != IntPtr.Zero)
+                    if (bstrPtr != IntPtr.Zero)
+                    {
+                        Marshal.FreeBSTR(bstrPtr);
+                    }
+                }
+                else
                 {
-                    Marshal.FreeBSTR(bstrPtr);
+                    ExecuteLegacy(asWhere, asMacro);
                 }
             }
-            else
+            catch (Exception error)
             {
-                ExecuteLegacy(asWhere, asMacro);
+                ExceptionMessageBox box = new ExceptionMessageBox();
+                box.SetException(error);
+                box.ShowDialog();
             }
         }
 
         public void Execute(string asWhere, string asMacro)
         {
-            if (m_ConEmuHandle == IntPtr.Zero)
+            try
             {
-                return;
-            }
+                if (m_ConEmuHandle == IntPtr.Zero)
+                {
+                    return;
+                }
 
-            new Thread(() =>
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    ExecuteHelper(asWhere, asMacro);
+                }).Start();
+            }
+            catch (Exception error)
             {
-                Thread.CurrentThread.IsBackground = true;
-                ExecuteHelper(asWhere, asMacro);
-            }).Start();
+                ExceptionMessageBox box = new ExceptionMessageBox();
+                box.SetException(error);
+                box.ShowDialog();
+            }
         }
 
         private void LoadConEmuDll(string asLibrary)
         {
-            if (m_ConEmuHandle != IntPtr.Zero)
+            try
             {
-                return;
+                if (m_ConEmuHandle != IntPtr.Zero)
+                {
+                    return;
+                }
+
+                m_ConEmuHandle = LoadLibrary(asLibrary);
+                if (m_ConEmuHandle == IntPtr.Zero)
+                {
+                    return;
+                }
+
+                const string fnNameOld = "ConsoleMain3";
+                IntPtr ptrConsoleMain = GetProcAddress(m_ConEmuHandle, fnNameOld);
+
+                const string fnNameNew = "GuiMacro";
+                IntPtr ptrGuiMacro = GetProcAddress(m_ConEmuHandle, fnNameNew);
+
+                if (ptrConsoleMain == IntPtr.Zero && ptrGuiMacro == IntPtr.Zero)
+                {
+                    UnloadConEmuDll();
+                    return;
+                }
+
+                m_fnGuiMacro = (FGuiMacro)Marshal.GetDelegateForFunctionPointer(ptrGuiMacro, typeof(FGuiMacro));
+                m_fnConsoleMain3 = (FConsoleMain3)Marshal.GetDelegateForFunctionPointer(ptrConsoleMain, typeof(FConsoleMain3));
             }
-
-            m_ConEmuHandle = LoadLibrary(asLibrary);
-            if (m_ConEmuHandle == IntPtr.Zero)
-            {
-                return;
-            }
-            
-            const string fnNameOld = "ConsoleMain3";
-            IntPtr ptrConsoleMain = GetProcAddress(m_ConEmuHandle, fnNameOld);
-
-            const string fnNameNew = "GuiMacro";
-            IntPtr ptrGuiMacro = GetProcAddress(m_ConEmuHandle, fnNameNew);
-
-            if (ptrConsoleMain == IntPtr.Zero && ptrGuiMacro == IntPtr.Zero)
+            catch (Exception error)
             {
                 UnloadConEmuDll();
-                return;
-            }
 
-            m_fnGuiMacro = (FGuiMacro)Marshal.GetDelegateForFunctionPointer(ptrGuiMacro, typeof(FGuiMacro));
-            m_fnConsoleMain3 = (FConsoleMain3)Marshal.GetDelegateForFunctionPointer(ptrConsoleMain, typeof(FConsoleMain3));
+                ExceptionMessageBox box = new ExceptionMessageBox();
+                box.SetException(error);
+                box.ShowDialog();
+            }
         }
 
         private void UnloadConEmuDll()

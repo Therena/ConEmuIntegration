@@ -19,9 +19,6 @@ using System.Windows.Documents;
 
 namespace ConEmuIntegration
 {
-    /// <summary>
-    /// Interaction logic for ExceptionMessageBox.xaml
-    /// </summary>
     public partial class ExceptionMessageBox : Window
     {
         public string Message { get; private set; }

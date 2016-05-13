@@ -37,11 +37,7 @@ namespace ConEmuIntegration.ToolWindow
         {
             base.OnToolWindowCreated();
 
-            try
-            {
-                m_Control.RunConEmu();
-            }
-            catch (Exception)
+            if(m_Control.RunConEmu() == false)
             {
                 var windowFrame = (IVsWindowFrame)this.Frame;
                 windowFrame.Hide();

@@ -51,7 +51,7 @@ namespace ConEmuIntegration.ConEmu
 
         ~ProductEnvironment()
         {
-            foreach(var file in m_TempFiles)
+            foreach (var file in m_TempFiles)
             {
                 File.Delete(file);
             }
@@ -60,14 +60,14 @@ namespace ConEmuIntegration.ConEmu
         public bool CheckConEmu()
         {
             var conemu = GetConEmuExecutable();
-            if (string.IsNullOrWhiteSpace(conemu) || 
+            if (string.IsNullOrWhiteSpace(conemu) ||
                 File.Exists(conemu) == false)
             {
                 return false;
             }
 
             var conemulib = GetConEmuLibrary();
-            if (string.IsNullOrWhiteSpace(conemulib) || 
+            if (string.IsNullOrWhiteSpace(conemulib) ||
                 File.Exists(conemulib) == false)
             {
                 return false;
@@ -78,7 +78,7 @@ namespace ConEmuIntegration.ConEmu
         public bool CheckConEmuAndDisplay()
         {
             bool result = CheckConEmu();
-            if(result == false)
+            if (result == false)
             {
                 var caption = Instance.GetWindowCaption();
 
@@ -86,8 +86,8 @@ namespace ConEmuIntegration.ConEmu
                 var conemulib = GetConEmuLibrary();
                 ExceptionMessageBox box = new ExceptionMessageBox();
                 box.SetException("Unable to find the ConEmu installation",
-                    "Please set the paths of your ConEmu installation in the Visual Studio options pane" + 
-                    Environment.NewLine + Environment.NewLine + 
+                    "Please set the paths of your ConEmu installation in the Visual Studio options pane" +
+                    Environment.NewLine + Environment.NewLine +
                     "ConEmu Path: " + conemu + Environment.NewLine +
                     "ConEmuCD Path: " + conemulib + Environment.NewLine);
                 box.ShowDialog();
@@ -97,30 +97,20 @@ namespace ConEmuIntegration.ConEmu
 
         public string GetConfigurationFile()
         {
-            try
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            var configFile = "ConEmuIntegration.Settings.ConEmu.xml";
+
+            var configFileContent = "";
+            using (var stream = new StreamReader(assembly.GetManifestResourceStream(configFile)))
             {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                var configFile = "ConEmuIntegration.Settings.ConEmu.xml";
-
-                var configFileContent = "";
-                using (var stream = new StreamReader(assembly.GetManifestResourceStream(configFile)))
-                {
-                    configFileContent = stream.ReadToEnd();
-                }
-
-                string configFilePath = Path.GetTempFileName() + ".xml";
-                File.WriteAllText(configFilePath, configFileContent);
-
-                m_TempFiles.Add(configFilePath);
-                return configFilePath;
+                configFileContent = stream.ReadToEnd();
             }
-            catch(Exception error)
-            {
-                ExceptionMessageBox box = new ExceptionMessageBox();
-                box.SetException(error);
-                box.ShowDialog();
-                throw error;
-            }
+
+            string configFilePath = Path.GetTempFileName() + ".xml";
+            File.WriteAllText(configFilePath, configFileContent);
+
+            m_TempFiles.Add(configFilePath);
+            return configFilePath;
         }
 
         public string GetWindowCaption()
@@ -147,10 +137,10 @@ namespace ConEmuIntegration.ConEmu
 
         public string GetConEmuLibrary()
         {
-            if(this.Package != null)
+            if (this.Package != null)
             {
                 var page = (OptionPageGrid)this.Package.GetDialogPage(typeof(OptionPageGrid));
-                if(page != null)
+                if (page != null)
                 {
                     string path = page.ConEmuLibraryPath.Trim(' ', '\n', '\r', '\"', '\'');
                     if (string.IsNullOrWhiteSpace(path) == false)

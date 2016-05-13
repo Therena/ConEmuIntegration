@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 using ConEmuIntegration.ConEmu;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Controls;
@@ -27,25 +28,36 @@ namespace ConEmuIntegration.ToolWindow
             this.InitializeComponent();
         }
 
-        public void RunConEmu()
+        public bool RunConEmu()
         {
-            if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
+            try
             {
-                return;
+                if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
+                {
+                    return false;
+                }
+
+                string conemu = ProductEnvironment.Instance.GetConEmuExecutable();
+                string configFile = ProductEnvironment.Instance.GetConfigurationFile();
+                string parameter = "-NoKeyHooks " +
+                    "-InsideWnd 0x" + plnConEmu.Handle.ToString("X") + " " +
+                    "-LoadCfgFile \"" + configFile + "\" " +
+                    " -Dir \"" + Directory.GetCurrentDirectory() + "\"" +
+                    " -detached -cmd \"{cmd}\"";
+
+                ProductEnvironment.Instance.ConEmuProcess = Process.Start(conemu, parameter);
+
+                var macro = "Shell(\"new_console\", \"\", \"{cmd}\")";
+                ExecuteGuiMacro(macro);
+                return true;
             }
-
-            string conemu = ProductEnvironment.Instance.GetConEmuExecutable();
-            string configFile = ProductEnvironment.Instance.GetConfigurationFile();
-            string parameter = "-NoKeyHooks " + 
-                "-InsideWnd 0x" + plnConEmu.Handle.ToString("X") + " " +
-                "-LoadCfgFile \"" + configFile + "\" " +
-                " -Dir \"" + Directory.GetCurrentDirectory() + "\"" +
-                " -detached -cmd \"{cmd}\"";
-
-            ProductEnvironment.Instance.ConEmuProcess = Process.Start(conemu, parameter);
-
-            var macro = "Shell(\"new_console\", \"\", \"{cmd}\")";
-            ExecuteGuiMacro(macro);
+            catch (Exception error)
+            {
+                ExceptionMessageBox box = new ExceptionMessageBox();
+                box.SetException(error);
+                box.ShowDialog();
+            }
+            return false;
         }
 
         private void ExecuteGuiMacro(string macro)
