@@ -22,12 +22,12 @@ namespace ConEmuIntegration.Settings
     {
         [Category("ConEmu Integration")]
         [DisplayName("Executable")]
-        [Description("Path to the ConEmu executable (ConEmu[64].exe) file")]
+        [Description("Path to the ConEmu executable (ConEmu.exe) file")]
         public string ConEmuPath { get; set; }
 
         [Category("ConEmu Integration")]
         [DisplayName("Library")]
-        [Description("Path to the ConEmu library (ConEmuCD[64].dll) file")]
+        [Description("Path to the ConEmu library (ConEmuCD.dll) file")]
         public string ConEmuLibraryPath { get; set; }
     }
 }

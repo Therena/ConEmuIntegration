@@ -50,6 +50,10 @@ Please download / install the ConEmu seperatly. It isn't part of this extension.
 After you have downloaded / installed ConEmu please set the paths in the settings of this extension.
 Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
 
+Visual Studio is a x86 application and the extansion can because of this only load the x86 version
+of ConEmu. So please do not configure here the paths to the x86 of conemu (ConEmu.exe, ConEmuCD.dll) 
+and not the paths to x64 (ConEmu64.exe, ConEmuCD64.dll) version.
+
 Please set the following two paths in this section of the configuration.<br/>
 The path to the conemu executable file:<br/>
 <img src="Images/SettingsConEmuExe.png" width="400" /><br/>
