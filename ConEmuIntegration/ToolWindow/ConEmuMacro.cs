@@ -24,16 +24,16 @@ namespace ConEmuIntegration.ToolWindow
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr LoadLibrary(string libname);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool FreeLibrary(IntPtr hModule);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
         private static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)]
         private delegate int FConsoleMain3(int anWorkMode, string asCommandLine);
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)]
         private delegate int FGuiMacro(string asWhere, string asMacro, out IntPtr bstrResult);
 
         private string m_LibraryPath;
@@ -98,6 +98,12 @@ namespace ConEmuIntegration.ToolWindow
                         return; // Sucess
                     }
 
+                    ExceptionMessageBox box = new ExceptionMessageBox();
+                    box.SetException("Invoke GuiMacro method failed",
+                        "Failure while invoke the GuiMacro of the conemu library" + Environment.NewLine +
+                        "Result code: " + result);
+                    box.ShowDialog();
+
                     if (bstrPtr != IntPtr.Zero)
                     {
                         Marshal.FreeBSTR(bstrPtr);
@@ -151,6 +157,13 @@ namespace ConEmuIntegration.ToolWindow
                 m_ConEmuHandle = LoadLibrary(asLibrary);
                 if (m_ConEmuHandle == IntPtr.Zero)
                 {
+                    int error = Marshal.GetLastWin32Error();
+                    ExceptionMessageBox box = new ExceptionMessageBox();
+                    box.SetException("Unable to load the conemu library", 
+                        "Failure while load the conemu library" + Environment.NewLine +
+                        "Library path: " + asLibrary + Environment.NewLine +
+                        "Last error code: " + error);
+                    box.ShowDialog();
                     return;
                 }
 
@@ -162,6 +175,16 @@ namespace ConEmuIntegration.ToolWindow
 
                 if (ptrConsoleMain == IntPtr.Zero && ptrGuiMacro == IntPtr.Zero)
                 {
+                    int error = Marshal.GetLastWin32Error();
+                    ExceptionMessageBox box = new ExceptionMessageBox();
+                    box.SetException("Unable to load the conemu library",
+                        "Failure while getting the addresses of the methods in the conemu library" + 
+                        Environment.NewLine +
+                        "Library path: " + asLibrary + Environment.NewLine +
+                        "Methods: ConsoleMain3, GuiMacro" + Environment.NewLine +
+                        "Last error code: " + error);
+                    box.ShowDialog();
+
                     UnloadConEmuDll();
                     return;
                 }

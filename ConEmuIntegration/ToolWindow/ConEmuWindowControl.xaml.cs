@@ -42,8 +42,8 @@ namespace ConEmuIntegration.ToolWindow
                 string parameter = "-NoKeyHooks " +
                     "-InsideWnd 0x" + plnConEmu.Handle.ToString("X") + " " +
                     "-LoadCfgFile \"" + configFile + "\" " +
-                    " -Dir \"" + Directory.GetCurrentDirectory() + "\"" +
-                    " -detached -cmd \"{cmd}\"";
+                    "-Dir \"" + Directory.GetCurrentDirectory() + "\" " +
+                    "-detached -cmd \"{cmd}\"";
 
                 ProductEnvironment.Instance.ConEmuProcess = Process.Start(conemu, parameter);
 
