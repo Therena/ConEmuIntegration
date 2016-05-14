@@ -29,6 +29,6 @@ namespace ConEmuIntegration.Settings
         [Category("ConEmu Integration")]
         [DisplayName("Shell")]
         [Description("Shell type which is used within conemu (Change may require restart of Visual Studio)")]
-        public ShellTypes ConEmuPath { get; set; }
+        public ShellTypes Shell { get; set; }
     }
 }

@@ -147,7 +147,16 @@ namespace ConEmuIntegration.SolutionExplorer
             var outputFileName = project.Properties.Item("OutputFileName").Value.ToString();
 
             var file = Path.Combine(projectPath, outputPath, outputFileName);
-            ExecuteGuiMacro("Print(@\"\"\"" + file.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+
+            var shell = ProductEnvironment.Instance.GetShellType();
+            if (shell == Settings.OptionPageGridConEmu.ShellTypes.PowerShell)
+            {
+                ExecuteGuiMacro("Print(@\"Invoke-Item \"\"" + file.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+            }
+            else
+            {
+                ExecuteGuiMacro("Print(@\"\"\"" + file.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+            }
             DisplayConEmu();
         }
 

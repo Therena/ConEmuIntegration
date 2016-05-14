@@ -82,8 +82,18 @@ namespace ConEmuIntegration.SolutionExplorer
             }
 
             var fullPath = new FileInfo(fullPathProperty.Value.ToString());
-            ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d " + 
-                fullPath.Directory.FullName.Replace("\"", "\"\"") + "\",\"\n\")");
+
+            var shell = ProductEnvironment.Instance.GetShellType();
+            if(shell == Settings.OptionPageGridConEmu.ShellTypes.PowerShell)
+            {
+                ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
+                    fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+            }
+            else
+            {
+                ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
+                    fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+            }
             ExecuteInConEmu.Instance.DisplayConEmu();
 
             return true;
@@ -102,8 +112,17 @@ namespace ConEmuIntegration.SolutionExplorer
                 var path = folders.GetProjectPath(selectedItem.Project);
                 var fullPath = new FileInfo(path);
 
-                ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
-                    fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                var shell = ProductEnvironment.Instance.GetShellType();
+                if (shell == Settings.OptionPageGridConEmu.ShellTypes.PowerShell)
+                {
+                    ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
+                        fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                }
+                else
+                {
+                    ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
+                        fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                }
                 ExecuteInConEmu.Instance.DisplayConEmu();
                 return true;
             }

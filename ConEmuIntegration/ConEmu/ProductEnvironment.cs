@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using static ConEmuIntegration.Settings.OptionPageGridConEmu;
 
 namespace ConEmuIntegration.ConEmu
 {
@@ -111,6 +112,32 @@ namespace ConEmuIntegration.ConEmu
 
             m_TempFiles.Add(configFilePath);
             return configFilePath;
+        }
+
+        public ShellTypes GetShellType()
+        {
+            if (this.Package != null)
+            {
+                var page = (OptionPageGridConEmu)this.Package.GetDialogPage(typeof(OptionPageGridConEmu));
+                if (page != null)
+                {
+                    return page.Shell;
+                }
+            }
+            return ShellTypes.CMD;
+        }
+
+        public string ShellTypeToString(ShellTypes shell)
+        {
+            switch (shell)
+            {
+                case ShellTypes.CMD:
+                    return "{cmd}";
+                case ShellTypes.PowerShell:
+                    return "{powershell}";
+                default:
+                    return "{cmd}";
+            }
         }
 
         public string GetWindowCaption()

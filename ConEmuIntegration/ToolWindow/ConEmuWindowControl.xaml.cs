@@ -39,15 +39,18 @@ namespace ConEmuIntegration.ToolWindow
 
                 string conemu = ProductEnvironment.Instance.GetConEmuExecutable();
                 string configFile = ProductEnvironment.Instance.GetConfigurationFile();
+                string shell = ProductEnvironment.Instance.ShellTypeToString(
+                    ProductEnvironment.Instance.GetShellType());
+
                 string parameter = "-NoKeyHooks " +
                     "-InsideWnd 0x" + plnConEmu.Handle.ToString("X") + " " +
                     "-LoadCfgFile \"" + configFile + "\" " +
                     "-Dir \"" + Directory.GetCurrentDirectory() + "\" " +
-                    "-detached -cmd \"{cmd}\"";
+                    "-detached -cmd \"" + shell + "\"";
 
                 ProductEnvironment.Instance.ConEmuProcess = Process.Start(conemu, parameter);
 
-                var macro = "Shell(\"new_console\", \"\", \"{cmd}\")";
+                var macro = "Shell(\"new_console\", \"\", \"" + shell + "\")";
                 ExecuteGuiMacro(macro);
                 return true;
             }

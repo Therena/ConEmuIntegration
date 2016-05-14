@@ -20,6 +20,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using EnvDTE80;
 using EnvDTE;
 using ConEmuIntegration.Helper;
+using ConEmuIntegration.ConEmu;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
@@ -112,8 +113,18 @@ namespace ConEmuIntegration.SolutionExplorer
                         return;
                     }
 
-                    ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
-                        path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                    var shell = ProductEnvironment.Instance.GetShellType();
+                    if (shell == Settings.OptionPageGridConEmu.ShellTypes.PowerShell)
+                    {
+                        ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
+                            path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                    }
+                    else
+                    {
+                        ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
+                            path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                    }
+
                     ExecuteInConEmu.Instance.DisplayConEmu();
                 }
             }
