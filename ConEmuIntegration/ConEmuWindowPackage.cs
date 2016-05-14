@@ -28,6 +28,7 @@ namespace ConEmuIntegration
     [ProvideToolWindow(typeof(ConEmuWindow))]
     [Guid(ConEmuWindowPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(OptionPageGrid), "ConEmu Integration", "Paths", 0, 0, true)]
+    [ProvideOptionPage(typeof(OptionPageGridConEmu), "ConEmu Integration", "Settings", 0, 0, true)]
     public sealed class ConEmuWindowPackage : Package
     {
         /// <summary>
