@@ -27,3 +27,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Add the possibility to use quotes for the paths in the VS settings
 - [x] Handled some more possible exceptional cases
+
+## 1.0.0.3
+
+**2016-05-15**
+
+- [x] Possibility to use Powershell within ConEmu instead of CMD
