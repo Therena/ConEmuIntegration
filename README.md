@@ -18,8 +18,9 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - Installed Visual Studio 2015 or Visual Studio 2013
 - Installed or portable version of ConEmu
 - ConEmu build 151201 or higher is required
-- ConEmu x86 version has to be used (x64 version isn't supported)
-- Path to ConEmu.exe and ConEmuCD.dll set in the Visual Studio settings
+- ConEmuCD.dll x86 version has to be used (x64 version isn't supported)
+- ConEmu.exe can be used in x86 as well as in x64 version
+- Path to ConEmu[64].exe and ConEmuCD.dll set in the Visual Studio settings
 
 ## ConEmu
 
