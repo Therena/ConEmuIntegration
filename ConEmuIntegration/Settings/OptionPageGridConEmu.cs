@@ -30,5 +30,11 @@ namespace ConEmuIntegration.Settings
         [DisplayName("Shell")]
         [Description("Shell type which is used within conemu (Change may require restart of Visual Studio)")]
         public ShellTypes Shell { get; set; }
+
+        [Category("ConEmu Integration")]
+        [DisplayName("External conemu configuration")]
+        [Description("[Optional] Use an external configuration file (ConEmu.xml) for integrated conemu " + 
+            "(Change may require restart of Visual Studio)")]
+        public string ConEmuXML { get; set; }
     }
 }

@@ -98,6 +98,22 @@ namespace ConEmuIntegration.ConEmu
 
         public string GetConfigurationFile()
         {
+            if (this.Package != null)
+            {
+                var page = (OptionPageGridConEmu)this.Package.GetDialogPage(typeof(OptionPageGridConEmu));
+                if (page != null)
+                {
+                    if (string.IsNullOrWhiteSpace(page.ConEmuXML) == false)
+                    {
+                        return page.ConEmuXML;
+                    }
+                }
+            }
+            return IntegratedDefaultSettings();
+        }
+
+        private string IntegratedDefaultSettings()
+        {
             Assembly assembly = Assembly.GetExecutingAssembly();
             var configFile = "ConEmuIntegration.Settings.ConEmu.xml";
 

@@ -42,16 +42,16 @@ namespace ConEmuIntegration.ToolWindow
                 string shell = ProductEnvironment.Instance.ShellTypeToString(
                     ProductEnvironment.Instance.GetShellType());
 
-                string parameter = "-NoKeyHooks " +
+                string parameter = "-NoKeyHooks -Multi -NoCloseConfirm -NoQuake " +
                     "-InsideWnd 0x" + plnConEmu.Handle.ToString("X") + " " +
-                    "-LoadCfgFile \"" + configFile + "\" " +
-                    "-Dir \"" + Directory.GetCurrentDirectory() + "\" " +
-                    "-detached -cmd \"" + shell + "\"";
+                    "-LoadCfgFile \"" + configFile + "\" ";
 
                 ProductEnvironment.Instance.ConEmuProcess = Process.Start(conemu, parameter);
 
-                var macro = "Shell(\"new_console\", \"\", \"" + shell + "\")";
-                ExecuteGuiMacro(macro);
+                int cbMultiShowButtons = 2549;
+                ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 0)");
+                ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 1)");
+
                 return true;
             }
             catch (Exception error)
