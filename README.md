@@ -56,7 +56,7 @@ The output file of your project can be also executed in conemu.<br/>
 <img src="Images/ConEmuSolutionExplorer.png" width="400" /><br/>
 
 ## Setting page for ConEmu and Shell settings
-Settings of ConEmu and the used shell within ConEmu. 
+Visual Studio settings page to make it possible to change settings of ConEmu.
 
 ### Change the type of the shell
 The shell type which is used within ConEmu can be configured on the settings page.<br/>
