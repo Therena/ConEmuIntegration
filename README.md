@@ -55,15 +55,9 @@ The current opened folder in ConEmu can be changed directly from solution explor
 The output file of your project can be also executed in conemu.<br/>
 <img src="Images/ConEmuSolutionExplorer.png" width="400" /><br/>
 
-## Setting page for ConEmu and Shell settings
-Visual Studio settings page to make it possible to change settings of ConEmu.
-
-### Change the type of the shell
-The shell type which is used within ConEmu can be configured on the settings page.<br/>
-Changes of the type of shell may require a restart of Visual Studio before they are used.<br/>
-<img src="Images/SettingsConEmuShell.png" width="400" /><br/>
-
 ## Settings
+
+### Path settings
 Please download / install the ConEmu seperatly. It isn't part of this extension.
 After you have downloaded / installed ConEmu please set the paths in the settings of this extension.
 Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
@@ -81,6 +75,14 @@ E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe<br/>
 The path to the conemu CD library file:<br/>
 <img src="Images/SettingsConEmuCDDll.png" width="400" /><br/>
 E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu\ConEmuCD.dll<br/>
+
+### ConEmu settings
+Visual Studio settings page to make it possible to change settings of ConEmu.
+
+#### Change the type of the shell
+The shell type which is used within ConEmu can be configured on the settings page.<br/>
+Changes of the type of shell may require a restart of Visual Studio before they are used.<br/>
+<img src="Images/SettingsConEmuShell.png" width="400" /><br/>
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
