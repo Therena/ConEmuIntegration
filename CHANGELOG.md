@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Add a possibility to adjust the some more ConEmu settings in the VS settings
+Currently nothing on the roadmap
 
 # Changelog
 
@@ -33,3 +33,11 @@ on the official Visual Studio extension gallery.
 **2016-05-15**
 
 - [x] Possibility to use Powershell within ConEmu instead of CMD
+
+## 2.0.0.0
+
+**2016-05-16**
+
+- [x] Use the controls from the nuget package provided by conemu
+- [x] Enhance the internal configuration
+- [x] Use an external configuration

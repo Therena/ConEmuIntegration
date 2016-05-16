@@ -13,14 +13,17 @@ See the ConEmu section for further detail about the console emulator.
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 
+If you want to use your own ConEmu Settings or change the default settings please use your own configuration file.
+To define custom Task please also use an external configuration file.
+See "Optional: External Conemu configuration XML" how to do this.
+
 ## System Requirements
 
 - Installed Visual Studio 2015 or Visual Studio 2013
 - Installed or portable version of ConEmu
 - ConEmu build 151201 or higher is required
-- ConEmuCD.dll x86 version has to be used (x64 version isn't supported)
 - ConEmu.exe can be used in x86 as well as in x64 version
-- Path to ConEmu[64].exe and ConEmuCD.dll set in the Visual Studio settings
+- Path to ConEmu[64].exe set in the Visual Studio settings
 
 ## ConEmu
 
@@ -62,27 +65,29 @@ Please download / install the ConEmu seperatly. It isn't part of this extension.
 After you have downloaded / installed ConEmu please set the paths in the settings of this extension.
 Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
 
-Visual Studio is a x86 application and this extension runs in the context of te Visual Studio process.
-It isn't possible to load x64 libraries from a x86 application.
-So please configure here the paths to the x86 version of conemu (ConEmu.exe, ConEmuCD.dll) 
-and not the paths to x64 (ConEmu64.exe, ConEmuCD64.dll) version.
-
-Please set the following two paths in this section of the configuration.<br/>
-The path to the conemu executable file:<br/>
+Please set the path to the conemu executable file in the section of the configuration:<br/>
 <img src="Images/SettingsConEmuExe.png" width="400" /><br/>
 E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe<br/>
-
-The path to the conemu CD library file:<br/>
-<img src="Images/SettingsConEmuCDDll.png" width="400" /><br/>
-E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu\ConEmuCD.dll<br/>
 
 ### ConEmu settings
 Visual Studio settings page to make it possible to change settings of ConEmu.
 
 #### Change the type of the shell
-The shell type which is used within ConEmu can be configured on the settings page.<br/>
-Changes of the type of shell may require a restart of Visual Studio before they are used.<br/>
+The commands sended from the solution explorer extension are dependend on the type of shell.
+E.g. in CMS it uses "cd /d" and in powershell only "cd".<br/>
+
+Because of this you have to configure the shell type that Visual Studio knows which set of commands it should use.<br/>
 <img src="Images/SettingsConEmuShell.png" width="400" /><br/>
+
+#### Optional: External Conemu configuration XML
+The extension contains an internal configuration which isn't changeable.
+If you want to change this configuration or use an custom configuration please set the path to your configruation 
+in the Visual Studio settings.<br/>
+<img src="Images/SettingsConEmuConfig.png" width="400" /><br/>
+E.g.: C:\Users\David Roller\AppData\Roaming\ConEmu.xml<br/>
+
+Please keep in mind that the extension doesn't support all configuration settings of conemu.
+Don't using the internal configuration could cause incompatibilities. 
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
