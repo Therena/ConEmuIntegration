@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using ConEmu.WinForms;
 using ConEmuIntegration.Settings;
 using Microsoft.VisualStudio.Shell;
 using System;
@@ -22,7 +23,7 @@ using System.IO;
 using System.Reflection;
 using static ConEmuIntegration.Settings.OptionPageGridConEmu;
 
-namespace ConEmuIntegration.ConEmu
+namespace ConEmuIntegration.ConEmuProduct
 {
     internal class ProductEnvironment
     {
@@ -30,7 +31,7 @@ namespace ConEmuIntegration.ConEmu
         private List<string> m_SearchPaths;
 
         public Package Package { get; set; }
-        public Process ConEmuProcess { get; set; }
+        public ConEmuControl ConEmu { get; set; }
 
         private static ProductEnvironment m_Instance = new ProductEnvironment();
         public static ProductEnvironment Instance
@@ -168,10 +169,13 @@ namespace ConEmuIntegration.ConEmu
                 var page = (OptionPageGrid)this.Package.GetDialogPage(typeof(OptionPageGrid));
                 if (page != null)
                 {
-                    string path = page.ConEmuPath.Trim(' ', '\n', '\r', '\"', '\'');
-                    if (string.IsNullOrWhiteSpace(path) == false)
+                    if (string.IsNullOrWhiteSpace(page.ConEmuPath) == false)
                     {
-                        return path;
+                        string path = page.ConEmuPath.Trim(' ', '\n', '\r', '\"', '\'');
+                        if (string.IsNullOrWhiteSpace(path) == false)
+                        {
+                            return path;
+                        }
                     }
                 }
             }
@@ -185,10 +189,13 @@ namespace ConEmuIntegration.ConEmu
                 var page = (OptionPageGrid)this.Package.GetDialogPage(typeof(OptionPageGrid));
                 if (page != null)
                 {
-                    string path = page.ConEmuLibraryPath.Trim(' ', '\n', '\r', '\"', '\'');
-                    if (string.IsNullOrWhiteSpace(path) == false)
+                    if (string.IsNullOrWhiteSpace(page.ConEmuLibraryPath) == false)
                     {
-                        return path;
+                        string path = page.ConEmuLibraryPath.Trim(' ', '\n', '\r', '\"', '\'');
+                        if (string.IsNullOrWhiteSpace(path) == false)
+                        {
+                            return path;
+                        }
                     }
                 }
             }

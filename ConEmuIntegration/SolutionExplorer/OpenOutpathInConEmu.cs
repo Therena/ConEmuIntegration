@@ -20,7 +20,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using EnvDTE80;
 using EnvDTE;
 using ConEmuIntegration.Helper;
-using ConEmuIntegration.ConEmu;
+using ConEmuIntegration.ConEmuProduct;
 
 namespace ConEmuIntegration.SolutionExplorer
 {

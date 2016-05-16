@@ -13,16 +13,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-using ConEmuIntegration.ConEmu;
+using ConEmu.WinForms;
+using ConEmuIntegration.ConEmuProduct;
 using System;
 using System.Diagnostics;
 using System.Windows.Controls;
+using System.Xml;
 
 namespace ConEmuIntegration.ToolWindow
 {
     public partial class ConEmuWindowControl : UserControl
     {
         public event EventHandler ConEmuClosed;
+        private bool m_HasExited = false;
 
         public ConEmuWindowControl()
         {
@@ -33,31 +36,10 @@ namespace ConEmuIntegration.ToolWindow
         {
             try
             {
-                if(ProductEnvironment.Instance.ConEmuProcess != null)
+                if(ProductEnvironment.Instance.ConEmu == null || m_HasExited)
                 {
-                    if(ProductEnvironment.Instance.ConEmuProcess.HasExited == false)
-                    {
-                        return true;
-                    }
+                    RunConEmuSession();
                 }
-
-                if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
-                {
-                    return false;
-                }
-
-                string conemu = ProductEnvironment.Instance.GetConEmuExecutable();
-                string configFile = ProductEnvironment.Instance.GetConfigurationFile();
-                string shell = ProductEnvironment.Instance.ShellTypeToString(
-                    ProductEnvironment.Instance.GetShellType());
-
-                string parameter = "-NoKeyHooks -Multi -NoCloseConfirm -NoQuake " +
-                    "-InsideWnd 0x" + pnlConEmu.Handle.ToString("X") + " " +
-                    "-LoadCfgFile \"" + configFile + "\" ";
-
-                ProductEnvironment.Instance.ConEmuProcess = Process.Start(conemu, parameter);
-                ProductEnvironment.Instance.ConEmuProcess.EnableRaisingEvents = true;
-                ProductEnvironment.Instance.ConEmuProcess.Exited += ConEmuProcess_Exited;
 
                 int cbMultiShowButtons = 2549;
                 ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 0)");
@@ -74,26 +56,44 @@ namespace ConEmuIntegration.ToolWindow
             return false;
         }
 
-        public void FocusConEmu()
+        private void RunConEmuSession()
         {
+            ProductEnvironment.Instance.ConEmu = new ConEmuControl();
+            ProductEnvironment.Instance.ConEmu.Dock = System.Windows.Forms.DockStyle.Fill;
 
+            var info = new ConEmu.WinForms.ConEmuStartInfo();
+            info.ConEmuExecutablePath = ProductEnvironment.Instance.GetConEmuExecutable();
+
+            info.BaseConfiguration = new XmlDocument();
+            info.BaseConfiguration.Load(ProductEnvironment.Instance.GetConfigurationFile());
+
+            info.ConsoleProcessExitedEventSink = ConEmuProcess_Exited;
+
+            ProductEnvironment.Instance.ConEmu.AutoStartInfo = info;
+
+            wfhConEmu.Child = ProductEnvironment.Instance.ConEmu;
+
+            m_HasExited = false;
         }
 
-        private void ConEmuProcess_Exited(object sender, EventArgs e)
+        public void FocusConEmu()
+        {
+            ProductEnvironment.Instance.ConEmu.Focus();
+        }
+
+        private void ConEmuProcess_Exited(object sender, ConsoleProcessExitedEventArgs e)
         {
             this.ConEmuClosed?.Invoke(this, new EventArgs());
+            m_HasExited = true;
         }
 
         private void ExecuteGuiMacro(string macro)
         {
-            if (ProductEnvironment.Instance.ConEmuProcess == null)
+            if (ProductEnvironment.Instance.ConEmu.IsConsoleEmulatorOpen == false)
             {
                 return;
             }
-
-            string conemu = ProductEnvironment.Instance.GetConEmuLibrary();
-            var macroHelper = new ConEmuMacro(conemu);
-            macroHelper.Execute(ProductEnvironment.Instance.ConEmuProcess.Id.ToString(), macro);
+            ProductEnvironment.Instance.ConEmu.RunningSession.ExecuteGuiMacroTextSync(macro);
         }
     }
 }

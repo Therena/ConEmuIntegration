@@ -17,7 +17,7 @@ using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using ConEmuIntegration.ConEmu;
+using ConEmuIntegration.ConEmuProduct;
 using EnvDTE80;
 using EnvDTE;
 using System.IO;
@@ -162,14 +162,11 @@ namespace ConEmuIntegration.SolutionExplorer
 
         public void ExecuteGuiMacro(string macro)
         {
-            if (ProductEnvironment.Instance.ConEmuProcess == null)
+            if (ProductEnvironment.Instance.ConEmu.IsConsoleEmulatorOpen == false)
             {
                 return;
             }
-
-            string conemu = ProductEnvironment.Instance.GetConEmuLibrary();
-            var macroHelper = new ConEmuMacro(conemu);
-            macroHelper.Execute(ProductEnvironment.Instance.ConEmuProcess.Id.ToString(), macro);
+            ProductEnvironment.Instance.ConEmu.RunningSession.ExecuteGuiMacroTextSync(macro);
         }
 
         public void DisplayConEmu()

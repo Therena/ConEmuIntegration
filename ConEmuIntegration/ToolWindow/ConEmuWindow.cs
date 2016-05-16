@@ -17,7 +17,7 @@ using System;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using ConEmuIntegration.ConEmu;
+using ConEmuIntegration.ConEmuProduct;
 using EnvDTE;
 
 namespace ConEmuIntegration.ToolWindow
