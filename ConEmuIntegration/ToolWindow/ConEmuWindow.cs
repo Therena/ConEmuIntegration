@@ -47,6 +47,12 @@ namespace ConEmuIntegration.ToolWindow
         {
             base.OnToolWindowCreated();
 
+            if (m_Control.RunConEmu() == false)
+            {
+                var windowFrame = (IVsWindowFrame)this.Frame;
+                windowFrame.Hide();
+            }
+
             DTE dte = (DTE)GetService(typeof(DTE));
             EnvDTE80.Events2 events = (EnvDTE80.Events2)dte.Events;
 
@@ -66,8 +72,6 @@ namespace ConEmuIntegration.ToolWindow
                 var windowFrame = (IVsWindowFrame)this.Frame;
                 windowFrame.Hide();
             }
-
-            m_Control.FocusConEmu();
         }
     }
 }

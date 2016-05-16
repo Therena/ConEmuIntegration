@@ -41,7 +41,7 @@ namespace ConEmuIntegration.ToolWindow
             {
                 if(ProductEnvironment.Instance.ConEmuProcess != null)
                 {
-                    if(ProductEnvironment.Instance.ConEmuProcess.HasExited != false)
+                    if(ProductEnvironment.Instance.ConEmuProcess.HasExited == false)
                     {
                         return true;
                     }
@@ -83,11 +83,6 @@ namespace ConEmuIntegration.ToolWindow
         private void ConEmuProcess_Exited(object sender, EventArgs e)
         {
             this.ConEmuClosed?.Invoke(this, new EventArgs());
-        }
-
-        public void FocusConEmu()
-        {
-
         }
 
         private void ExecuteGuiMacro(string macro)
