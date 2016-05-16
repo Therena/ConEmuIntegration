@@ -15,14 +15,21 @@
 //
 using ConEmuIntegration.ConEmu;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ConEmuIntegration.ToolWindow
 {
     public partial class ConEmuWindowControl : UserControl
     {
+        public event EventHandler ConEmuClosed;
+
         public ConEmuWindowControl()
         {
             this.InitializeComponent();
@@ -32,6 +39,14 @@ namespace ConEmuIntegration.ToolWindow
         {
             try
             {
+                if(ProductEnvironment.Instance.ConEmuProcess != null)
+                {
+                    if(ProductEnvironment.Instance.ConEmuProcess.HasExited != false)
+                    {
+                        return true;
+                    }
+                }
+
                 if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
                 {
                     return false;
@@ -43,10 +58,12 @@ namespace ConEmuIntegration.ToolWindow
                     ProductEnvironment.Instance.GetShellType());
 
                 string parameter = "-NoKeyHooks -Multi -NoCloseConfirm -NoQuake " +
-                    "-InsideWnd 0x" + plnConEmu.Handle.ToString("X") + " " +
+                    "-InsideWnd 0x" + pnlConEmu.Handle.ToString("X") + " " +
                     "-LoadCfgFile \"" + configFile + "\" ";
 
                 ProductEnvironment.Instance.ConEmuProcess = Process.Start(conemu, parameter);
+                ProductEnvironment.Instance.ConEmuProcess.EnableRaisingEvents = true;
+                ProductEnvironment.Instance.ConEmuProcess.Exited += ConEmuProcess_Exited;
 
                 int cbMultiShowButtons = 2549;
                 ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 0)");
@@ -61,6 +78,16 @@ namespace ConEmuIntegration.ToolWindow
                 box.ShowDialog();
             }
             return false;
+        }
+
+        private void ConEmuProcess_Exited(object sender, EventArgs e)
+        {
+            this.ConEmuClosed?.Invoke(this, new EventArgs());
+        }
+
+        public void FocusConEmu()
+        {
+
         }
 
         private void ExecuteGuiMacro(string macro)

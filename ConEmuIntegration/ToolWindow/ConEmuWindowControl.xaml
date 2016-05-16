@@ -24,9 +24,9 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="ConEmu">
-    <WindowsFormsHost>
+    <WindowsFormsHost x:Name="frmConEmu">
         <WindowsFormsHost.Child>
-            <wf:Panel Dock="Fill" x:Name="plnConEmu" />
+            <wf:Panel Dock="Fill" x:Name="pnlConEmu" />
         </WindowsFormsHost.Child>
     </WindowsFormsHost>
 </UserControl>
