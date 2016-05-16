@@ -24,10 +24,5 @@ namespace ConEmuIntegration.Settings
         [DisplayName("Executable")]
         [Description("Path to the ConEmu executable (ConEmu.exe) file")]
         public string ConEmuPath { get; set; }
-
-        [Category("ConEmu Integration")]
-        [DisplayName("Library")]
-        [Description("Path to the ConEmu library (ConEmuCD.dll) file")]
-        public string ConEmuLibraryPath { get; set; }
     }
 }

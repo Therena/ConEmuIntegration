@@ -18,7 +18,6 @@ using ConEmuIntegration.Settings;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using static ConEmuIntegration.Settings.OptionPageGridConEmu;
@@ -67,13 +66,6 @@ namespace ConEmuIntegration.ConEmuProduct
             {
                 return false;
             }
-
-            var conemulib = GetConEmuLibrary();
-            if (string.IsNullOrWhiteSpace(conemulib) ||
-                File.Exists(conemulib) == false)
-            {
-                return false;
-            }
             return true;
         }
 
@@ -85,13 +77,11 @@ namespace ConEmuIntegration.ConEmuProduct
                 var caption = Instance.GetWindowCaption();
 
                 var conemu = GetConEmuExecutable();
-                var conemulib = GetConEmuLibrary();
                 ExceptionMessageBox box = new ExceptionMessageBox();
                 box.SetException("Unable to find the ConEmu installation",
                     "Please set the paths of your ConEmu installation in the Visual Studio options pane" +
                     Environment.NewLine + Environment.NewLine +
-                    "ConEmu Path: " + conemu + Environment.NewLine +
-                    "ConEmuCD Path: " + conemulib + Environment.NewLine);
+                    "ConEmu Path: " + conemu + Environment.NewLine);
                 box.ShowDialog();
             }
             return result;
@@ -180,26 +170,6 @@ namespace ConEmuIntegration.ConEmuProduct
                 }
             }
             return ExtendPath("ConEmu.exe");
-        }
-
-        public string GetConEmuLibrary()
-        {
-            if (this.Package != null)
-            {
-                var page = (OptionPageGrid)this.Package.GetDialogPage(typeof(OptionPageGrid));
-                if (page != null)
-                {
-                    if (string.IsNullOrWhiteSpace(page.ConEmuLibraryPath) == false)
-                    {
-                        string path = page.ConEmuLibraryPath.Trim(' ', '\n', '\r', '\"', '\'');
-                        if (string.IsNullOrWhiteSpace(path) == false)
-                        {
-                            return path;
-                        }
-                    }
-                }
-            }
-            return ExtendPath("ConEmuCD.dll");
         }
 
         public string ExtendPath(string file)
