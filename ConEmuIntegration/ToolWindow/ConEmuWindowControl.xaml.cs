@@ -13,14 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-using ConEmu.WinForms;
 using ConEmuIntegration.ConEmu;
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace ConEmuIntegration.ToolWindow
 {
@@ -80,17 +76,7 @@ namespace ConEmuIntegration.ToolWindow
 
         public void FocusConEmu()
         {
-            foreach (System.Windows.Forms.Control cont in pnlConEmu.Controls)
-            {
-                if(cont is ConEmuControl)
-                {
-                    var conEmuCont = cont as ConEmuControl;
-                    conEmuCont.Focus();
-                }
-            }
-            //var pos = pnlConEmu.PointToScreen(System.Drawing.Point.Empty);
-            //pnlConEmuOuter.Select();
-            //pnlConEmu.PerformClick();
+
         }
 
         private void ConEmuProcess_Exited(object sender, EventArgs e)
