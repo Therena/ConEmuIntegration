@@ -41,3 +41,9 @@ on the official Visual Studio extension gallery.
 - [x] Use the controls from the nuget package provided by conemu
 - [x] Enhance the internal configuration
 - [x] Use an external configuration
+
+## 2.0.0.1
+
+**2016-05-18**
+
+- [x] Updated the conemu nuget package

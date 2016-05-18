@@ -16,6 +16,7 @@
 using ConEmu.WinForms;
 using ConEmuIntegration.ConEmuProduct;
 using System;
+using System.Threading;
 using System.Windows.Controls;
 using System.Xml;
 
@@ -35,15 +36,14 @@ namespace ConEmuIntegration.ToolWindow
         {
             try
             {
-                if(ProductEnvironment.Instance.ConEmu == null || m_HasExited)
+                if (ProductEnvironment.Instance.ConEmu == null || m_HasExited)
                 {
                     RunConEmuSession();
                 }
-
-                int cbMultiShowButtons = 2549;
-                ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 0)");
-                ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 1)");
-
+                else
+                {
+                    DisableMaxMinCloseButtons();
+                }
                 return true;
             }
             catch (Exception error)
@@ -55,20 +55,32 @@ namespace ConEmuIntegration.ToolWindow
             return false;
         }
 
+        private void DisableMaxMinCloseButtons()
+        {
+            if (ProductEnvironment.Instance.ConEmu.IsConsoleEmulatorOpen == false ||
+                ProductEnvironment.Instance.ConEmu.RunningSession == null)
+            {
+                return;
+            }
+
+            int cbMultiShowButtons = 2549;
+            ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 0)");
+            ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 1)");
+        }
+
         private void RunConEmuSession()
         {
             ProductEnvironment.Instance.ConEmu = new ConEmuControl();
             ProductEnvironment.Instance.ConEmu.Dock = System.Windows.Forms.DockStyle.Fill;
 
-            var info = new ConEmu.WinForms.ConEmuStartInfo();
+            var info = new ConEmuStartInfo();
             info.ConEmuExecutablePath = ProductEnvironment.Instance.GetConEmuExecutable();
 
             info.BaseConfiguration = new XmlDocument();
             info.BaseConfiguration.Load(ProductEnvironment.Instance.GetConfigurationFile());
 
             info.ConsoleProcessExitedEventSink = ConEmuProcess_Exited;
-
-            ProductEnvironment.Instance.ConEmu.AutoStartInfo = info;
+            ProductEnvironment.Instance.ConEmu.Start(info);
 
             wfhConEmu.Child = ProductEnvironment.Instance.ConEmu;
 
@@ -88,7 +100,7 @@ namespace ConEmuIntegration.ToolWindow
 
         private void ExecuteGuiMacro(string macro)
         {
-            if (ProductEnvironment.Instance.ConEmu.IsConsoleEmulatorOpen == false)
+            if (ProductEnvironment.Instance.ConEmu.RunningSession == null)
             {
                 return;
             }

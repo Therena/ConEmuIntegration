@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ConEmu.WinForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=00340228797aafb8, processorArchitecture=MSIL">
-      <HintPath>..\packages\ConEmu.Control.WinForms.1.0.20160407.0\lib\net40\ConEmu.WinForms.dll</HintPath>
+      <HintPath>..\packages\ConEmu.Control.WinForms.1.0.20160518.0\lib\net40\ConEmu.WinForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
