@@ -21,53 +21,60 @@
         xmlns:local="clr-namespace:ConEmuIntegration"
         WindowStyle="ToolWindow"
         mc:Ignorable="d"
-        Background="#2C3D5B"
+        Foreground="{DynamicResource VsBrush.WindowText}"
+        Background="{DynamicResource VsBrush.Window}"
         WindowStartupLocation="CenterOwner"
         Title="ConEmu Integration - Exception Occured" 
         Height="500" Width="500">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="75" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
-        </Grid.ColumnDefinitions>
+    <Border BorderThickness="2" Grid.Column="0"
+            BorderBrush="{DynamicResource VsBrush.WindowText}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
 
-        <Image Grid.Column="0" 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" 
                Grid.Row="0"
                Margin="5,5,5,5"
                Source="pack://application:,,,/ConEmuIntegration;component/Resources/alert.png" />
 
-        <TextBlock Grid.Column="1" 
+            <TextBlock Grid.Column="1" 
                    Grid.Row="0"
                    Grid.ColumnSpan="2"
-                   Foreground="White"
                    FontWeight="Bold"
                    TextWrapping="Wrap"
                    VerticalAlignment="Center"
+                   Foreground="{DynamicResource VsBrush.WindowText}"
                    Text="{Binding Message}">
 
-        </TextBlock>
+            </TextBlock>
 
-        <RichTextBox Grid.Column="0" 
-                     Grid.Row="1"
-                     Grid.ColumnSpan="3"
-                     IsReadOnly="True"
-                     Margin="5,5,5,5"
-                     x:Name="rtbStackTrace">
+            <Border BorderThickness="0,2,0,2" Grid.Column="0"
+                    Grid.Row="1" Grid.ColumnSpan="3" Margin="0,5,0,5"
+                    BorderBrush="{DynamicResource VsBrush.WindowText}">
+                <RichTextBox IsReadOnly="True"
+                         Foreground="{DynamicResource VsBrush.WindowText}"
+                         Background="{DynamicResource VsBrush.Window}"
+                         x:Name="rtbStackTrace">
 
-        </RichTextBox>
+                </RichTextBox>
+            </Border>
 
-        <Button Grid.Column="2" 
+            <Button Grid.Column="2" 
                 Grid.Row="2"
                      Margin="15,10,15,10"
                 Click="CloseButton_Click">
-            Close
-        </Button>
-    </Grid>
+                Close
+            </Button>
+        </Grid>
+    </Border>
 </Window>

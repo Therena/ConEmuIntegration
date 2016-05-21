@@ -47,3 +47,10 @@ on the official Visual Studio extension gallery.
 **2016-05-18**
 
 - [x] Updated the conemu nuget package
+
+## 2.0.0.2
+
+**2016-05-22**
+
+- [x] Icon for the tool window
+- [x] Exception dialog in the Visual Studio color scheme
