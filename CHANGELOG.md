@@ -54,3 +54,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Icon for the tool window
 - [x] Exception dialog in the Visual Studio color scheme
+
+## 2.0.0.3
+
+**2016-05-23**
+
+- [x] Remove Microsoft.VisualStudio.MPF.14.0 for Visual Studio 2013 compatibility
