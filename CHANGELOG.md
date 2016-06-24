@@ -65,4 +65,8 @@ on the official Visual Studio extension gallery.
 
 **2016-06-03**
 
-- [x] Skipped Visual Studio 2013 support because of incompatibilities of dependencies
+- [x] Skipped Visual Studio 2013 support because of incompatibilities of dependencies## 2.0.0.4
+
+**2016-06-24**
+
+- [x] Minor changes and refectoring

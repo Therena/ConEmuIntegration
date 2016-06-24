@@ -21,31 +21,12 @@ using ConEmuIntegration.ConEmuProduct;
 
 namespace ConEmuIntegration.ToolWindow
 {
-    /// <summary>
-    /// Command handler
-    /// </summary>
     internal sealed class ConEmuWindowCommand
     {
-        /// <summary>
-        /// Command ID.
-        /// </summary>
         public const int CommandId = 0x0100;
-
-        /// <summary>
-        /// Command menu group (command set GUID).
-        /// </summary>
+        private readonly Package package;
         public static readonly Guid CommandSet = new Guid("5df544d6-c00a-4471-936b-d5441108ccfd");
 
-        /// <summary>
-        /// VS Package that provides this command, not null.
-        /// </summary>
-        private readonly Package package;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConEmuWindowCommand"/> class.
-        /// Adds our command handlers for menu (commands must exist in the command table file)
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
         private ConEmuWindowCommand(Package package)
         {
             if (package == null)
@@ -64,18 +45,12 @@ namespace ConEmuIntegration.ToolWindow
             }
         }
 
-        /// <summary>
-        /// Gets the instance of the command.
-        /// </summary>
         public static ConEmuWindowCommand Instance
         {
             get;
             private set;
         }
 
-        /// <summary>
-        /// Gets the service provider from the owner package.
-        /// </summary>
         private IServiceProvider ServiceProvider
         {
             get
@@ -84,20 +59,11 @@ namespace ConEmuIntegration.ToolWindow
             }
         }
 
-        /// <summary>
-        /// Initializes the singleton instance of the command.
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
         public static void Initialize(Package package)
         {
             Instance = new ConEmuWindowCommand(package);
         }
 
-        /// <summary>
-        /// Shows the tool window when the menu item is clicked.
-        /// </summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event args.</param>
         private void ShowToolWindow(object sender, EventArgs e)
         {
             try

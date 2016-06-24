@@ -134,19 +134,6 @@ namespace ConEmuIntegration.ConEmuProduct
             return ShellTypes.CMD;
         }
 
-        public string ShellTypeToString(ShellTypes shell)
-        {
-            switch (shell)
-            {
-                case ShellTypes.CMD:
-                    return "{cmd}";
-                case ShellTypes.PowerShell:
-                    return "{powershell}";
-                default:
-                    return "{cmd}";
-            }
-        }
-
         public string GetWindowCaption()
         {
             return "ConEmu Console";
