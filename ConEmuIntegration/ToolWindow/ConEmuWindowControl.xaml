@@ -22,6 +22,7 @@
              Background="{DynamicResource VsBrush.Window}"
              Foreground="{DynamicResource VsBrush.WindowText}"
              mc:Ignorable="d"
+             MinHeight="1" MinWidth="1"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="ConEmuIntegration">
     <WindowsFormsHost x:Name="wfhConEmu" />

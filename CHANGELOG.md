@@ -72,3 +72,9 @@ on the official Visual Studio extension gallery.
 **2016-06-24**
 
 - [x] Minor changes and refectoring
+
+## 2.0.0.6
+
+**2016-06-28**
+
+- [x] Bug fix: ConEmu panel can have a zero size which results in an assert within conemu
