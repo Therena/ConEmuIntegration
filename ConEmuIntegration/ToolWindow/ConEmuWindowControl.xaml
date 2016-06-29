@@ -25,5 +25,6 @@
              MinHeight="1" MinWidth="1"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="ConEmuIntegration">
-    <WindowsFormsHost x:Name="wfhConEmu" />
+    <WindowsFormsHost x:Name="wfhConEmu"
+                      MinHeight="1" MinWidth="1" />
 </UserControl>

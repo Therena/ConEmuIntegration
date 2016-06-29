@@ -70,6 +70,7 @@ namespace ConEmuIntegration.ToolWindow
         private void RunConEmuSession()
         {
             ProductEnvironment.Instance.ConEmu = new ConEmuControl();
+            ProductEnvironment.Instance.ConEmu.MinimumSize = new System.Drawing.Size(1, 1);
             ProductEnvironment.Instance.ConEmu.Dock = System.Windows.Forms.DockStyle.Fill;
 
             var info = new ConEmuStartInfo();
@@ -78,23 +79,28 @@ namespace ConEmuIntegration.ToolWindow
             info.BaseConfiguration = new XmlDocument();
             info.BaseConfiguration.Load(ProductEnvironment.Instance.GetConfigurationFile());
 
-            info.ConsoleProcessExitedEventSink = ConEmuProcess_Exited;
             ProductEnvironment.Instance.ConEmu.Start(info);
 
             wfhConEmu.Child = ProductEnvironment.Instance.ConEmu;
 
+            if(ProductEnvironment.Instance.ConEmu.RunningSession != null)
+            {
+                var session = ProductEnvironment.Instance.ConEmu.RunningSession;
+                session.ConsoleEmulatorClosed += RunningSession_ConsoleEmulatorClosed;
+            }
+
             m_HasExited = false;
+        }
+
+        private void RunningSession_ConsoleEmulatorClosed(object sender, EventArgs e)
+        {
+            this.ConEmuClosed?.Invoke(this, new EventArgs());
+            m_HasExited = true;
         }
 
         public void FocusConEmu()
         {
             ProductEnvironment.Instance.ConEmu.Focus();
-        }
-
-        private void ConEmuProcess_Exited(object sender, ConsoleProcessExitedEventArgs e)
-        {
-            this.ConEmuClosed?.Invoke(this, new EventArgs());
-            m_HasExited = true;
         }
 
         private void ExecuteGuiMacro(string macro)

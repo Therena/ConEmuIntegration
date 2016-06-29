@@ -78,3 +78,11 @@ on the official Visual Studio extension gallery.
 **2016-06-28**
 
 - [x] Bug fix: ConEmu panel can have a zero size which results in an assert within conemu
+
+## 2.0.0.7
+
+**2016-06-29**
+
+- [x] Bug fix: ConEmu panel can have a zero size which results in an assert within conemu
+- [x] Bug fix: ConEmu panel gets not closed if one of multiple consoles are closed
+- [x] Added a keyboard shortcut to open conemu

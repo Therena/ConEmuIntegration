@@ -67,6 +67,11 @@
         </Groups>
     </Commands>
 
+    <KeyBindings>
+        <KeyBinding guid="guidConEmuWindowPackageCmdSet" id="ConEmuWindowCommandId"
+                    editor="guidVSStd97" key1="w" mod1="Control" key2="w" mod2="Control"/>
+    </KeyBindings>
+
     <Symbols>
         <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
 
