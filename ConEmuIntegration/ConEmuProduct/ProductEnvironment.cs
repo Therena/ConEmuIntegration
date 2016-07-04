@@ -121,17 +121,26 @@ namespace ConEmuIntegration.ConEmuProduct
             return configFilePath;
         }
 
-        public ShellTypes GetShellType()
+        public string GetDefaultTask()
         {
             if (this.Package != null)
             {
                 var page = (OptionPageGridConEmu)this.Package.GetDialogPage(typeof(OptionPageGridConEmu));
                 if (page != null)
                 {
-                    return page.Shell;
+                    if (string.IsNullOrWhiteSpace(page.DefaultTask) == false)
+                    {
+                        return page.DefaultTask;
+                    }
                 }
             }
-            return ShellTypes.CMD;
+            return "{cmd}";
+        }
+
+        public bool UseNormalChangeDirectory()
+        {
+            string task = GetDefaultTask();
+            return task.Contains("cmd") == false;
         }
 
         public string GetWindowCaption()

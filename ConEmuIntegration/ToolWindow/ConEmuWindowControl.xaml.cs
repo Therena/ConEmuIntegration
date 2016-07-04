@@ -75,6 +75,7 @@ namespace ConEmuIntegration.ToolWindow
 
             var info = new ConEmuStartInfo();
             info.ConEmuExecutablePath = ProductEnvironment.Instance.GetConEmuExecutable();
+            info.ConsoleProcessCommandLine = ProductEnvironment.Instance.GetDefaultTask();
 
             info.BaseConfiguration = new XmlDocument();
             info.BaseConfiguration.Load(ProductEnvironment.Instance.GetConfigurationFile());

@@ -83,8 +83,8 @@ namespace ConEmuIntegration.SolutionExplorer
 
             var fullPath = new FileInfo(fullPathProperty.Value.ToString());
 
-            var shell = ProductEnvironment.Instance.GetShellType();
-            if(shell == Settings.OptionPageGridConEmu.ShellTypes.PowerShell)
+            var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
+            if (cd)
             {
                 ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
                     fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
@@ -112,8 +112,8 @@ namespace ConEmuIntegration.SolutionExplorer
                 var path = folders.GetProjectPath(selectedItem.Project);
                 var fullPath = new FileInfo(path);
 
-                var shell = ProductEnvironment.Instance.GetShellType();
-                if (shell == Settings.OptionPageGridConEmu.ShellTypes.PowerShell)
+                var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
+                if (cd)
                 {
                     ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
                         fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");

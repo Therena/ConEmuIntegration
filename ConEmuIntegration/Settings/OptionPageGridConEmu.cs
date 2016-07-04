@@ -20,16 +20,10 @@ namespace ConEmuIntegration.Settings
 {
     internal sealed class OptionPageGridConEmu : DialogPage
     {
-        public enum ShellTypes
-        {
-            CMD,
-            PowerShell
-        }
-
         [Category("ConEmu Integration")]
-        [DisplayName("Shell")]
-        [Description("Shell type which is used within conemu (Change may require restart of Visual Studio)")]
-        public ShellTypes Shell { get; set; }
+        [DisplayName("Default Task")]
+        [Description("Task which should be used as default (Change may require restart of Visual Studio)")]
+        public string DefaultTask { get; set; }
 
         [Category("ConEmu Integration")]
         [DisplayName("XML configuration")]

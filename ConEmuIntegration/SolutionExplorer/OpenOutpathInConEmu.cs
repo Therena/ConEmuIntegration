@@ -113,8 +113,8 @@ namespace ConEmuIntegration.SolutionExplorer
                         return;
                     }
 
-                    var shell = ProductEnvironment.Instance.GetShellType();
-                    if (shell == Settings.OptionPageGridConEmu.ShellTypes.PowerShell)
+                    var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
+                    if (cd)
                     {
                         ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
                             path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");

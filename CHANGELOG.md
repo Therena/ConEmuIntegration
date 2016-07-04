@@ -86,3 +86,10 @@ on the official Visual Studio extension gallery.
 - [x] Bug fix: ConEmu panel can have a zero size which results in an assert within conemu
 - [x] Bug fix: ConEmu panel gets not closed if one of multiple consoles are closed
 - [x] Added a keyboard shortcut to open conemu
+
+## 2.0.0.8
+
+**2016-07-05**
+
+- [x] Added the possibility to configure the default task
+- [x] Remove the misleading hardcoded shell type configuration 

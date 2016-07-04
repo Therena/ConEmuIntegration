@@ -72,11 +72,9 @@ E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe<br/>
 ### ConEmu settings
 Visual Studio settings page to make it possible to change settings of ConEmu.
 
-#### Change the type of the shell
-The commands sended from the solution explorer extension are dependend on the type of shell.
-E.g. in CMS it uses "cd /d" and in powershell only "cd".<br/>
-
-Because of this you have to configure the shell type that Visual Studio knows which set of commands it should use.<br/>
+#### Change the default conemu task
+Using this configuration it is possible to change the startup or default task which is used by the embedded conemu<br/>
+The default setting for this is {cmd}.<br/>
 <img src="Images/SettingsConEmuShell.png" width="400" /><br/>
 
 #### Optional: External Conemu configuration XML
