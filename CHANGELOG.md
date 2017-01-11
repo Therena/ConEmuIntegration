@@ -93,3 +93,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Added the possibility to configure the default task
 - [x] Remove the misleading hardcoded shell type configuration 
+
+## 2.0.0.9
+
+**2017-01-11**
+
+- [x] Upgraded extension to Visual Studio 2017 
