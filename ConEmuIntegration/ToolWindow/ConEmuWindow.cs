@@ -43,38 +43,5 @@ namespace ConEmuIntegration.ToolWindow
             var windowFrame = (IVsWindowFrame)this.Frame;
             windowFrame.Hide();
         }
-
-        public override void OnToolWindowCreated()
-        {
-            base.OnToolWindowCreated();
-
-            if (m_Control.RunConEmu() == false)
-            {
-                var windowFrame = (IVsWindowFrame)this.Frame;
-                windowFrame.Hide();
-            }
-            m_Control.FocusConEmu();
-
-            DTE dte = (DTE)GetService(typeof(DTE));
-            EnvDTE80.Events2 events = (EnvDTE80.Events2)dte.Events;
-
-            this.WindowEvents = (WindowEvents)events.get_WindowEvents(null);
-            this.WindowEvents.WindowActivated += new _dispWindowEvents_WindowActivatedEventHandler(WindowEvents_WindowActivated);
-        }
-
-        private void WindowEvents_WindowActivated(Window gotFocus, Window lostFocus)
-        {
-            if(gotFocus.Caption != this.Caption)
-            {
-                return;
-            }
-
-            if (m_Control.RunConEmu() == false)
-            {
-                var windowFrame = (IVsWindowFrame)this.Frame;
-                windowFrame.Hide();
-            }
-            m_Control.FocusConEmu();
-        }
     }
 }
