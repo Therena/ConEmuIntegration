@@ -19,7 +19,6 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using ConEmuIntegration.ConEmuProduct;
 using EnvDTE;
-using Microsoft.VisualStudio.Imaging;
 
 namespace ConEmuIntegration.ToolWindow
 {
@@ -33,7 +32,6 @@ namespace ConEmuIntegration.ToolWindow
         public ConEmuWindow() : base(null)
         {
             this.Caption = ProductEnvironment.Instance.GetWindowCaption();
-            this.BitmapImageMoniker = KnownMonikers.Console;
 
             m_Control = new ConEmuWindowControl();
             m_Control.ConEmuClosed += ConEmuClosed;
