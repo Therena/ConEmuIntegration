@@ -16,6 +16,7 @@
 using ConEmu.WinForms;
 using ConEmuIntegration.ConEmuProduct;
 using System;
+using System.Threading;
 using System.Windows.Controls;
 using System.Xml;
 
@@ -29,6 +30,17 @@ namespace ConEmuIntegration.ToolWindow
         public ConEmuWindowControl()
         {
             this.InitializeComponent();
+
+            wfhConEmu.Loaded += WfhConEmu_Loaded;
+        }
+
+        private void WfhConEmu_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(RunConEmu() == false)
+            {
+                this.ConEmuClosed?.Invoke(this, new EventArgs());
+                m_HasExited = true;
+            }
         }
 
         public bool RunConEmu()

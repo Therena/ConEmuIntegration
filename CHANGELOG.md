@@ -105,3 +105,9 @@ on the official Visual Studio extension gallery.
 **2017-03-18**
 
 - [x] Update conemu libraries
+
+## 2.0.0.11
+
+**2017-03-18**
+
+- [x] Fixed some errors while loading conemu in VS217 tool window
