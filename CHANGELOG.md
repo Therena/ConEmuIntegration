@@ -99,3 +99,9 @@ on the official Visual Studio extension gallery.
 **2017-01-11**
 
 - [x] Upgraded extension to Visual Studio 2017 
+
+## 2.0.0.10
+
+**2017-03-18**
+
+- [x] Update conemu libraries
