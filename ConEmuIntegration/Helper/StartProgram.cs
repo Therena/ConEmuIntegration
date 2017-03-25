@@ -21,7 +21,7 @@ namespace ConEmuIntegration.Helper
 {
     internal class StartProgram
     {
-        public FileInfo GetExecutableForStartActionProgram(Properties prop)
+        private FileInfo GetExecutableForStartActionProgram(Properties prop)
         {
             if (PropertyHelper.HasProperty(prop, "StartProgram") == false)
             {
@@ -32,17 +32,37 @@ namespace ConEmuIntegration.Helper
             return new FileInfo(path);
         }
 
-        public FileInfo GetExecutableWithAction(Properties prop)
+        private FileInfo GetExecutableWithAction(Properties prop)
         {
-            if (prop.Item("StartAction").Value == VSLangProj.prjStartAction.prjStartActionProgram)
+            var action = (VSLangProj.prjStartAction)prop.Item("StartAction").Value;
+            if (action == VSLangProj.prjStartAction.prjStartActionProgram)
             {
                 return GetExecutableForStartActionProgram(prop);
             }
-            else if (prop.Item("StartAction").Value == VSLangProj.prjStartAction.prjStartActionURL)
+            else if (action == VSLangProj.prjStartAction.prjStartActionURL)
             {
                 throw new Exception("Unable to open a URL in the conemu console");
             }
             return null;
+        }
+
+        public string GetParameter(Project project)
+        {
+            var prop = PropertyHelper.GetActiveConfigurationProperties(project);
+            if (PropertyHelper.HasProperty(prop, "StartArguments"))
+            {
+                return prop.Item("StartArguments").Value.ToString();
+            }
+
+            if (PropertyHelper.HasProperty(prop, "DebugSettings"))
+            {
+                var debugProps = prop.Item("DebugSettings").Value as Properties;
+                if (PropertyHelper.HasProperty(debugProps, "CommandArguments"))
+                {
+                    return debugProps.Item("CommandArguments").Value.ToString();
+                }
+            }
+            return string.Empty;
         }
 
         public FileInfo GetExecutable(Project project)

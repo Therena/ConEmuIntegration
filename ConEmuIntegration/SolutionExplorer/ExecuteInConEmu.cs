@@ -29,9 +29,9 @@ namespace ConEmuIntegration.SolutionExplorer
     internal sealed class ExecuteInConEmu
     {
         public const int CommandId = 256;
-        
+
         public static readonly Guid CommandSet = new Guid("074e29bb-eb5c-4400-9ef0-f8abfbbe337b");
-        
+
         private readonly Package package;
 
         private OpenInConEmu m_OpenInConEmu;
@@ -80,7 +80,7 @@ namespace ConEmuIntegration.SolutionExplorer
             get;
             private set;
         }
-        
+
         private IServiceProvider ServiceProvider
         {
             get
@@ -88,12 +88,12 @@ namespace ConEmuIntegration.SolutionExplorer
                 return this.package;
             }
         }
-        
+
         public static void Initialize(Package package)
         {
             Instance = new ExecuteInConEmu(package);
         }
-        
+
         private void MenuItemCallback(object sender, EventArgs e)
         {
             if (ProductEnvironment.Instance.Package == null)
@@ -132,15 +132,23 @@ namespace ConEmuIntegration.SolutionExplorer
             {
                 return;
             }
+            
+            string command = "\"\"" + exe.FullName.Replace("\"", "\"\"") + "\"\"";
+
+            var parameter = prog.GetParameter(project);
+            if (string.IsNullOrWhiteSpace(parameter) == false)
+            {
+                command += " " + parameter;
+            }
 
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {
-                ExecuteGuiMacro("Print(@\"Invoke-Item \"\"" + exe.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                ExecuteGuiMacro("Print(@\"Invoke-Item " + command + "\",\"\n\")");
             }
             else
             {
-                ExecuteGuiMacro("Print(@\"\"\"" + exe.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                ExecuteGuiMacro("Print(@\"" + command + "\",\"\n\")");
             }
             DisplayConEmu();
         }
