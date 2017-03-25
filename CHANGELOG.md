@@ -111,3 +111,11 @@ on the official Visual Studio extension gallery.
 **2017-03-18**
 
 - [x] Fixed some errors while loading conemu in VS217 tool window
+
+## 2.0.0.12
+
+**2017-03-25**
+
+- [x] Fixed the open output path in conemu for C++ projects
+- [x] Read the command line parameter from the projects
+- [x] Added the configured command line parameter to the execute in conemu command
