@@ -20,29 +20,9 @@ namespace ConEmuIntegration.Helper
 {
     internal sealed class Folders
     {
-        public string GetProjectPath(Project proj)
-        {
-            // C# Project has the FullPath property
-            if (HasProperty(proj.Properties, "FullPath"))
-            {
-                var filePath = proj.Properties.Item("FullPath").Value.ToString();
-                var fullPath = new FileInfo(filePath);
-                return fullPath.Directory.FullName;
-            }
-
-            // C++ Project has the ProjectFile property
-            if (HasProperty(proj.Properties, "ProjectFile"))
-            {
-                var filePath = proj.Properties.Item("ProjectFile").Value.ToString();
-                var fullPath = new FileInfo(filePath);
-                return fullPath.Directory.FullName;
-            }
-            return string.Empty;
-        }
-
         public string GetProjectItemPath(ProjectItem item)
         {
-            if (HasProperty(item.Properties, "FullPath") == false)
+            if (PropertyHelper.HasProperty(item.Properties, "FullPath") == false)
             {
                 return string.Empty;
             }
@@ -59,37 +39,23 @@ namespace ConEmuIntegration.Helper
 
         public string GetOutputPath(Project proj)
         {
-            var prjPath = GetProjectPath(proj);
+            var prjPath = ProjectPath.GetProjectPath(proj);
             if (string.IsNullOrWhiteSpace(prjPath))
             {
                 return string.Empty;
             }
 
-            Properties prop = null;
             string probKey = string.Empty;
-            if (proj.ConfigurationManager.ActiveConfiguration.Properties == null)
+            var prop = PropertyHelper.GetActiveConfigurationProperties(proj);
+            if (PropertyHelper.HasProperty(prop, "PrimaryOutput"))
             {
-                if (HasProperty(proj.Properties, "ActiveConfiguration") == false)
-                {
-                    return string.Empty;
-                }
-
-                prop = proj.Properties.Item("ActiveConfiguration").Value as Properties;
-                if (HasProperty(prop, "PrimaryOutput"))
-                {
-                    probKey = "PrimaryOutput";
-                }
+                probKey = "PrimaryOutput";
+            }
+            else if (PropertyHelper.HasProperty(prop, "OutputPath"))
+            {
+                probKey = "OutputPath";
             }
             else
-            {
-                prop = proj.ConfigurationManager.ActiveConfiguration.Properties;
-                if (HasProperty(prop, "OutputPath"))
-                {
-                    probKey = "OutputPath";
-                }
-            }
-
-            if (HasProperty(prop, probKey) == false)
             {
                 return string.Empty;
             }
@@ -109,21 +75,6 @@ namespace ConEmuIntegration.Helper
             {
                 return new FileInfo(filePath).Directory.FullName;
             }
-        }
-
-        private bool HasProperty(Properties properties, string propertyName)
-        {
-            if (properties != null)
-            {
-                foreach (Property item in properties)
-                {
-                    if (item != null && item.Name == propertyName)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
         }
     }
 }

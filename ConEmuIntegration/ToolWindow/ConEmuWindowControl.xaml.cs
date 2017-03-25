@@ -16,7 +16,6 @@
 using ConEmu.WinForms;
 using ConEmuIntegration.ConEmuProduct;
 using System;
-using System.Threading;
 using System.Windows.Controls;
 using System.Xml;
 

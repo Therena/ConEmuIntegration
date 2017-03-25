@@ -77,6 +77,9 @@
       <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\Folders.cs" />
+    <Compile Include="Helper\ProjectPath.cs" />
+    <Compile Include="Helper\PropertyHelper.cs" />
+    <Compile Include="Helper\StartProgram.cs" />
     <Compile Include="Settings\OptionPageGrid.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -125,7 +128,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\EnvDTE.8.0.1\lib\net10\EnvDTE.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EnvDTE100, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -219,7 +224,9 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\stdole.7.0.3301\lib\net10\stdole.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -229,6 +236,11 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationProvider" />
+    <Reference Include="vslangproj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\VSLangProj.7.0.3300\lib\net10\vslangproj.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>

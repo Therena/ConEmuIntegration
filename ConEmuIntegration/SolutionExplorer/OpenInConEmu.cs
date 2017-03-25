@@ -105,11 +105,10 @@ namespace ConEmuIntegration.SolutionExplorer
             {
                 return false;
             }
-
-            var folders = new Folders();
+            
             if (selectedItem.Project != null)
             {
-                var path = folders.GetProjectPath(selectedItem.Project);
+                var path = ProjectPath.GetProjectPath(selectedItem.Project);
                 var fullPath = new FileInfo(path);
 
                 var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
