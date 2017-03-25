@@ -65,21 +65,50 @@ namespace ConEmuIntegration.Helper
                 return string.Empty;
             }
 
+            Properties prop = null;
+            string probKey = string.Empty;
             if (proj.ConfigurationManager.ActiveConfiguration.Properties == null)
             {
-                return string.Empty;
+                if (HasProperty(proj.Properties, "ActiveConfiguration") == false)
+                {
+                    return string.Empty;
+                }
+
+                prop = proj.Properties.Item("ActiveConfiguration").Value as Properties;
+                if (HasProperty(prop, "PrimaryOutput"))
+                {
+                    probKey = "PrimaryOutput";
+                }
+            }
+            else
+            {
+                prop = proj.ConfigurationManager.ActiveConfiguration.Properties;
+                if (HasProperty(prop, "OutputPath"))
+                {
+                    probKey = "OutputPath";
+                }
             }
 
-            var prop = proj.ConfigurationManager.ActiveConfiguration.Properties;
-            if (HasProperty(prop, "OutputPath") == false)
+            if (HasProperty(prop, probKey) == false)
             {
                 return string.Empty;
             }
 
-            var filePath = prop.Item("OutputPath").Value.ToString();
-            var outPath = Path.Combine(prjPath, filePath);
+            var filePath = prop.Item(probKey).Value.ToString();
+            if (Path.IsPathRooted(filePath) == false)
+            {
+                filePath = Path.Combine(prjPath, filePath);
+            }
 
-            return outPath;
+            var attr = File.GetAttributes(filePath);
+            if (attr.HasFlag(FileAttributes.Directory))
+            {
+                return filePath;
+            }
+            else
+            {
+                return new FileInfo(filePath).Directory.FullName;
+            }
         }
 
         private bool HasProperty(Properties properties, string propertyName)
