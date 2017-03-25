@@ -20,8 +20,9 @@ using Microsoft.VisualStudio.Shell.Interop;
 using ConEmuIntegration.ConEmuProduct;
 using EnvDTE80;
 using EnvDTE;
-using System.IO;
 using ConEmuIntegration.ToolWindow;
+using ConEmuIntegration.Helper;
+using System.IO;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
@@ -37,12 +38,7 @@ namespace ConEmuIntegration.SolutionExplorer
 
         private ExecuteInConEmu(Package package)
         {
-            if (package == null)
-            {
-                throw new ArgumentNullException("package");
-            }
-
-            this.package = package;
+            this.package = package ?? throw new ArgumentNullException("package");
             m_OpenInConEmu = new OpenInConEmu();
 
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
@@ -123,39 +119,28 @@ namespace ConEmuIntegration.SolutionExplorer
 
         private void RunExecutable(Project project)
         {
-            if (HasProperty(project.Properties, "FullPath") == false)
+            var prog = new StartProgram();
+            var exe = prog.GetExecutable(project);
+
+            if (exe == null)
             {
                 return;
             }
 
-            var prjFile = new FileInfo(project.Properties.Item("FullPath").Value.ToString());
-            var projectPath = prjFile.Directory.FullName;
-            
-            var activeConvProp = project.ConfigurationManager.ActiveConfiguration.Properties;
-            if (HasProperty(activeConvProp, "OutputPath") == false)
+            var attr = File.GetAttributes(exe.FullName);
+            if (attr.HasFlag(FileAttributes.Directory))
             {
                 return;
             }
-
-            var outputPath = activeConvProp.Item("OutputPath").Value.ToString();
-            
-            if (HasProperty(project.Properties, "OutputFileName") == false)
-            {
-                return;
-            }
-
-            var outputFileName = project.Properties.Item("OutputFileName").Value.ToString();
-
-            var file = Path.Combine(projectPath, outputPath, outputFileName);
 
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {
-                ExecuteGuiMacro("Print(@\"Invoke-Item \"\"" + file.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                ExecuteGuiMacro("Print(@\"Invoke-Item \"\"" + exe.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
             }
             else
             {
-                ExecuteGuiMacro("Print(@\"\"\"" + file.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                ExecuteGuiMacro("Print(@\"\"\"" + exe.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
             }
             DisplayConEmu();
         }
@@ -184,21 +169,6 @@ namespace ConEmuIntegration.SolutionExplorer
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-        }
-
-        private bool HasProperty(Properties properties, string propertyName)
-        {
-            if (properties != null)
-            {
-                foreach (Property item in properties)
-                {
-                    if (item != null && item.Name == propertyName)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
         }
     }
 }
