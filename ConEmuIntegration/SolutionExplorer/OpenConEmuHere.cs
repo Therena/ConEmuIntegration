@@ -19,9 +19,6 @@ using Microsoft.VisualStudio.Shell;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
-    /// <summary>
-    /// Command handler
-    /// </summary>
     internal sealed class OpenConEmuHere
     {
         public const int CommandId = 256;

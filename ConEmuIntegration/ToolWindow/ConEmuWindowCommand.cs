@@ -61,28 +61,7 @@ namespace ConEmuIntegration.ToolWindow
 
         private void ShowToolWindow(object sender, EventArgs e)
         {
-            try
-            {
-                if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
-                {
-                    return;
-                }
-
-                ToolWindowPane window = this.package.FindToolWindow(typeof(ConEmuWindow), 0, true);
-                if ((null == window) || (null == window.Frame))
-                {
-                    throw new NotSupportedException("Cannot create tool window");
-                }
-                
-                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-                Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-            }
-            catch (Exception error)
-            {
-                ExceptionMessageBox box = new ExceptionMessageBox();
-                box.SetException(error);
-                box.ShowDialog();
-            }
+            ProductEnvironment.Instance.OpenConEmuToolWindow();
         }
     }
 }

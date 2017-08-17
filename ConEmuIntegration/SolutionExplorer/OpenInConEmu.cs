@@ -86,16 +86,14 @@ namespace ConEmuIntegration.SolutionExplorer
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {
-                ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
+                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
                     fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
             }
             else
             {
-                ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
+                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
                     fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
             }
-            ExecuteInConEmu.Instance.DisplayConEmu();
-
             return true;
         }
 
@@ -114,15 +112,14 @@ namespace ConEmuIntegration.SolutionExplorer
                 var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
                 if (cd)
                 {
-                    ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
+                    ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
                         fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
                 }
                 else
                 {
-                    ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
+                    ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
                         fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
                 }
-                ExecuteInConEmu.Instance.DisplayConEmu();
                 return true;
             }
             return false;

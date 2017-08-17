@@ -144,22 +144,12 @@ namespace ConEmuIntegration.SolutionExplorer
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {
-                ExecuteGuiMacro("Print(@\"Invoke-Item " + command + "\",\"\n\")");
+                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"Invoke-Item " + command + "\",\"\n\")");
             }
             else
             {
-                ExecuteGuiMacro("Print(@\"" + command + "\",\"\n\")");
+                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"" + command + "\",\"\n\")");
             }
-            DisplayConEmu();
-        }
-
-        public void ExecuteGuiMacro(string macro)
-        {
-            if (ProductEnvironment.Instance.ConEmu.IsConsoleEmulatorOpen == false)
-            {
-                return;
-            }
-            ProductEnvironment.Instance.ConEmu.RunningSession.ExecuteGuiMacroTextSync(macro);
         }
 
         public void DisplayConEmu()
@@ -169,14 +159,7 @@ namespace ConEmuIntegration.SolutionExplorer
                 return;
             }
 
-            ToolWindowPane window = this.package.FindToolWindow(typeof(ConEmuWindow), 0, true);
-            if ((null == window) || (null == window.Frame))
-            {
-                throw new NotSupportedException("Cannot create tool window");
-            }
-
-            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            ProductEnvironment.Instance.OpenConEmuToolWindow();
         }
     }
 }

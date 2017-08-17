@@ -111,16 +111,14 @@ namespace ConEmuIntegration.SolutionExplorer
                     var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
                     if (cd)
                     {
-                        ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
+                        ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
                             path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
                     }
                     else
                     {
-                        ExecuteInConEmu.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
+                        ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
                             path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
                     }
-
-                    ExecuteInConEmu.Instance.DisplayConEmu();
                 }
             }
         }
