@@ -15,11 +15,16 @@
 //
 using ConEmu.WinForms;
 using ConEmuIntegration.Settings;
+using ConEmuIntegration.ToolWindow;
+using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Xml;
 
 namespace ConEmuIntegration.ConEmuProduct
 {
@@ -27,8 +32,9 @@ namespace ConEmuIntegration.ConEmuProduct
     {
         private List<string> m_TempFiles;
         private List<string> m_SearchPaths;
+        private List<string> m_StoredGUIMacros;
 
-        public Package Package { get; set; }
+        public ConEmuWindowPackage Package { get; set; }
         public ConEmuControl ConEmu { get; set; }
 
         private static ProductEnvironment m_Instance = new ProductEnvironment();
@@ -43,6 +49,7 @@ namespace ConEmuIntegration.ConEmuProduct
         private ProductEnvironment()
         {
             m_TempFiles = new List<string>();
+            m_StoredGUIMacros = new List<string>();
 
             m_SearchPaths = new List<string>();
             m_SearchPaths.Add(Directory.GetCurrentDirectory());
@@ -55,6 +62,65 @@ namespace ConEmuIntegration.ConEmuProduct
             {
                 File.Delete(file);
             }
+        }
+
+        public void OpenConEmuToolWindow()
+        {
+            if(this.Package == null || this.Package.Zombied)
+            {
+                return;
+            }
+
+            try
+            {
+                if (CheckConEmuAndDisplay() == false)
+                {
+                    return;
+                }
+
+                ToolWindowPane window = this.Package.FindToolWindow(typeof(ConEmuWindow), 0, true);
+                if ((null == window) || (null == window.Frame))
+                {
+                    throw new NotSupportedException("Cannot create tool window");
+                }
+
+                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            }
+            catch (Exception error)
+            {
+                ExceptionMessageBox box = new ExceptionMessageBox();
+                box.SetException(error);
+                box.ShowDialog();
+            }
+        }
+
+        public void ConEmuToolWindowLoaded()
+        {
+            foreach (var macro in m_StoredGUIMacros)
+            {
+                ExecuteGuiMacro(macro);
+            }
+            m_StoredGUIMacros.Clear();
+        }
+
+        public void ExecuteGuiMacro(string macro)
+        {
+            if (ProductEnvironment.Instance.ConEmu == null)
+            {
+                OpenConEmuToolWindow();
+                m_StoredGUIMacros.Add(macro);
+                return;
+            }
+
+            if (ProductEnvironment.Instance.ConEmu.IsConsoleEmulatorOpen == false)
+            {
+                OpenConEmuToolWindow();
+                m_StoredGUIMacros.Add(macro);
+                return;
+            }
+
+            ProductEnvironment.Instance.ConEmu.RunningSession.ExecuteGuiMacroTextSync(macro);
         }
 
         public bool CheckConEmu()
@@ -73,7 +139,7 @@ namespace ConEmuIntegration.ConEmuProduct
             bool result = CheckConEmu();
             if (result == false)
             {
-                var caption = Instance.GetWindowCaption();
+                var caption = GetWindowCaption();
 
                 var conemu = GetConEmuExecutable();
                 ExceptionMessageBox box = new ExceptionMessageBox();

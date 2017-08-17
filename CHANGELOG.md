@@ -119,3 +119,10 @@ on the official Visual Studio extension gallery.
 - [x] Fixed the open output path in conemu for C++ projects
 - [x] Read the command line parameter from the projects
 - [x] Added the configured command line parameter to the execute in conemu command
+
+## 2.0.0.13
+
+**2017-08-17**
+
+- [x] Updated dependencies
+- [x] Fixed some issues while working with C++ projects

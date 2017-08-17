@@ -77,12 +77,16 @@ namespace ConEmuIntegration.Helper
                 }
             }
 
-            if(PropertyHelper.HasProperty(prop, "DebugSettings"))
+            if (PropertyHelper.HasProperty(prop, "DebugSettings"))
             {
                 var debugProps = prop.Item("DebugSettings").Value as Properties;
                 if (PropertyHelper.HasProperty(debugProps, "Command"))
                 {
-                    return new FileInfo(debugProps.Item("Command").Value.ToString());
+                    var file = new FileInfo(debugProps.Item("Command").Value.ToString());
+                    if(file.Exists)
+                    {
+                        return file;
+                    }
                 }
             }
 

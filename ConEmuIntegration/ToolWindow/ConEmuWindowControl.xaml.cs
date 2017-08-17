@@ -74,8 +74,8 @@ namespace ConEmuIntegration.ToolWindow
             }
 
             int cbMultiShowButtons = 2549;
-            ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 0)");
-            ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 1)");
+            ProductEnvironment.Instance.ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 0)");
+            ProductEnvironment.Instance.ExecuteGuiMacro("SetOption(\"Check\", " + cbMultiShowButtons + ", 1)");
         }
 
         private void RunConEmuSession()
@@ -101,6 +101,7 @@ namespace ConEmuIntegration.ToolWindow
                 session.ConsoleEmulatorClosed += RunningSession_ConsoleEmulatorClosed;
             }
 
+            ProductEnvironment.Instance.ConEmuToolWindowLoaded();
             m_HasExited = false;
         }
 
@@ -113,15 +114,6 @@ namespace ConEmuIntegration.ToolWindow
         public void FocusConEmu()
         {
             ProductEnvironment.Instance.ConEmu.Focus();
-        }
-
-        private void ExecuteGuiMacro(string macro)
-        {
-            if (ProductEnvironment.Instance.ConEmu.RunningSession == null)
-            {
-                return;
-            }
-            ProductEnvironment.Instance.ConEmu.RunningSession.ExecuteGuiMacroTextSync(macro);
         }
     }
 }
