@@ -16,6 +16,8 @@
 using ConEmu.WinForms;
 using ConEmuIntegration.ConEmuProduct;
 using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 
@@ -88,11 +90,20 @@ namespace ConEmuIntegration.ToolWindow
             info.ConEmuExecutablePath = ProductEnvironment.Instance.GetConEmuExecutable();
             info.ConsoleProcessCommandLine = ProductEnvironment.Instance.GetDefaultTask();
 
-            info.BaseConfiguration = new XmlDocument();
-            info.BaseConfiguration.Load(ProductEnvironment.Instance.GetConfigurationFile());
+            try
+            {
+                XmlDocument xml = new XmlDocument();
+                xml.Load(ProductEnvironment.Instance.GetConfigurationFile());
+                info.BaseConfiguration = xml;
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("ConEmu configuration file not found!" + Environment.NewLine +
+                    "ConEmu will be started with default settings.", "Information", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
 
             ProductEnvironment.Instance.ConEmu.Start(info);
-
             wfhConEmu.Child = ProductEnvironment.Instance.ConEmu;
 
             if(ProductEnvironment.Instance.ConEmu.RunningSession != null)

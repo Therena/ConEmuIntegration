@@ -126,3 +126,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Updated dependencies
 - [x] Fixed some issues while working with C++ projects
+
+## 2.0.0.13
+
+**2017-08-20**
+
+- [x] Fixed a issues while opening the outpath of a cleaned project

@@ -5,7 +5,7 @@
             <value name="StartType" type="hex" data="02"/>
             <value name="CmdLine" type="string" data=""/>
             <value name="StartTasksFile" type="string" data=""/>
-            <value name="StartTasksName" type="string" data="{Shells::cmd}"/>
+            <value name="StartTasksName" type="string" data="{Shells::PowerShell}"/>
             <value name="StartFarFolders" type="hex" data="00"/>
             <value name="StartFarEditors" type="hex" data="00"/>
             <value name="ColorTable00" type="dword" data="00000000"/>
