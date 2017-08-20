@@ -66,15 +66,11 @@ namespace ConEmuIntegration.Helper
                 filePath = Path.Combine(prjPath, filePath);
             }
 
-            var attr = File.GetAttributes(filePath);
-            if (attr.HasFlag(FileAttributes.Directory))
+            if(Directory.Exists(filePath))
             {
                 return filePath;
             }
-            else
-            {
-                return new FileInfo(filePath).Directory.FullName;
-            }
+            return new FileInfo(filePath).Directory.FullName;
         }
     }
 }

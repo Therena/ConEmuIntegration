@@ -199,7 +199,7 @@ namespace ConEmuIntegration.ConEmuProduct
                     }
                 }
             }
-            return "{cmd}";
+            return "{Shells::PowerShell}";
         }
 
         public bool UseNormalChangeDirectory()
