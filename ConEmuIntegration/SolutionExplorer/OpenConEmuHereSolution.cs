@@ -19,17 +19,17 @@ using Microsoft.VisualStudio.Shell;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
-    internal sealed class OpenConEmuHere
+    internal sealed class OpenConEmuHereSolution
     {
         public const int CommandId = 256;
-        
-        public static readonly Guid CommandSet = new Guid("c75f2974-4759-448c-bf2a-c400d83fe990");
-        
+
+        public static readonly Guid CommandSet = new Guid("4462A7A2-54DC-4D38-8F7E-B1725A2AA73B");
+
         private readonly Package package;
 
         private OpenInConEmu m_OpenInConEmu;
 
-        private OpenConEmuHere(Package package)
+        private OpenConEmuHereSolution(Package package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
             m_OpenInConEmu = new OpenInConEmu();
@@ -42,13 +42,13 @@ namespace ConEmuIntegration.SolutionExplorer
                 commandService.AddCommand(menuItem);
             }
         }
-        
-        public static OpenConEmuHere Instance
+
+        public static OpenConEmuHereSolution Instance
         {
             get;
             private set;
         }
-        
+
         private IServiceProvider ServiceProvider
         {
             get
@@ -56,16 +56,16 @@ namespace ConEmuIntegration.SolutionExplorer
                 return this.package;
             }
         }
-        
+
         public static void Initialize(Package package)
         {
-            Instance = new OpenConEmuHere(package);
+            Instance = new OpenConEmuHereSolution(package);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
             ExecuteInConEmu.Instance.DisplayConEmu();
-            m_OpenInConEmu.Open();
+            m_OpenInConEmu.OpenSolution();
         }
     }
 }

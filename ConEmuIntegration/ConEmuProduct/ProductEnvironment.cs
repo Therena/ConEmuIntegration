@@ -16,15 +16,12 @@
 using ConEmu.WinForms;
 using ConEmuIntegration.Settings;
 using ConEmuIntegration.ToolWindow;
-using EnvDTE;
-using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Xml;
 
 namespace ConEmuIntegration.ConEmuProduct
 {

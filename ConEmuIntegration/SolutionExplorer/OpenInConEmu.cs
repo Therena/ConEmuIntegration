@@ -19,12 +19,36 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
-using System.IO;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
     internal sealed class OpenInConEmu
     {
+        public void OpenSolution()
+        {
+            if (ProductEnvironment.Instance.Package == null)
+            {
+                return;
+            }
+
+            var provider = ProductEnvironment.Instance.Package as IServiceProvider;
+            var dte = provider.GetService(typeof(SDTE)) as DTE2;
+            if (dte.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+
+            var folders = new Folders();
+            var path = folders.GetSolutionPath(dte.Solution);
+
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return;
+            }
+
+            SendChangeFolder(path);
+        }
+
         public void Open()
         {
             if(ProductEnvironment.Instance.Package == null)
@@ -39,90 +63,41 @@ namespace ConEmuIntegration.SolutionExplorer
                 return;
             }
 
+            var folders = new Folders();
             foreach (SelectedItem selectedItem in dte.SelectedItems)
             {
+                var path = "";
                 if (selectedItem.Project != null)
                 {
-                    // C# Project has the FullPath property
-                    if (FolderOfProject(selectedItem, "FullPath"))
-                    {
-                        return;
-                    }
-
-                    // C++ Project has the ProjectFile property
-                    if (FolderOfProject(selectedItem, "ProjectFile"))
-                    {
-                        return;
-                    }
+                    path = folders.GetProjectPath(selectedItem.Project);
                 }
 
                 if (selectedItem.ProjectItem != null)
                 {
-                    if (FolderOfProjectItem(selectedItem))
-                    {
-                        return;
-                    }
+                    path = folders.GetProjectItemPath(selectedItem.ProjectItem);
+                }
+
+                if (string.IsNullOrWhiteSpace(path) == false)
+                {
+                    SendChangeFolder(path);
+                    return;
                 }
             }
         }
 
-        private bool FolderOfProjectItem(SelectedItem selectedItem)
+        private void SendChangeFolder(string folder)
         {
-            if (selectedItem.ProjectItem == null)
-            {
-                return false;
-            }
-
-            var projectItem = selectedItem.ProjectItem;
-            var fullPathProperty = projectItem.Properties.Item("FullPath");
-
-            if (fullPathProperty == null)
-            {
-                return false;
-            }
-
-            var fullPath = new FileInfo(fullPathProperty.Value.ToString());
-
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {
                 ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
-                    fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                    folder.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
             }
             else
             {
                 ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
-                    fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                    folder.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
             }
-            return true;
-        }
-
-        private bool FolderOfProject(SelectedItem selectedItem, string property)
-        {
-            if (selectedItem.Project == null)
-            {
-                return false;
-            }
-            
-            if (selectedItem.Project != null)
-            {
-                var path = ProjectPath.GetProjectPath(selectedItem.Project);
-                var fullPath = new FileInfo(path);
-
-                var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
-                if (cd)
-                {
-                    ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
-                        fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
-                }
-                else
-                {
-                    ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
-                        fullPath.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
-                }
-                return true;
-            }
-            return false;
         }
     }
 }

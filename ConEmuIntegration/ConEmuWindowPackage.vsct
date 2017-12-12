@@ -1,97 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <Extern href="stdidcmd.h" />
-    <Extern href="vsshlids.h" />
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
 
-    <Commands package="guidConEmuWindowPackage">
-        <Menus>
-            <Menu guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x202" type="Menu">
-                <Strings>
-                    <ButtonText>ConEmu</ButtonText>
-                    <CommandName>ConEmu</CommandName>
-                </Strings>
-            </Menu>
-        </Menus>
+  <Commands package="guidConEmuWindowPackage">
+    <Menus>
+      <Menu guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x202" type="Menu">
+        <Strings>
+          <ButtonText>ConEmu</ButtonText>
+          <CommandName>ConEmu</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
 
-        <Buttons>
-            <Button guid="guidConEmuWindowPackageCmdSet" id="ConEmuWindowCommandId" priority="0x0100" type="Button">
-                <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
-                <Icon guid="guidImages" id="bmpConsole" />
-                <Strings>
-                    <ButtonText>ConEmu Console</ButtonText>
-                </Strings>
-            </Button>
-            <Button guid="guidConEmuWindowPackageCmdSet1" id="cmdidOpenConEmuHere" priority="0x0101" type="Button">
-                <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
-                <Icon guid="guidImages" id="bmpConsole" />
-                <Strings>
-                    <ButtonText>Open folder in ConEmu</ButtonText>
-                </Strings>
-            </Button>
-            <Button guid="guidConEmuWindowPackageCmdSet2" id="cmdidExecuteInConEmu" priority="0x0100" type="Button">
-                <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
-                <Icon guid="guidImages" id="bmpConsole" />
-                <Strings>
-                    <ButtonText>Execute in ConEmu</ButtonText>
-                </Strings>
-            </Button>
-            <Button guid="guidConEmuWindowPackageCmdSet3" id="cmdidOpenOutpathInConEmu" priority="0x0102" type="Button">
-                <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
-                <Icon guid="guidImages" id="bmpConsole" />
-                <Strings>
-                    <ButtonText>Open outpath in ConEmu</ButtonText>
-                </Strings>
-            </Button>
-        </Buttons>
+    <Buttons>
+      <Button guid="guidConEmuWindowPackageCmdSet" id="ConEmuWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Icon guid="guidImages" id="bmpConsole" />
+        <Strings>
+          <ButtonText>ConEmu Console</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuWindowPackageCmdSet1" id="cmdidOpenConEmuHere" priority="0x0101" type="Button">
+        <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
+        <Icon guid="guidImages" id="bmpConsole" />
+        <Strings>
+          <ButtonText>Open folder in ConEmu</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuWindowPackageCmdSet4" id="OpenSolutionFolderId" priority="0x0100" type="Button">
+        <Parent guid="guidConEmuWindowPackageCmdSet4" id="OpenSolutionFolderMenuGroup" />
+        <Icon guid="guidImages" id="bmpConsole" />
+        <Strings>
+          <ButtonText>Open folder in ConEmu</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuWindowPackageCmdSet2" id="cmdidExecuteInConEmu" priority="0x0100" type="Button">
+        <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
+        <Icon guid="guidImages" id="bmpConsole" />
+        <Strings>
+          <ButtonText>Execute in ConEmu</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuWindowPackageCmdSet3" id="cmdidOpenOutpathInConEmu" priority="0x0102" type="Button">
+        <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
+        <Icon guid="guidImages" id="bmpConsole" />
+        <Strings>
+          <ButtonText>Open outpath in ConEmu</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
 
-        <Bitmaps>
-            <Bitmap guid="guidImages" href="Resources\ConEmuWindowPackage.ico" usedList="bmpConsole" />
-        </Bitmaps>
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\ConEmuWindowPackage.ico" usedList="bmpConsole" />
+    </Bitmaps>
 
-        <Groups>
-            <Group guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x0300">
-                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
-            </Group>
-            <Group guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x0300">
-                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
-            </Group>
-        </Groups>
-    </Commands>
+    <Groups>
+      <Group guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x0300">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+      </Group>
+      <Group guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x0300">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+      </Group>
+      <Group guid="guidConEmuWindowPackageCmdSet4" id="OpenSolutionFolderMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
+      </Group>
+    </Groups>
+  </Commands>
 
-    <KeyBindings>
-        <KeyBinding guid="guidConEmuWindowPackageCmdSet" id="ConEmuWindowCommandId"
-                    editor="guidVSStd97" key1="w" mod1="Control" key2="w" mod2="Control"/>
-    </KeyBindings>
+  <KeyBindings>
+    <KeyBinding guid="guidConEmuWindowPackageCmdSet" id="ConEmuWindowCommandId"
+                editor="guidVSStd97" key1="w" mod1="Control" key2="w" mod2="Control"/>
+  </KeyBindings>
 
-    <Symbols>
-        <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
+  <Symbols>
+    <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
 
-        <GuidSymbol name="guidSolutionExplorerCmdSet" value="{1DAB6CF5-60B7-480B-920A-B5AA8F1EA0CD}">
-            <IDSymbol value="1061" name="ConEmuGroupSubMenu"  />
-        </GuidSymbol>
+    <GuidSymbol name="guidSolutionExplorerCmdSet" value="{1DAB6CF5-60B7-480B-920A-B5AA8F1EA0CD}">
+      <IDSymbol value="1061" name="ConEmuGroupSubMenu"  />
+    </GuidSymbol>
 
-        <GuidSymbol name="guidConEmuWindowPackageCmdSet" value="{5df544d6-c00a-4471-936b-d5441108ccfd}">
-            <IDSymbol name="ConEmuWindowCommandId" value="0x0100" />
-        </GuidSymbol>
+    <GuidSymbol name="guidConEmuWindowPackageCmdSet" value="{5df544d6-c00a-4471-936b-d5441108ccfd}">
+      <IDSymbol name="ConEmuWindowCommandId" value="0x0100" />
+    </GuidSymbol>
 
-        <GuidSymbol name="guidImages" value="{51d24e77-218b-4bb4-8a7b-c77fb698b830}">
-            <IDSymbol name="bmpConsole" value="1" />
-        </GuidSymbol>
+    <GuidSymbol name="guidImages" value="{51d24e77-218b-4bb4-8a7b-c77fb698b830}">
+      <IDSymbol name="bmpConsole" value="1" />
+    </GuidSymbol>
 
-        <GuidSymbol value="{c75f2974-4759-448c-bf2a-c400d83fe990}" name="guidConEmuWindowPackageCmdSet1">
-            <IDSymbol value="1061" name="ConEmuGroupSub" />
-            <IDSymbol value="256" name="cmdidOpenConEmuHere" />
-        </GuidSymbol>
+    <GuidSymbol value="{c75f2974-4759-448c-bf2a-c400d83fe990}" name="guidConEmuWindowPackageCmdSet1">
+      <IDSymbol value="1061" name="ConEmuGroupSub" />
+      <IDSymbol value="256" name="cmdidOpenConEmuHere" />
+    </GuidSymbol>
 
-        <GuidSymbol value="{074e29bb-eb5c-4400-9ef0-f8abfbbe337b}" name="guidConEmuWindowPackageCmdSet2">
-            <IDSymbol value="1061" name="ConEmuGroupSub" />
-            <IDSymbol value="256" name="cmdidExecuteInConEmu" />
-        </GuidSymbol>
+    <GuidSymbol value="{074e29bb-eb5c-4400-9ef0-f8abfbbe337b}" name="guidConEmuWindowPackageCmdSet2">
+      <IDSymbol value="1061" name="ConEmuGroupSub" />
+      <IDSymbol value="256" name="cmdidExecuteInConEmu" />
+    </GuidSymbol>
 
-        <GuidSymbol value="{5f17d8c2-738d-4d1b-8f18-8458da05717d}" name="guidConEmuWindowPackageCmdSet3">
-            <IDSymbol value="1061" name="ConEmuGroupSub" />
-            <IDSymbol value="256" name="cmdidOpenOutpathInConEmu" />
-        </GuidSymbol>
-    </Symbols>
+    <GuidSymbol value="{5f17d8c2-738d-4d1b-8f18-8458da05717d}" name="guidConEmuWindowPackageCmdSet3">
+      <IDSymbol value="1061" name="ConEmuGroupSub" />
+      <IDSymbol value="256" name="cmdidOpenOutpathInConEmu" />
+    </GuidSymbol>
+
+    <GuidSymbol value="{4462A7A2-54DC-4D38-8F7E-B1725A2AA73B}" name="guidConEmuWindowPackageCmdSet4">
+      <IDSymbol name="OpenSolutionFolderMenuGroup" value="0x1020" />
+      <IDSymbol name="OpenSolutionFolderId" value="0x0100" />
+    </GuidSymbol>
+  </Symbols>
 </CommandTable>
