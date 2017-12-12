@@ -44,6 +44,7 @@ namespace ConEmuIntegration
             ConEmuWindowCommand.Initialize(this);
             base.Initialize();
             SolutionExplorer.OpenConEmuHere.Initialize(this);
+            SolutionExplorer.OpenConEmuHereSolution.Initialize(this);
             SolutionExplorer.ExecuteInConEmu.Initialize(this);
             SolutionExplorer.OpenOutpathInConEmu.Initialize(this);
         }

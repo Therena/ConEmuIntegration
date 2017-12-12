@@ -20,9 +20,39 @@ namespace ConEmuIntegration.Helper
 {
     internal sealed class Folders
     {
+        public string GetSolutionPath(Solution sln)
+        {
+            var slnFile = new FileInfo(sln.FullName);
+            if (slnFile.Directory.Exists)
+            {
+                return slnFile.Directory.FullName;
+            }
+            return string.Empty;
+        }
+
+        public string GetProjectPath(Project proj)
+        {
+            // C# Project has the FullPath property
+            if (HasProperty(proj.Properties, "FullPath"))
+            {
+                var filePath = proj.Properties.Item("FullPath").Value.ToString();
+                var fullPath = new FileInfo(filePath);
+                return fullPath.Directory.FullName;
+            }
+
+            // C++ Project has the ProjectFile property
+            if (HasProperty(proj.Properties, "ProjectFile"))
+            {
+                var filePath = proj.Properties.Item("ProjectFile").Value.ToString();
+                var fullPath = new FileInfo(filePath);
+                return fullPath.Directory.FullName;
+            }
+            return string.Empty;
+        }
+
         public string GetProjectItemPath(ProjectItem item)
         {
-            if (PropertyHelper.HasProperty(item.Properties, "FullPath") == false)
+            if (HasProperty(item.Properties, "FullPath") == false)
             {
                 return string.Empty;
             }
@@ -39,23 +69,37 @@ namespace ConEmuIntegration.Helper
 
         public string GetOutputPath(Project proj)
         {
-            var prjPath = ProjectPath.GetProjectPath(proj);
+            var prjPath = GetProjectPath(proj);
             if (string.IsNullOrWhiteSpace(prjPath))
             {
                 return string.Empty;
             }
 
+            Properties prop = null;
             string probKey = string.Empty;
-            var prop = PropertyHelper.GetActiveConfigurationProperties(proj);
-            if (PropertyHelper.HasProperty(prop, "PrimaryOutput"))
+            if (proj.ConfigurationManager.ActiveConfiguration.Properties == null)
             {
-                probKey = "PrimaryOutput";
-            }
-            else if (PropertyHelper.HasProperty(prop, "OutputPath"))
-            {
-                probKey = "OutputPath";
+                if (HasProperty(proj.Properties, "ActiveConfiguration") == false)
+                {
+                    return string.Empty;
+                }
+
+                prop = proj.Properties.Item("ActiveConfiguration").Value as Properties;
+                if (HasProperty(prop, "PrimaryOutput"))
+                {
+                    probKey = "PrimaryOutput";
+                }
             }
             else
+            {
+                prop = proj.ConfigurationManager.ActiveConfiguration.Properties;
+                if (HasProperty(prop, "OutputPath"))
+                {
+                    probKey = "OutputPath";
+                }
+            }
+
+            if (HasProperty(prop, probKey) == false)
             {
                 return string.Empty;
             }
@@ -66,11 +110,30 @@ namespace ConEmuIntegration.Helper
                 filePath = Path.Combine(prjPath, filePath);
             }
 
-            if(Directory.Exists(filePath))
+            var attr = File.GetAttributes(filePath);
+            if (attr.HasFlag(FileAttributes.Directory))
             {
                 return filePath;
             }
-            return new FileInfo(filePath).Directory.FullName;
+            else
+            {
+                return new FileInfo(filePath).Directory.FullName;
+            }
+        }
+
+        private bool HasProperty(Properties properties, string propertyName)
+        {
+            if (properties != null)
+            {
+                foreach (Property item in properties)
+                {
+                    if (item != null && item.Name == propertyName)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

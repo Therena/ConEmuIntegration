@@ -132,3 +132,10 @@ on the official Visual Studio extension gallery.
 **2017-08-20**
 
 - [x] Fixed a issues while opening the outpath of a cleaned project
+
+## 1.1.0.15
+
+**2017-12-12**
+
+- [x] Added open folder button to solution context menu
+- [x] Updated the dependencies
