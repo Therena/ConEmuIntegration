@@ -133,7 +133,7 @@ on the official Visual Studio extension gallery.
 
 - [x] Fixed a issues while opening the outpath of a cleaned project
 
-## 1.1.0.15
+## 2.0.0.15
 
 **2017-12-12**
 
