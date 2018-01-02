@@ -139,3 +139,10 @@ on the official Visual Studio extension gallery.
 
 - [x] Added open folder button to solution context menu
 - [x] Updated the dependencies
+
+## 2.0.0.16
+
+**2018-01-02**
+
+- [x] Updated the copyright
+- [x] Updated the dependencies
