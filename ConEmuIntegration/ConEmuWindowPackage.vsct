@@ -25,6 +25,8 @@
       <Button guid="guidConEmuWindowPackageCmdSet1" id="cmdidOpenConEmuHere" priority="0x0101" type="Button">
         <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
         <Icon guid="guidImages" id="bmpConsole" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open folder in ConEmu</ButtonText>
         </Strings>
@@ -32,6 +34,8 @@
       <Button guid="guidConEmuWindowPackageCmdSet4" id="OpenSolutionFolderId" priority="0x0100" type="Button">
         <Parent guid="guidConEmuWindowPackageCmdSet4" id="OpenSolutionFolderMenuGroup" />
         <Icon guid="guidImages" id="bmpConsole" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open folder in ConEmu</ButtonText>
         </Strings>
@@ -39,6 +43,8 @@
       <Button guid="guidConEmuWindowPackageCmdSet2" id="cmdidExecuteInConEmu" priority="0x0100" type="Button">
         <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
         <Icon guid="guidImages" id="bmpConsole" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Execute in ConEmu</ButtonText>
         </Strings>
@@ -46,6 +52,8 @@
       <Button guid="guidConEmuWindowPackageCmdSet3" id="cmdidOpenOutpathInConEmu" priority="0x0102" type="Button">
         <Parent guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" />
         <Icon guid="guidImages" id="bmpConsole" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open outpath in ConEmu</ButtonText>
         </Strings>
@@ -59,6 +67,12 @@
     <Groups>
       <Group guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x0300">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+      </Group>
+      <Group guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x0300">
+        <Parent guid="guidConEmuWindowPackageFolder" id="ConEmuWindowPackageFolder"/>
+      </Group>
+      <Group guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x0300">
+        <Parent guid="guidSolutionExplorerFolderCmdSet" id="SolutionExplorerFolder"/>
       </Group>
       <Group guid="guidSolutionExplorerCmdSet" id="ConEmuGroupSubMenu" priority="0x0300">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
@@ -78,9 +92,17 @@
     <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
 
     <GuidSymbol name="guidSolutionExplorerCmdSet" value="{1DAB6CF5-60B7-480B-920A-B5AA8F1EA0CD}">
-      <IDSymbol value="1061" name="ConEmuGroupSubMenu"  />
+      <IDSymbol value="1061" name="ConEmuGroupSubMenu" />
+    </GuidSymbol>
+      
+    <GuidSymbol name="guidSolutionExplorerFolderCmdSet" value="{CFB400F1-5C60-4F3C-856E-180D28DEF0B7}">
+      <IDSymbol value="2" name="SolutionExplorerFolder" />
     </GuidSymbol>
 
+    <GuidSymbol name="guidConEmuWindowPackageFolder" value="{CFB400F1-5C60-4F3C-856E-180D28DEF0B7}">
+      <IDSymbol name="ConEmuWindowPackageFolder" value="579" />
+    </GuidSymbol>
+      
     <GuidSymbol name="guidConEmuWindowPackageCmdSet" value="{5df544d6-c00a-4471-936b-d5441108ccfd}">
       <IDSymbol name="ConEmuWindowCommandId" value="0x0100" />
     </GuidSymbol>
