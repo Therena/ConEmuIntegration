@@ -146,3 +146,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Updated the copyright
 - [x] Updated the dependencies
+
+## 2.0.0.17
+
+**2018-04-24**
+
+- [x] Updated the dependencies
