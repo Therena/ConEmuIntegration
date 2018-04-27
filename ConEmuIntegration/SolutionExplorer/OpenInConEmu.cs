@@ -16,7 +16,6 @@
 using ConEmuIntegration.ConEmuProduct;
 using ConEmuIntegration.Helper;
 using EnvDTE;
-using EnvDTE80;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 
@@ -32,7 +31,7 @@ namespace ConEmuIntegration.SolutionExplorer
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
-            var dte = provider.GetService(typeof(SDTE)) as DTE2;
+            var dte = provider.GetService(typeof(DTE)) as DTE;
             if (dte.SelectedItems.Count <= 0)
             {
                 return;
@@ -51,13 +50,13 @@ namespace ConEmuIntegration.SolutionExplorer
 
         public void Open()
         {
-            if(ProductEnvironment.Instance.Package == null)
+            if (ProductEnvironment.Instance.Package == null)
             {
                 return;
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
-            var dte = provider.GetService(typeof(SDTE)) as DTE2;
+            var dte = provider.GetService(typeof(DTE)) as DTE;
             if (dte.SelectedItems.Count <= 0)
             {
                 return;
@@ -76,7 +75,7 @@ namespace ConEmuIntegration.SolutionExplorer
                 {
                     path = folders.GetProjectItemPath(selectedItem.ProjectItem);
                 }
-
+                
                 if (string.IsNullOrWhiteSpace(path) == false)
                 {
                     SendChangeFolder(path);
