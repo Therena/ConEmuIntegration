@@ -18,7 +18,6 @@ using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using ConEmuIntegration.ConEmuProduct;
-using EnvDTE80;
 using EnvDTE;
 using ConEmuIntegration.Helper;
 using System.IO;
@@ -55,7 +54,7 @@ namespace ConEmuIntegration.SolutionExplorer
             OleMenuCommand menuItem = (OleMenuCommand)sender;
             IVsMonitorSelection vsMonSel = (IVsMonitorSelection)this.ServiceProvider.GetService(typeof(SVsShellMonitorSelection));
 
-            var dte = this.ServiceProvider.GetService(typeof(SDTE)) as DTE2;
+            var dte = this.ServiceProvider.GetService(typeof(DTE)) as DTE;
             if (dte.SelectedItems.Count <= 0)
             {
                 menuItem.Visible = false;
@@ -101,7 +100,7 @@ namespace ConEmuIntegration.SolutionExplorer
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
-            var dte = provider.GetService(typeof(SDTE)) as DTE2;
+            var dte = provider.GetService(typeof(DTE)) as DTE;
             if (dte.SelectedItems.Count <= 0)
             {
                 return;
