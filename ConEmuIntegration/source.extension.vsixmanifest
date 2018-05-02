@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="da4195aa-018f-4bb3-9443-37f4f5e16d94" Version="2.0.0.17" Language="en-US" Publisher="David Roller" />
+        <Identity Id="da4195aa-018f-4bb3-9443-37f4f5e16d94" Version="2.0.0.18" Language="en-US" Publisher="David Roller" />
         <DisplayName>ConEmuIntegration</DisplayName>
         <Description xml:space="preserve">Integrate the console emulator ConEmu in Visual Studio</Description>
         <License>Resources\LICENSE</License>
@@ -20,7 +20,6 @@
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio-Kern-Editor" />
         <Prerequisite Id="Microsoft.VisualStudio.Component.DiagnosticTools" Version="[15.0.26004.1,16.0)" DisplayName="Profilerstellungstools" />
-        <Prerequisite Id="Microsoft.VisualStudio.Shell.12.0" Version="[12.0]" DisplayName="Visual Studio Shell" />
     </Prerequisites>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />

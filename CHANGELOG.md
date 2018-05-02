@@ -154,3 +154,10 @@ on the official Visual Studio extension gallery.
 - [x] Updated the dependencies
 - [x] Restructure the use of the context menu items
 - [x] Implement the context menu at the folder view of solution explorer
+
+## 2.0.0.18
+
+**2018-05-02**
+
+- [x] Fix some minor issue with the required dependencies
+
