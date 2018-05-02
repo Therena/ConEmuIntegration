@@ -47,6 +47,7 @@ namespace ConEmuIntegration
             SolutionExplorer.OpenConEmuHereSolution.Initialize(this);
             SolutionExplorer.ExecuteInConEmu.Initialize(this);
             SolutionExplorer.OpenOutpathInConEmu.Initialize(this);
+            SolutionExplorer.OpenInConEmuHereFolderView.Initialize(this);
         }
         #endregion
     }

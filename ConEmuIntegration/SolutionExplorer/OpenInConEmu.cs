@@ -16,6 +16,8 @@
 using ConEmuIntegration.ConEmuProduct;
 using ConEmuIntegration.Helper;
 using EnvDTE;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 
@@ -75,12 +77,41 @@ namespace ConEmuIntegration.SolutionExplorer
                 {
                     path = folders.GetProjectItemPath(selectedItem.ProjectItem);
                 }
-                
+
                 if (string.IsNullOrWhiteSpace(path) == false)
                 {
                     SendChangeFolder(path);
                     return;
                 }
+            }
+        }
+
+        public void OpenFolderView()
+        {
+            if (ProductEnvironment.Instance.Package == null)
+            {
+                return;
+            }
+
+            var provider = ProductEnvironment.Instance.Package as IServiceProvider;
+            IVsUIHierarchyWindow hierarchyWindow = VsShellUtilities.GetUIHierarchyWindow(provider,
+                VSConstants.StandardToolWindows.SolutionExplorer);
+
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            //((Microsoft.VisualStudio.Workspace.VSIntegration.UI.VsUINode)((Microsoft.Internal.VisualStudio.PlatformUI.VirtualizingTreeView.TreeNode)(new System.Collections.Generic.Mscorlib_CollectionDebugView<object>(((System.Windows.Controls.ListBox)((System.Windows.Controls.ContentPresenter)(new System.Linq.SystemCore_EnumerableDebugView(((System.Windows.Controls.Panel)((Microsoft.VisualStudio.Shell.WindowPane)hierarchyWindow).Content).Children).Items[0])).Content).SelectedItems).Items[0])).Item).ToolTipText
+            uint itemID = 0;
+            IntPtr hierarchyPtr = IntPtr.Zero;
+            IVsMultiItemSelect multiselect = null;
+            var result = hierarchyWindow.GetCurrentSelection(out hierarchyPtr, out itemID, out multiselect);
+            if (result != VSConstants.S_OK)
+            {
+                System.Runtime.InteropServices.Marshal.ThrowExceptionForHR(result);
+            }
+
+            if (hierarchyPtr == IntPtr.Zero)
+            {
+                return;
             }
         }
 

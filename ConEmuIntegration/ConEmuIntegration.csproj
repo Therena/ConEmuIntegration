@@ -89,6 +89,7 @@
     <Compile Include="SolutionExplorer\OpenConEmuHere.cs" />
     <Compile Include="SolutionExplorer\OpenConEmuHereSolution.cs" />
     <Compile Include="SolutionExplorer\OpenInConEmu.cs" />
+    <Compile Include="SolutionExplorer\OpenInConEmuHereFolderView.cs" />
     <Compile Include="SolutionExplorer\OpenOutpathInConEmu.cs" />
     <Compile Include="ToolWindow\ConEmuWindow.cs" />
     <Compile Include="ToolWindow\ConEmuWindowCommand.cs" />
