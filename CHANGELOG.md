@@ -149,6 +149,8 @@ on the official Visual Studio extension gallery.
 
 ## 2.0.0.17
 
-**2018-04-24**
+**2018-05-02**
 
 - [x] Updated the dependencies
+- [x] Restructure the use of the context menu items
+- [x] Implement the context menu at the folder view of solution explorer
