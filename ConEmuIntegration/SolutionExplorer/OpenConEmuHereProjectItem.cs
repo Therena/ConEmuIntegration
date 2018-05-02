@@ -19,7 +19,7 @@ using Microsoft.VisualStudio.Shell;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
-    internal sealed class OpenConEmuHere
+    internal sealed class OpenConEmuHereProjectItem
     {
         public const int CommandId = 256;
         
@@ -29,7 +29,7 @@ namespace ConEmuIntegration.SolutionExplorer
 
         private OpenInConEmu m_OpenInConEmu;
 
-        private OpenConEmuHere(Package package)
+        private OpenConEmuHereProjectItem(Package package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
             m_OpenInConEmu = new OpenInConEmu();
@@ -43,7 +43,7 @@ namespace ConEmuIntegration.SolutionExplorer
             }
         }
         
-        public static OpenConEmuHere Instance
+        public static OpenConEmuHereProjectItem Instance
         {
             get;
             private set;
@@ -59,7 +59,7 @@ namespace ConEmuIntegration.SolutionExplorer
         
         public static void Initialize(Package package)
         {
-            Instance = new OpenConEmuHere(package);
+            Instance = new OpenConEmuHereProjectItem(package);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)

@@ -43,11 +43,12 @@ namespace ConEmuIntegration
         {
             ConEmuWindowCommand.Initialize(this);
             base.Initialize();
-            SolutionExplorer.OpenConEmuHere.Initialize(this);
+            SolutionExplorer.OpenConEmuHereProjectItem.Initialize(this);
             SolutionExplorer.OpenConEmuHereSolution.Initialize(this);
             SolutionExplorer.ExecuteInConEmu.Initialize(this);
             SolutionExplorer.OpenOutpathInConEmu.Initialize(this);
             SolutionExplorer.OpenInConEmuHereFolderView.Initialize(this);
+            SolutionExplorer.OpenConEmuHereItemNode.Initialize(this);
         }
         #endregion
     }
