@@ -86,7 +86,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SolutionExplorer\ExecuteInConEmu.cs" />
-    <Compile Include="SolutionExplorer\OpenConEmuHere.cs" />
+    <Compile Include="SolutionExplorer\OpenConEmuHereItemNode.cs" />
+    <Compile Include="SolutionExplorer\OpenConEmuHereProjectItem.cs" />
     <Compile Include="SolutionExplorer\OpenConEmuHereSolution.cs" />
     <Compile Include="SolutionExplorer\OpenInConEmu.cs" />
     <Compile Include="SolutionExplorer\OpenInConEmuHereFolderView.cs" />

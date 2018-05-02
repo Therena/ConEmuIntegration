@@ -29,6 +29,13 @@
           <ButtonText>Open folder in ConEmu</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidConEmuWindowPackageCmdSetItemNode" id="cmdidOpenConEmuHere" priority="0x0101" type="Button">
+        <Parent guid="guidConEmuWindowPackageCmdSetItemNode" id="ConEmuGroupSubMenuItemNode" />
+        <Icon guid="guidImages" id="bmpConsole" />
+        <Strings>
+          <ButtonText>Open folder in ConEmu</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidConEmuWindowPackageCmdSetSolution" id="cmdidOpenConEmuHereSolution" priority="0x0101" type="Button">
         <Parent guid="guidConEmuWindowPackageCmdSetSolution" id="ConEmuGroupSubMenuSolution" />
         <Icon guid="guidImages" id="bmpConsole" />
@@ -73,7 +80,7 @@
       <Group guid="guidConEmuWindowPackageCmdSetSolution" id="ConEmuGroupSubMenuSolution" priority="0x0300">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
       </Group>
-      <Group guid="guidConEmuWindowPackageCmdSetItem" id="ConEmuGroupSubMenuItem" priority="0x0300">
+      <Group guid="guidConEmuWindowPackageCmdSetItemNode" id="ConEmuGroupSubMenuItemNode" priority="0x0300">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
       </Group>
     </Groups>
@@ -104,8 +111,12 @@
     </GuidSymbol>
 
     <GuidSymbol value="{c75f2974-4759-448c-bf2a-c400d83fe990}" name="guidConEmuWindowPackageCmdSetItem">
-      <IDSymbol value="1061" name="ConEmuGroupSubMenuItem" />
       <IDSymbol value="1061" name="ConEmuGroupSubMenuProject" />
+      <IDSymbol value="256" name="cmdidOpenConEmuHere" />
+    </GuidSymbol>
+    
+    <GuidSymbol value="{A2F5D7B7-4705-403C-AC31-C863AFCAA3BB}" name="guidConEmuWindowPackageCmdSetItemNode">
+      <IDSymbol value="1061" name="ConEmuGroupSubMenuItemNode" />
       <IDSymbol value="256" name="cmdidOpenConEmuHere" />
     </GuidSymbol>
 
