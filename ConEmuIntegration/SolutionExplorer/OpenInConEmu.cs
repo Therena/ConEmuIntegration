@@ -20,6 +20,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
+using System.IO;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
@@ -99,18 +100,59 @@ namespace ConEmuIntegration.SolutionExplorer
 
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            //((Microsoft.VisualStudio.Workspace.VSIntegration.UI.VsUINode)((Microsoft.Internal.VisualStudio.PlatformUI.VirtualizingTreeView.TreeNode)(new System.Collections.Generic.Mscorlib_CollectionDebugView<object>(((System.Windows.Controls.ListBox)((System.Windows.Controls.ContentPresenter)(new System.Linq.SystemCore_EnumerableDebugView(((System.Windows.Controls.Panel)((Microsoft.VisualStudio.Shell.WindowPane)hierarchyWindow).Content).Children).Items[0])).Content).SelectedItems).Items[0])).Item).ToolTipText
-            uint itemID = 0;
-            IntPtr hierarchyPtr = IntPtr.Zero;
-            IVsMultiItemSelect multiselect = null;
-            var result = hierarchyWindow.GetCurrentSelection(out hierarchyPtr, out itemID, out multiselect);
-            if (result != VSConstants.S_OK)
+            var pane = hierarchyWindow as WindowPane;
+            if(pane == null)
             {
-                System.Runtime.InteropServices.Marshal.ThrowExceptionForHR(result);
+                throw new Exception("Cannot find the hirarchy pane in solution explorer");
             }
 
-            if (hierarchyPtr == IntPtr.Zero)
+            var paneContent = pane.Content as System.Windows.Controls.Panel;
+            if (paneContent == null || paneContent.Children.Count == 0)
             {
+                throw new Exception("Cannot find the control panel in solution explorer");
+            }
+
+            var contentPresenter = paneContent.Children[0] as System.Windows.Controls.ContentPresenter;
+            if (contentPresenter == null)
+            {
+                throw new Exception("Cannot find the content presenter in solution explorer");
+            }
+
+            var listBox = contentPresenter.Content as System.Windows.Controls.ListBox;
+            if (listBox == null || listBox.SelectedItem == null)
+            {
+                throw new Exception("Cannot find the listbox in solution explorer");
+            }
+
+            var selectedItemNode = listBox.SelectedItem as Microsoft.Internal.VisualStudio.PlatformUI.IVirtualizingTreeNode;
+            if (selectedItemNode == null)
+            {
+                throw new Exception("Cannot find the selected tree node in solution explorer");
+            }
+
+            var selectedItem = selectedItemNode.Item as Microsoft.VisualStudio.Workspace.VSIntegration.UI.IUINode;
+            if (selectedItem == null)
+            {
+                throw new Exception("Cannot find the selected UI node in solution explorer");
+            }
+
+            var fileSystemItem = selectedItem.WorkspaceVisualNode as Microsoft.VisualStudio.Workspace.VSIntegration.UI.IFileSystemNode;
+            if (fileSystemItem == null)
+            {
+                throw new Exception("Cannot find the selected file system item in solution explorer");
+            }
+
+            string path = fileSystemItem.FullPath;
+            FileAttributes attr = File.GetAttributes(path);
+            if (attr.HasFlag(FileAttributes.Directory) == false)
+            {
+                var file = new FileInfo(path);
+                path = file.Directory.FullName;
+            }
+
+            if (string.IsNullOrWhiteSpace(path) == false)
+            {
+                SendChangeFolder(path);
                 return;
             }
         }
