@@ -53,12 +53,14 @@ This extension integrates ConEmu as tool window in Visual Studio.
 ### ConEmu Tool Window can be opens from "View" menu
 
 The ConEmu tool window can be open from the view menu of Visual Studio
+
 ![Open ConEmu integrated in Visual Studio](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ComEmuInViewMenu.png?raw=true)
 
 ### Integration of ConEmu in Solution Explorer
 
 The current opened folder in ConEmu can be changed directly from solution explorer.
 The output file of your project can be also executed in ConEmu.
+
 ![ConEmu integration in solution explorer](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuSolutionExplorer.png?raw=true)
 
 ### Integration in the folder view mode of solution explorer
@@ -72,8 +74,8 @@ After you have downloaded / installed ConEmu please set the paths in the setting
 Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
 
 Please set the path to the ConEmu executable file in the section of the configuration:
+
 ![ConEmu executable path in Visual Studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuExe.png?raw=true)
-E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe
 
 ### Optional: ConEmu settings
 
@@ -83,14 +85,15 @@ Visual Studio settings page to make it possible to change settings of ConEmu.
 
 Using this configuration it is possible to change the startup or default task which is used by the embedded ConEmu
 The default setting for this is {cmd}.
+
 ![Default ConEmu task in the visual studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuShell.png?raw=true)
 
 #### External ConEmu configuration XML
 
 The extension contains an internal configuration which isn't changeable.
 If you want to change this configuration or use an custom configuration please set the path to your configuration in the Visual Studio settings.
-![External ConEmu configuration XML](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuConfig.png?raw=true)
-E.g.: C:\Users\David Roller\AppData\Roaming\ConEmu.xml
+
+![External ConEmu configuration XML](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuShell.png?raw=true)
 
 Please keep in mind that the extension doesn't support all configuration settings of ConEmu.
 Don't using the internal configuration could cause incompatibilities.
