@@ -1,6 +1,6 @@
 # ConEmu Integration
 
-<img src="https://github.com/Therena/ConEmuIntegration/blob/master/Images/extension.png?raw=true" width=100>
+![ConEmu Integration Icon](https://github.com/Therena/ConEmuIntegration/blob/master/Images/extension.png?raw=true)
 
 Using the console emulator ConEmu within Visual Studio.
 Download this extension from the
