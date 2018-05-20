@@ -65,6 +65,10 @@ The output file of your project can be also executed in ConEmu.
 
 ### Integration in the folder view mode of solution explorer
 
+The current opened folder in ConEmu can be changed directly from solution explorer in folder view mode.
+
+![ConEmu integration in folder view mode](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuFolderView.png?raw=true)
+
 ## Settings
 
 ### Path settings
