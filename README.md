@@ -12,7 +12,7 @@ See the ConEmu section for further detail about the console emulator.
 
 If you want to use your own ConEmu Settings or change the default settings please use your own configuration file.
 To define custom Task please also use an external configuration file.
-See "Optional: External Conemu configuration XML" how to do this.
+See "Optional: External ConEmu configuration XML" how to do this.
 
 ## System Requirements
 
@@ -48,18 +48,18 @@ and [NuGet Package](https://www.nuget.org/packages/ConEmu.Control.WinForms/)
 
 This extension integrates ConEmu as tool window in Visual Studio.
 
-![Conemu integrated in Visual Studio](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuVisualStudio.png?raw=true)
+![ConEmu integrated in Visual Studio](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuVisualStudio.png?raw=true)
 
 ### ConEmu Tool Window can be opens from "View" menu
 
 The ConEmu tool window can be open from the view menu of Visual Studio
-![Open Conemu integrated in Visual Studio](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ComEmuInViewMenu.png?raw=true)
+![Open ConEmu integrated in Visual Studio](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ComEmuInViewMenu.png?raw=true)
 
 ### Integration of ConEmu in Solution Explorer
 
 The current opened folder in ConEmu can be changed directly from solution explorer.
 The output file of your project can be also executed in ConEmu.
-![Conemu integration in solution explorer](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuSolutionExplorer.png?raw=true)
+![ConEmu integration in solution explorer](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuSolutionExplorer.png?raw=true)
 
 ### Integration in the folder view mode of solution explorer
 
@@ -72,7 +72,7 @@ After you have downloaded / installed ConEmu please set the paths in the setting
 Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
 
 Please set the path to the ConEmu executable file in the section of the configuration:
-![Conemu executable path in Visual Studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuExe.png?raw=true)
+![ConEmu executable path in Visual Studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuExe.png?raw=true)
 E.g.: C:\Users\David Roller\Downloads\ConEmuPack.160504\ConEmu.exe
 
 ### Optional: ConEmu settings
@@ -83,13 +83,13 @@ Visual Studio settings page to make it possible to change settings of ConEmu.
 
 Using this configuration it is possible to change the startup or default task which is used by the embedded ConEmu
 The default setting for this is {cmd}.
-![Default conemu task in the visual studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuShell.png?raw=true)
+![Default ConEmu task in the visual studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuShell.png?raw=true)
 
-#### External Conemu configuration XML
+#### External ConEmu configuration XML
 
 The extension contains an internal configuration which isn't changeable.
 If you want to change this configuration or use an custom configuration please set the path to your configuration in the Visual Studio settings.
-![External conemu configuration XML](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuConfig.png?raw=true)
+![External ConEmu configuration XML](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuConfig.png?raw=true)
 E.g.: C:\Users\David Roller\AppData\Roaming\ConEmu.xml
 
 Please keep in mind that the extension doesn't support all configuration settings of ConEmu.
