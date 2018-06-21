@@ -14,15 +14,58 @@
 // limitations under the License.
 //
 using Microsoft.VisualStudio.Shell;
+using System;
 using System.ComponentModel;
+using System.IO;
 
 namespace ConEmuIntegration.Settings
 {
     internal sealed class OptionPageGrid : DialogPage
     {
+        private string m_ConEmuPath = "";
+
         [Category("ConEmu Integration")]
         [DisplayName("Executable")]
         [Description("Path to the ConEmu executable (ConEmu.exe) file")]
-        public string ConEmuPath { get; set; }
+        public string ConEmuPath
+        {
+            get
+            {
+                return m_ConEmuPath;
+            }
+            set
+            {
+                ValidateTheConemuPath(value);
+                m_ConEmuPath = value;
+            }
+        }
+
+        private void ValidateTheConemuPath(string value)
+        {
+            try
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    return;
+                }
+
+                var file = new FileInfo(value);
+                if (file.Exists == false)
+                {
+                    throw new Exception("The given ConEmu executable doesn't exists");
+                }
+
+                if (file.Name.ToUpper() != "CONEMU.EXE" && file.Name.ToUpper() != "CONEMU64.EXE")
+                {
+                    throw new Exception("The given path might not be the correct ConEmu executable. " +
+                        "Please use \"ConEmu.exe\" or \"ConEmu64.exe\" for this configuration");
+                }
+            }
+            catch(Exception error)
+            {
+                string message = "ConEmu Integration: Executable configuration not valid: " + error.Message;
+                throw new Exception(message, error);
+            }
+        }
     }
 }
