@@ -29,9 +29,9 @@ namespace ConEmuIntegration.SolutionExplorer
 
         public static readonly Guid CommandSet = new Guid("5f17d8c2-738d-4d1b-8f18-8458da05717d");
 
-        private readonly Package package;
+        private readonly AsyncPackage package;
 
-        private OpenOutpathInConEmu(Package package)
+        private OpenOutpathInConEmu(AsyncPackage package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
 
@@ -47,6 +47,8 @@ namespace ConEmuIntegration.SolutionExplorer
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             OleMenuCommand menuItem = (OleMenuCommand)sender;
             IVsMonitorSelection vsMonSel = (IVsMonitorSelection)this.ServiceProvider.GetService(typeof(SVsShellMonitorSelection));
 
@@ -83,13 +85,14 @@ namespace ConEmuIntegration.SolutionExplorer
             }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(AsyncPackage package)
         {
             Instance = new OpenOutpathInConEmu(package);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var dte = this.ServiceProvider.GetService(typeof(DTE)) as DTE;
             if (dte.SelectedItems.Count <= 0)
             {

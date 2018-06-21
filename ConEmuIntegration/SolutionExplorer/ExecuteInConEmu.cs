@@ -30,11 +30,11 @@ namespace ConEmuIntegration.SolutionExplorer
 
         public static readonly Guid CommandSet = new Guid("074e29bb-eb5c-4400-9ef0-f8abfbbe337b");
 
-        private readonly Package package;
+        private readonly AsyncPackage package;
 
         private OpenInConEmu m_OpenInConEmu;
 
-        private ExecuteInConEmu(Package package)
+        private ExecuteInConEmu(AsyncPackage package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
             m_OpenInConEmu = new OpenInConEmu();
@@ -51,6 +51,8 @@ namespace ConEmuIntegration.SolutionExplorer
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             OleMenuCommand menuItem = (OleMenuCommand)sender;
             IVsMonitorSelection vsMonSel = (IVsMonitorSelection)this.ServiceProvider.GetService(typeof(SVsShellMonitorSelection));
 
@@ -87,13 +89,14 @@ namespace ConEmuIntegration.SolutionExplorer
             }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(AsyncPackage package)
         {
             Instance = new ExecuteInConEmu(package);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (ProductEnvironment.Instance.Package == null)
             {
                 return;
@@ -117,6 +120,7 @@ namespace ConEmuIntegration.SolutionExplorer
 
         private void RunExecutable(Project project)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var prog = new StartProgram();
             var exe = prog.GetExecutable(project);
 
@@ -152,6 +156,8 @@ namespace ConEmuIntegration.SolutionExplorer
 
         public void DisplayConEmu()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
             {
                 return;

@@ -53,13 +53,14 @@ namespace ConEmuIntegration.ToolWindow
             }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(AsyncPackage package)
         {
             Instance = new ConEmuWindowCommand(package);
         }
 
         private void ShowToolWindow(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             ProductEnvironment.Instance.OpenConEmuToolWindow();
         }
     }

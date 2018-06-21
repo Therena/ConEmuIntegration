@@ -15,6 +15,7 @@
 //
 using ConEmu.WinForms;
 using ConEmuIntegration.ConEmuProduct;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.IO;
 using System.Windows;
@@ -37,7 +38,8 @@ namespace ConEmuIntegration.ToolWindow
 
         private void WfhConEmu_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            if(RunConEmu() == false)
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (RunConEmu() == false)
             {
                 this.ConEmuClosed?.Invoke(this, new EventArgs());
                 m_HasExited = true;
@@ -46,6 +48,8 @@ namespace ConEmuIntegration.ToolWindow
 
         public bool RunConEmu()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 if (ProductEnvironment.Instance.ConEmu == null || m_HasExited)
@@ -69,6 +73,7 @@ namespace ConEmuIntegration.ToolWindow
 
         private void DisableMaxMinCloseButtons()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (ProductEnvironment.Instance.ConEmu.IsConsoleEmulatorOpen == false ||
                 ProductEnvironment.Instance.ConEmu.RunningSession == null)
             {
@@ -82,6 +87,8 @@ namespace ConEmuIntegration.ToolWindow
 
         private void RunConEmuSession()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             ProductEnvironment.Instance.ConEmu = new ConEmuControl();
             ProductEnvironment.Instance.ConEmu.MinimumSize = new System.Drawing.Size(1, 1);
             ProductEnvironment.Instance.ConEmu.Dock = System.Windows.Forms.DockStyle.Fill;
