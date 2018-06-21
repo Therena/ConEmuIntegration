@@ -161,3 +161,10 @@ on the official Visual Studio extension gallery.
 
 - [x] Fix some minor issue with the required dependencies
 
+## 2.0.0.19
+
+**2018-06-21**
+
+- [x] Updated the dependencies
+- [x] Added a validation for the ConEmu executable path
+
