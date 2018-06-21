@@ -19,17 +19,18 @@ using Microsoft.VisualStudio.Shell;
 using ConEmuIntegration.Settings;
 using ConEmuIntegration.ConEmuProduct;
 using ConEmuIntegration.ToolWindow;
+using System.Threading;
 
 namespace ConEmuIntegration
 {
-    [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(ConEmuWindow))]
     [Guid(ConEmuWindowPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(OptionPageGrid), "ConEmu Integration", "Paths", 0, 0, true)]
     [ProvideOptionPage(typeof(OptionPageGridConEmu), "ConEmu Integration", "Settings", 0, 0, true)]
-    public sealed class ConEmuWindowPackage : Package
+    public sealed class ConEmuWindowPackage : AsyncPackage
     {
         public const string PackageGuidString = "ff00f158-c7e9-46b0-a559-e1b3c8996343";
         
@@ -37,9 +38,9 @@ namespace ConEmuIntegration
         {
             ProductEnvironment.Instance.Package = this;
         }
-
-        #region Package Members
-        protected override void Initialize()
+        
+        protected override System.Threading.Tasks.Task InitializeAsync(
+            CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             ConEmuWindowCommand.Initialize(this);
             base.Initialize();
@@ -49,7 +50,8 @@ namespace ConEmuIntegration
             SolutionExplorer.OpenOutpathInConEmu.Initialize(this);
             SolutionExplorer.OpenInConEmuHereFolderView.Initialize(this);
             SolutionExplorer.OpenConEmuHereItemNode.Initialize(this);
+
+            return System.Threading.Tasks.Task.CompletedTask;
         }
-        #endregion
     }
 }

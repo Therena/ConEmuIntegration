@@ -81,6 +81,8 @@ namespace ConEmuIntegration.ConEmuProduct
                     throw new NotSupportedException("Cannot create tool window");
                 }
 
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
             }
@@ -94,6 +96,8 @@ namespace ConEmuIntegration.ConEmuProduct
 
         public void ConEmuToolWindowLoaded()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             foreach (var macro in m_StoredGUIMacros)
             {
                 ExecuteGuiMacro(macro);
@@ -103,6 +107,8 @@ namespace ConEmuIntegration.ConEmuProduct
 
         public void ExecuteGuiMacro(string macro)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (ProductEnvironment.Instance.ConEmu == null)
             {
                 OpenConEmuToolWindow();

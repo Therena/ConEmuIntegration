@@ -28,6 +28,8 @@ namespace ConEmuIntegration.SolutionExplorer
     {
         public void OpenSolution()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (ProductEnvironment.Instance.Package == null)
             {
                 return;
@@ -53,6 +55,7 @@ namespace ConEmuIntegration.SolutionExplorer
 
         public void Open()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (ProductEnvironment.Instance.Package == null)
             {
                 return;
@@ -159,6 +162,7 @@ namespace ConEmuIntegration.SolutionExplorer
 
         private void SendChangeFolder(string folder)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {

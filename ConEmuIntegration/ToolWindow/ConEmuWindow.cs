@@ -40,6 +40,8 @@ namespace ConEmuIntegration.ToolWindow
 
         private void ConEmuClosed(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var windowFrame = (IVsWindowFrame)this.Frame;
             windowFrame.Hide();
         }

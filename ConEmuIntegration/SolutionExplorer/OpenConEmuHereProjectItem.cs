@@ -25,11 +25,11 @@ namespace ConEmuIntegration.SolutionExplorer
         
         public static readonly Guid CommandSet = new Guid("c75f2974-4759-448c-bf2a-c400d83fe990");
         
-        private readonly Package package;
+        private readonly AsyncPackage package;
 
         private OpenInConEmu m_OpenInConEmu;
 
-        private OpenConEmuHereProjectItem(Package package)
+        private OpenConEmuHereProjectItem(AsyncPackage package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
             m_OpenInConEmu = new OpenInConEmu();
@@ -57,13 +57,15 @@ namespace ConEmuIntegration.SolutionExplorer
             }
         }
         
-        public static void Initialize(Package package)
+        public static void Initialize(AsyncPackage package)
         {
             Instance = new OpenConEmuHereProjectItem(package);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             ExecuteInConEmu.Instance.DisplayConEmu();
             m_OpenInConEmu.Open();
         }

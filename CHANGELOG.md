@@ -168,3 +168,9 @@ on the official Visual Studio extension gallery.
 - [x] Updated the dependencies
 - [x] Added a validation for the ConEmu executable path
 
+## 2.0.0.20
+
+**2018-06-21**
+
+- [x] Change to the async extension loading method
+
