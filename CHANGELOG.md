@@ -174,3 +174,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Change to the async extension loading method
 
+## 2.0.0.21
+
+**2018-08-30**
+
+- [x] Updated the dependencies
+
