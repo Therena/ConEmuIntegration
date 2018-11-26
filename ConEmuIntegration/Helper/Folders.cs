@@ -14,7 +14,9 @@
 // limitations under the License.
 //
 using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using System.IO;
+using System.Linq;
 
 namespace ConEmuIntegration.Helper
 {
@@ -22,6 +24,8 @@ namespace ConEmuIntegration.Helper
     {
         public string GetSolutionPath(Solution sln)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var slnFile = new FileInfo(sln.FullName);
             if (slnFile.Directory.Exists)
             {
@@ -32,6 +36,8 @@ namespace ConEmuIntegration.Helper
 
         public string GetProjectPath(Project proj)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // C# Project has the FullPath property
             if (HasProperty(proj.Properties, "FullPath"))
             {
@@ -52,6 +58,8 @@ namespace ConEmuIntegration.Helper
 
         public string GetProjectItemPath(ProjectItem item)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (HasProperty(item.Properties, "FullPath") == false)
             {
                 return string.Empty;
@@ -69,6 +77,8 @@ namespace ConEmuIntegration.Helper
 
         public string GetOutputPath(Project proj)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var prjPath = GetProjectPath(proj);
             if (string.IsNullOrWhiteSpace(prjPath))
             {
@@ -105,24 +115,51 @@ namespace ConEmuIntegration.Helper
             }
 
             var filePath = prop.Item(probKey).Value.ToString();
-            if (Path.IsPathRooted(filePath) == false)
+            try
             {
-                filePath = Path.Combine(prjPath, filePath);
-            }
+                if (Path.IsPathRooted(filePath) == false)
+                {
+                    filePath = Path.Combine(prjPath, filePath);
+                }
 
-            var attr = File.GetAttributes(filePath);
-            if (attr.HasFlag(FileAttributes.Directory))
+                if (IsDirectory(filePath))
+                {
+                    return filePath;
+                }
+                else
+                {
+                    return new FileInfo(filePath).Directory.FullName;
+                }
+            }
+            catch (IOException)
             {
                 return filePath;
             }
-            else
+        }
+
+        private bool IsDirectory(string path)
+        {
+            try
             {
-                return new FileInfo(filePath).Directory.FullName;
+                var attr = File.GetAttributes(path);
+                return attr.HasFlag(FileAttributes.Directory);
+            }
+            catch (IOException)
+            {
+                bool found = new[]
+                    {
+                        Path.DirectorySeparatorChar,
+                        Path.AltDirectorySeparatorChar
+                    }.Any(x => path.EndsWith(x.ToString()));
+
+                return found;
             }
         }
 
         private bool HasProperty(Properties properties, string propertyName)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (properties != null)
             {
                 foreach (Property item in properties)

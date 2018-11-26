@@ -180,3 +180,10 @@ on the official Visual Studio extension gallery.
 
 - [x] Updated the dependencies
 
+## 2.0.0.22
+
+**2018-11-26**
+
+- [x] Merging some functionality fixes from the open folder extension
+- [x] Updated the dependencies
+
