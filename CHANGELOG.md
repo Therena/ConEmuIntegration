@@ -187,3 +187,9 @@ on the official Visual Studio extension gallery.
 - [x] Merging some functionality fixes from the open folder extension
 - [x] Updated the dependencies
 
+## 2.0.0.23
+
+**2019-02-20**
+
+- [x] Re-target to DotNet 4.7.2
+- [x] Updated the dependencies
