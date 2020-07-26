@@ -77,9 +77,6 @@
       <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\Folders.cs" />
-    <Compile Include="Helper\ProjectPath.cs" />
-    <Compile Include="Helper\PropertyHelper.cs" />
-    <Compile Include="Helper\StartProgram.cs" />
     <Compile Include="Settings\OptionPageGridConEmuPaths.cs">
       <SubType>Component</SubType>
     </Compile>

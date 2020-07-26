@@ -52,9 +52,63 @@ namespace ConEmuIntegration.ConEmuProduct
             SendChangeFolder(path);
         }
 
+        public void Execute()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (ProductEnvironment.Instance.Package == null)
+            {
+                return;
+            }
+
+            var provider = ProductEnvironment.Instance.Package as IServiceProvider;
+            var dte = provider.GetService(typeof(DTE)) as DTE;
+            if (dte.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+
+            var folders = new Folders();
+            foreach (SelectedItem selectedItem in dte.SelectedItems)
+            {
+                if (selectedItem.Project == null)
+                {
+                    continue;
+                }
+
+                var exe = folders.GetExecutable(selectedItem.Project);
+
+                if (exe == null)
+                {
+                    return;
+                }
+
+                var attr = File.GetAttributes(exe.FullName);
+                if (attr.HasFlag(FileAttributes.Directory))
+                {
+                    return;
+                }
+
+                string command = "\"\"" + exe.FullName.Replace("\"", "\"\"") + "\"\"";
+
+                var parameter = folders.GetExecutableParameter(selectedItem.Project);
+                if (string.IsNullOrWhiteSpace(parameter) == false)
+                {
+                    command += " " + parameter;
+                }
+
+                if (string.IsNullOrWhiteSpace(command) == false)
+                {
+                    SendInvokeCommand(command);
+                    return;
+                }
+            }
+        }
+
         public void Open()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
             if (ProductEnvironment.Instance.Package == null)
             {
                 return;
@@ -172,6 +226,21 @@ namespace ConEmuIntegration.ConEmuProduct
             {
                 ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
                     folder.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+            }
+        }
+
+
+        private void SendInvokeCommand(string command)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
+            if (cd)
+            {
+                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"Invoke-Item " + command + "\",\"\n\")");
+            }
+            else
+            {
+                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"" + command + "\",\"\n\")");
             }
         }
     }
