@@ -15,6 +15,7 @@
 //
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -73,6 +74,81 @@ namespace ConEmuIntegration.Helper
 
             var fullPath = new FileInfo(fullPathProperty.Value.ToString());
             return fullPath.Directory.FullName;
+        }
+
+        public string GetExecutableParameter(Project project)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var prop = GetActiveConfigurationProperties(project);
+            if (HasProperty(prop, "StartArguments"))
+            {
+                return prop.Item("StartArguments").Value.ToString();
+            }
+
+            if (HasProperty(prop, "DebugSettings"))
+            {
+                var debugProps = prop.Item("DebugSettings").Value as Properties;
+                if (HasProperty(debugProps, "CommandArguments"))
+                {
+                    return debugProps.Item("CommandArguments").Value.ToString();
+                }
+            }
+            return string.Empty;
+        }
+
+        public FileInfo GetExecutable(Project project)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var prop = GetActiveConfigurationProperties(project);
+            if (HasProperty(prop, "StartAction"))
+            {
+                var filePath = GetExecutableWithAction(prop);
+                if (filePath != null)
+                {
+                    return filePath;
+                }
+            }
+
+            if (HasProperty(prop, "DebugSettings"))
+            {
+                var debugProps = prop.Item("DebugSettings").Value as Properties;
+                if (HasProperty(debugProps, "Command"))
+                {
+                    var file = new FileInfo(debugProps.Item("Command").Value.ToString());
+                    if (file.Exists)
+                    {
+                        return file;
+                    }
+                }
+            }
+
+            if (HasProperty(prop, "PrimaryOutput"))
+            {
+                return new FileInfo(prop.Item("PrimaryOutput").Value.ToString());
+            }
+
+            if (HasProperty(prop, "OutputPath") == false)
+            {
+                return null;
+            }
+
+            var outputPath = prop.Item("OutputPath").Value.ToString();
+
+            if (HasProperty(project.Properties, "OutputFileName") == false)
+            {
+                return null;
+            }
+
+            var outputFileName = project.Properties.Item("OutputFileName").Value.ToString();
+
+            var prjPath = GetProjectPath(project);
+            if (string.IsNullOrWhiteSpace(prjPath))
+            {
+                return null;
+            }
+            return new FileInfo(Path.Combine(prjPath, outputPath, outputFileName));
         }
 
         public string GetOutputPath(Project proj)
@@ -154,6 +230,49 @@ namespace ConEmuIntegration.Helper
 
                 return found;
             }
+        }
+
+        private FileInfo GetExecutableForStartActionProgram(Properties prop)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (HasProperty(prop, "StartProgram") == false)
+            {
+                return null;
+            }
+
+            string path = prop.Item("StartProgram").Value.ToString();
+            return new FileInfo(path);
+        }
+
+        private FileInfo GetExecutableWithAction(Properties prop)
+        {
+            var action = (VSLangProj.prjStartAction)prop.Item("StartAction").Value;
+            if (action == VSLangProj.prjStartAction.prjStartActionProgram)
+            {
+                return GetExecutableForStartActionProgram(prop);
+            }
+            else if (action == VSLangProj.prjStartAction.prjStartActionURL)
+            {
+                throw new Exception("Unable to open a URL in the conemu console");
+            }
+            return null;
+        }
+
+        private Properties GetActiveConfigurationProperties(Project proj)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (proj.ConfigurationManager.ActiveConfiguration.Properties == null)
+            {
+                if (HasProperty(proj.Properties, "ActiveConfiguration") == false)
+                {
+                    return null;
+                }
+
+                return proj.Properties.Item("ActiveConfiguration").Value as Properties;
+            }
+            return proj.ConfigurationManager.ActiveConfiguration.Properties;
         }
 
         private bool HasProperty(Properties properties, string propertyName)

@@ -96,61 +96,9 @@ namespace ConEmuIntegration.SolutionExplorer
         private void MenuItemCallback(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            if (ProductEnvironment.Instance.Package == null)
-            {
-                return;
-            }
 
-            var provider = ProductEnvironment.Instance.Package as IServiceProvider;
-            var dte = provider.GetService(typeof(DTE)) as DTE;
-            if (dte.SelectedItems.Count <= 0)
-            {
-                return;
-            }
-
-            foreach (SelectedItem selectedItem in dte.SelectedItems)
-            {
-                if (selectedItem.Project != null)
-                {
-                    RunExecutable(selectedItem.Project);
-                }
-            }
-        }
-
-        private void RunExecutable(Project project)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            var prog = new StartProgram();
-            var exe = prog.GetExecutable(project);
-
-            if (exe == null)
-            {
-                return;
-            }
-
-            var attr = File.GetAttributes(exe.FullName);
-            if (attr.HasFlag(FileAttributes.Directory))
-            {
-                return;
-            }
-            
-            string command = "\"\"" + exe.FullName.Replace("\"", "\"\"") + "\"\"";
-
-            var parameter = prog.GetParameter(project);
-            if (string.IsNullOrWhiteSpace(parameter) == false)
-            {
-                command += " " + parameter;
-            }
-
-            var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
-            if (cd)
-            {
-                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"Invoke-Item " + command + "\",\"\n\")");
-            }
-            else
-            {
-                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"" + command + "\",\"\n\")");
-            }
+            ProductEnvironment.Instance.OpenConEmuToolWindow();
+            m_OpenInConEmu.Execute();
         }
     }
 }
