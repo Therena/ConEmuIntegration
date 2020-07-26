@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,20 +16,22 @@
 using System;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
-using ConEmuIntegration.Settings;
 using ConEmuIntegration.ConEmuProduct;
-using ConEmuIntegration.ToolWindow;
 using System.Threading;
+using System.Diagnostics.CodeAnalysis;
+using ConEmuIntegration.ToolWindow;
+using ConEmuIntegration.Settings;
 
 namespace ConEmuIntegration
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
+    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(ConEmuWindow))]
     [Guid(ConEmuWindowPackage.PackageGuidString)]
-    [ProvideOptionPage(typeof(OptionPageGrid), "ConEmu Integration", "Paths", 0, 0, true)]
-    [ProvideOptionPage(typeof(OptionPageGridConEmu), "ConEmu Integration", "Settings", 0, 0, true)]
+    [ProvideOptionPage(typeof(OptionPageGridConEmuPaths), "ConEmu Integration", "Paths", 0, 0, true)]
+    [ProvideOptionPage(typeof(OptionPageGridConEmuSettings), "ConEmu Integration", "Settings", 0, 0, true)]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class ConEmuWindowPackage : AsyncPackage
     {
         public const string PackageGuidString = "ff00f158-c7e9-46b0-a559-e1b3c8996343";
@@ -43,13 +45,14 @@ namespace ConEmuIntegration
             CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             ConEmuWindowCommand.Initialize(this);
-            base.Initialize();
-            SolutionExplorer.OpenConEmuHereProjectItem.Initialize(this);
-            SolutionExplorer.OpenConEmuHereSolution.Initialize(this);
+
             SolutionExplorer.ExecuteInConEmu.Initialize(this);
-            SolutionExplorer.OpenOutpathInConEmu.Initialize(this);
-            SolutionExplorer.OpenInConEmuHereFolderView.Initialize(this);
-            SolutionExplorer.OpenConEmuHereItemNode.Initialize(this);
+            SolutionExplorer.OpenFolderButtonItemNode.Initialize(this);
+            SolutionExplorer.OpenFolderButtonProjectNode.Initialize(this);
+            SolutionExplorer.OpenFolderButtonSolutionNode.Initialize(this);
+            SolutionExplorer.OpenOutDirectoryButtonProjectNode.Initialize(this);
+
+            base.Initialize();
 
             return System.Threading.Tasks.Task.CompletedTask;
         }

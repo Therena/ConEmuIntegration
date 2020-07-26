@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ using EnvDTE;
 
 namespace ConEmuIntegration.ToolWindow
 {
-    [Guid("4893abc5-3f3b-4868-9fcf-dd4bb3bd7b37")]
+    [Guid("F4D34FFE-6D41-47F1-BD2C-7897995974AB")]
     public class ConEmuWindow : ToolWindowPane
     {
         private ConEmuWindowControl m_Control;

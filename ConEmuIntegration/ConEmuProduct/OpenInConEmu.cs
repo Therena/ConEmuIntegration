@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-using ConEmuIntegration.ConEmuProduct;
 using ConEmuIntegration.Helper;
 using EnvDTE;
 using Microsoft.VisualStudio;
@@ -22,7 +21,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.IO;
 
-namespace ConEmuIntegration.SolutionExplorer
+namespace ConEmuIntegration.ConEmuProduct
 {
     internal sealed class OpenInConEmu
     {

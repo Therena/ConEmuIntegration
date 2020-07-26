@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ using System.IO;
 
 namespace ConEmuIntegration.Settings
 {
-    internal sealed class OptionPageGrid : DialogPage
+    internal sealed class OptionPageGridConEmuPaths : DialogPage
     {
         private string m_ConEmuPath = "";
 

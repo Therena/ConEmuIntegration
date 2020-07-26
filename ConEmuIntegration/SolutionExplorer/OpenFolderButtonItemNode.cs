@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,21 +15,21 @@
 //
 using System;
 using System.ComponentModel.Design;
+using ConEmuIntegration.ConEmuProduct;
 using Microsoft.VisualStudio.Shell;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
-    internal sealed class OpenConEmuHereSolution
+    internal sealed class OpenFolderButtonItemNode
     {
-        public const int CommandId = 256;
-
-        public static readonly Guid CommandSet = new Guid("4462A7A2-54DC-4D38-8F7E-B1725A2AA73B");
+        public const int CommandId = 0x3001;
+        public static readonly Guid CommandSet = new Guid("A1662AFB-0383-428D-A77D-DF353609B716");
 
         private readonly AsyncPackage package;
 
         private OpenInConEmu m_OpenInConEmu;
 
-        private OpenConEmuHereSolution(AsyncPackage package)
+        private OpenFolderButtonItemNode(AsyncPackage package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
             m_OpenInConEmu = new OpenInConEmu();
@@ -43,7 +43,7 @@ namespace ConEmuIntegration.SolutionExplorer
             }
         }
 
-        public static OpenConEmuHereSolution Instance
+        public static OpenFolderButtonItemNode Instance
         {
             get;
             private set;
@@ -59,14 +59,15 @@ namespace ConEmuIntegration.SolutionExplorer
 
         public static void Initialize(AsyncPackage package)
         {
-            Instance = new OpenConEmuHereSolution(package);
+            Instance = new OpenFolderButtonItemNode(package);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            ExecuteInConEmu.Instance.DisplayConEmu();
-            m_OpenInConEmu.OpenSolution();
+
+            ProductEnvironment.Instance.OpenConEmuToolWindow();
+            m_OpenInConEmu.Open();
         }
     }
 }
