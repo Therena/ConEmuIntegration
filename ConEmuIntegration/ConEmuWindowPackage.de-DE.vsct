@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2020 David Roller
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+  <Include href="KnownImageIds.vsct"/>
+
+  <Commands package="guidConEmuWindowPackage">
+    <Groups>
+      <Group guid="guidConEmuCommandSet" id="ConEmuMenuGroupItemNode" priority="0x05FF">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+      </Group>
+      <Group guid="guidConEmuCommandSet" id="ConEmuMenuGroupSolutionNode" priority="0x07FF">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
+      </Group>
+      <Group guid="guidConEmuCommandSet" id="ConEmuMenuGroupProjectNode" priority="0x077F">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
+      </Group>
+      <Group guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupItemNode" priority="0x0600">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuItemNode" />
+      </Group>
+      <Group guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupSolutionNode" priority="0x0600">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuSolutionNode" />
+      </Group>
+      <Group guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupProjectNode" priority="0x0600">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuProjectNode" />
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidConEmuCommandSet" id="ToolWindow.ConEmuWindowCommand" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Icon guid="ImageCatalogGuid" id="Console" />
+        <CommandFlag>CommandWellOnly</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>ConEmu Eingabeaufforderung</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonItemNode" priority="0x0001" type="Button">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupItemNode" />
+        <Icon guid="ImageCatalogGuid" id="Console" />
+        <CommandFlag>CommandWellOnly</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Übergeordneten Ordner öffnen</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonSolutionNode" priority="0x0002" type="Button">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupSolutionNode" />
+        <Icon guid="ImageCatalogGuid" id="Console" />
+        <CommandFlag>CommandWellOnly</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Übergeordneten Ordner öffnen</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.ExecuteInConEmu" priority="0x0003" type="Button">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupProjectNode" />
+        <Icon guid="ImageCatalogGuid" id="Console" />
+        <CommandFlag>CommandWellOnly</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Ausgabedatei ausführen</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonProjectNode" priority="0x0004" type="Button">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupProjectNode" />
+        <Icon guid="ImageCatalogGuid" id="Console" />
+        <CommandFlag>CommandWellOnly</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Übergeordneten Ordner öffnen</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenOutDirectoryButtonProjectNode" priority="0x0005" type="Button">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupProjectNode" />
+        <Icon guid="ImageCatalogGuid" id="Console" />
+        <CommandFlag>CommandWellOnly</CommandFlag>
+        <CommandFlag>IconAndText</CommandFlag>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Ausgabepfad öffnen</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+    
+    <Menus>
+      <Menu guid="guidConEmuCommandSet" id="ConEmuSubMenuItemNode" priority="0x0100" type="Menu">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuMenuGroupItemNode"/>
+        <Strings>
+          <ButtonText>ConEmu Eingabeaufforderung</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidConEmuCommandSet" id="ConEmuSubMenuSolutionNode" priority="0x0100" type="Menu">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuMenuGroupSolutionNode"/>
+        <Strings>
+          <ButtonText>ConEmu Eingabeaufforderung</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidConEmuCommandSet" id="ConEmuSubMenuProjectNode" priority="0x0100" type="Menu">
+        <Parent guid="guidConEmuCommandSet" id="ConEmuMenuGroupProjectNode"/>
+        <Strings>
+          <ButtonText>ConEmu Eingabeaufforderung</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
+
+    <GuidSymbol name="guidConEmuCommandSet" value="{A1662AFB-0383-428D-A77D-DF353609B716}">      
+      <IDSymbol name="ConEmuMenuGroupItemNode" value="0x1001" />
+      <IDSymbol name="ConEmuMenuGroupSolutionNode" value="0x1002" />
+      <IDSymbol name="ConEmuMenuGroupProjectNode" value="0x1003" />
+      <IDSymbol name="ConEmuSubMenuGroupItemNode" value="0x1004" />
+      <IDSymbol name="ConEmuSubMenuGroupSolutionNode" value="0x1005" />
+      <IDSymbol name="ConEmuSubMenuGroupProjectNode" value="0x1006" />
+
+      <IDSymbol name="ConEmuSubMenuItemNode" value="0x2001" />
+      <IDSymbol name="ConEmuSubMenuSolutionNode" value="0x2002" />
+      <IDSymbol name="ConEmuSubMenuProjectNode" value="0x2003" />
+
+      <IDSymbol name="SolutionExplorer.OpenFolderButtonItemNode" value="0x3001" />
+      <IDSymbol name="SolutionExplorer.OpenFolderButtonSolutionNode" value="0x3002" />
+      <IDSymbol name="SolutionExplorer.OpenFolderButtonProjectNode" value="0x3003" />
+      <IDSymbol name="SolutionExplorer.OpenOutDirectoryButtonProjectNode" value="0x3004" />
+      <IDSymbol name="SolutionExplorer.ExecuteInConEmu" value="0x3005" />
+
+      <IDSymbol name="ToolWindow.ConEmuWindowCommand" value="0x0400" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
