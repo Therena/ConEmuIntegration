@@ -30,6 +30,9 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
+  <UICulture>en-US</UICulture>
+</PropertyGroup>
+  <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
@@ -102,6 +105,7 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Resources\ConEmuWindowPackage.ico" />
     <None Include="app.config" />
     <None Include="Key.snk" />
     <None Include="packages.config" />
@@ -121,28 +125,27 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\alert.png" />
-    <Content Include="Resources\Icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\Preview.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <EmbeddedResource Include="Settings\ConEmu.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <VSCTCompile Include="ConEmuWindowPackage.vsct">
+    <VSCTCompile Include="ConEmuWindowPackage.en-US.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
+    </VSCTCompile>
+    <VSCTCompile Include="ConEmuWindowPackage.de-DE.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
     </VSCTCompile>
     <Content Include="Resources\ConEmuWindowCommand.png" />
-    <Content Include="Resources\ConEmuWindowPackage.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VSPackage.resx">
-      <MergeWithCTO>true</MergeWithCTO>
-      <ManifestResourceName>VSPackage</ManifestResourceName>
+    <EmbeddedResource Include="VSPackage.de-DE.resx">
+  <MergeWithCTO>true</MergeWithCTO>
+  <LogicalName>VSPackage.de-DE.Resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VSPackage.en-US.resx">
+  <MergeWithCTO>true</MergeWithCTO>
+  <LogicalName>VSPackage.en-US.Resources</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
