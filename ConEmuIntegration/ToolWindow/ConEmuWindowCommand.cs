@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ namespace ConEmuIntegration.ToolWindow
 {
     internal sealed class ConEmuWindowCommand
     {
-        public const int CommandId = 0x0100;
+        public const int CommandId = 0x0400;
         private readonly Package package;
-        public static readonly Guid CommandSet = new Guid("5df544d6-c00a-4471-936b-d5441108ccfd");
+        public static readonly Guid CommandSet = new Guid("A1662AFB-0383-428D-A77D-DF353609B716");
 
         private ConEmuWindowCommand(Package package)
         {

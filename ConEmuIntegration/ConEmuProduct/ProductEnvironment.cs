@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -159,7 +159,7 @@ namespace ConEmuIntegration.ConEmuProduct
         {
             if (this.Package != null)
             {
-                var page = (OptionPageGridConEmu)this.Package.GetDialogPage(typeof(OptionPageGridConEmu));
+                var page = (OptionPageGridConEmuSettings)this.Package.GetDialogPage(typeof(OptionPageGridConEmuSettings));
                 if (page != null)
                 {
                     if (string.IsNullOrWhiteSpace(page.ConEmuXML) == false)
@@ -193,7 +193,7 @@ namespace ConEmuIntegration.ConEmuProduct
         {
             if (this.Package != null)
             {
-                var page = (OptionPageGridConEmu)this.Package.GetDialogPage(typeof(OptionPageGridConEmu));
+                var page = (OptionPageGridConEmuSettings)this.Package.GetDialogPage(typeof(OptionPageGridConEmuSettings));
                 if (page != null)
                 {
                     if (string.IsNullOrWhiteSpace(page.DefaultTask) == false)
@@ -220,7 +220,7 @@ namespace ConEmuIntegration.ConEmuProduct
         {
             if (this.Package != null)
             {
-                var page = (OptionPageGrid)this.Package.GetDialogPage(typeof(OptionPageGrid));
+                var page = (OptionPageGridConEmuPaths)this.Package.GetDialogPage(typeof(OptionPageGridConEmuPaths));
                 if (page != null)
                 {
                     if (string.IsNullOrWhiteSpace(page.ConEmuPath) == false)

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,15 +23,14 @@ using ConEmuIntegration.ConEmuProduct;
 
 namespace ConEmuIntegration.SolutionExplorer
 {
-    internal sealed class OpenOutpathInConEmu
+    internal sealed class OpenOutDirectoryButtonProjectNode
     {
-        public const int CommandId = 256;
-
-        public static readonly Guid CommandSet = new Guid("5f17d8c2-738d-4d1b-8f18-8458da05717d");
+        public const int CommandId = 0x3004;
+        public static readonly Guid CommandSet = new Guid("A1662AFB-0383-428D-A77D-DF353609B716");
 
         private readonly AsyncPackage package;
 
-        private OpenOutpathInConEmu(AsyncPackage package)
+        private OpenOutDirectoryButtonProjectNode(AsyncPackage package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
 
@@ -71,7 +70,7 @@ namespace ConEmuIntegration.SolutionExplorer
             menuItem.Visible = false;
         }
 
-        public static OpenOutpathInConEmu Instance
+        public static OpenOutDirectoryButtonProjectNode Instance
         {
             get;
             private set;
@@ -87,7 +86,7 @@ namespace ConEmuIntegration.SolutionExplorer
 
         public static void Initialize(AsyncPackage package)
         {
-            Instance = new OpenOutpathInConEmu(package);
+            Instance = new OpenOutDirectoryButtonProjectNode(package);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2019 David Roller 
+// Copyright 2020 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,9 +26,8 @@ namespace ConEmuIntegration.SolutionExplorer
 {
     internal sealed class ExecuteInConEmu
     {
-        public const int CommandId = 256;
-
-        public static readonly Guid CommandSet = new Guid("074e29bb-eb5c-4400-9ef0-f8abfbbe337b");
+        public const int CommandId = 0x3005;
+        public static readonly Guid CommandSet = new Guid("A1662AFB-0383-428D-A77D-DF353609B716");
 
         private readonly AsyncPackage package;
 
@@ -152,18 +151,6 @@ namespace ConEmuIntegration.SolutionExplorer
             {
                 ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"" + command + "\",\"\n\")");
             }
-        }
-
-        public void DisplayConEmu()
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            if (ProductEnvironment.Instance.CheckConEmuAndDisplay() == false)
-            {
-                return;
-            }
-
-            ProductEnvironment.Instance.OpenConEmuToolWindow();
         }
     }
 }

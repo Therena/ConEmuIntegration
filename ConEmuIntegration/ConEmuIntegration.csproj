@@ -80,19 +80,18 @@
     <Compile Include="Helper\ProjectPath.cs" />
     <Compile Include="Helper\PropertyHelper.cs" />
     <Compile Include="Helper\StartProgram.cs" />
-    <Compile Include="Settings\OptionPageGrid.cs">
+    <Compile Include="Settings\OptionPageGridConEmuPaths.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Settings\OptionPageGridConEmu.cs">
+    <Compile Include="Settings\OptionPageGridConEmuSettings.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SolutionExplorer\ExecuteInConEmu.cs" />
-    <Compile Include="SolutionExplorer\OpenConEmuHereItemNode.cs" />
-    <Compile Include="SolutionExplorer\OpenConEmuHereProjectItem.cs" />
-    <Compile Include="SolutionExplorer\OpenConEmuHereSolution.cs" />
-    <Compile Include="SolutionExplorer\OpenInConEmu.cs" />
-    <Compile Include="SolutionExplorer\OpenInConEmuHereFolderView.cs" />
-    <Compile Include="SolutionExplorer\OpenOutpathInConEmu.cs" />
+    <Compile Include="SolutionExplorer\OpenFolderButtonItemNode.cs" />
+    <Compile Include="SolutionExplorer\OpenFolderButtonProjectNode.cs" />
+    <Compile Include="SolutionExplorer\OpenFolderButtonSolutionNode.cs" />
+    <Compile Include="ConEmuProduct\OpenInConEmu.cs" />
+    <Compile Include="SolutionExplorer\OpenOutDirectoryButtonProjectNode.cs" />
     <Compile Include="ToolWindow\ConEmuWindow.cs" />
     <Compile Include="ToolWindow\ConEmuWindowCommand.cs" />
     <Compile Include="ToolWindow\ConEmuWindowControl.xaml.cs">
