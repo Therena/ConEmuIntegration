@@ -61,6 +61,24 @@ namespace ConEmuIntegration.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;key name=&quot;Software&quot;&gt;
+        ///    &lt;key name=&quot;ConEmu&quot;&gt;
+        ///        &lt;key name=&quot;.Vanilla&quot; modified=&quot;2016-07-04 23:35:45&quot; build=&quot;160619&quot;&gt;
+        ///            &lt;value name=&quot;StartType&quot; type=&quot;hex&quot; data=&quot;02&quot;/&gt;
+        ///            &lt;value name=&quot;CmdLine&quot; type=&quot;string&quot; data=&quot;&quot;/&gt;
+        ///            &lt;value name=&quot;StartTasksFile&quot; type=&quot;string&quot; data=&quot;&quot;/&gt;
+        ///            &lt;value name=&quot;StartTasksName&quot; type=&quot;string&quot; data=&quot;{Shells::PowerShell}&quot;/&gt;
+        ///            &lt;value name=&quot;StartFarFolders&quot; type=&quot;hex&quot; data=&quot;00&quot;/&gt;
+        ///           [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string ConEmu {
+            get {
+                return ResourceManager.GetString("ConEmu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Path ähnelt.
         /// </summary>
         internal static string SettingsConEmuPath {

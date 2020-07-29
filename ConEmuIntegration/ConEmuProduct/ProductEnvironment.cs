@@ -173,17 +173,8 @@ namespace ConEmuIntegration.ConEmuProduct
 
         private string IntegratedDefaultSettings()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            var configFile = "ConEmuIntegration.Settings.ConEmu.xml";
-
-            var configFileContent = "";
-            using (var stream = new StreamReader(assembly.GetManifestResourceStream(configFile)))
-            {
-                configFileContent = stream.ReadToEnd();
-            }
-
             string configFilePath = Path.GetTempFileName() + ".xml";
-            File.WriteAllText(configFilePath, configFileContent);
+            File.WriteAllText(configFilePath, Properties.Resources.ConEmu);
 
             m_TempFiles.Add(configFilePath);
             return configFilePath;
