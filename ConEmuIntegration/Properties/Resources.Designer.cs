@@ -61,11 +61,29 @@ namespace ConEmuIntegration.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ConEmu Console ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Path ähnelt.
         /// </summary>
-        internal static string SettingsConEmuCategory {
+        internal static string SettingsConEmuPath {
             get {
-                return ResourceManager.GetString("SettingsConEmuCategory", resourceCulture);
+                return ResourceManager.GetString("SettingsConEmuPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Default task ähnelt.
+        /// </summary>
+        internal static string SettingsDefaultTask {
+            get {
+                return ResourceManager.GetString("SettingsDefaultTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die XML configuration ähnelt.
+        /// </summary>
+        internal static string SettingsXMLConfiguration {
+            get {
+                return ResourceManager.GetString("SettingsXMLConfiguration", resourceCulture);
             }
         }
     }

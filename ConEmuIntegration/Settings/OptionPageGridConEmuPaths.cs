@@ -16,7 +16,6 @@
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
