@@ -17,55 +17,51 @@ using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace ConEmuIntegration.Settings
 {
+    [Guid("5C8D8AF1-4323-4DBD-B569-6EC502F00009")]
     internal sealed class OptionPageGridConEmuPaths : DialogPage
     {
-        private string m_ConEmuPath = "";
+        private OptionPageGridConEmuPathsControl m_Page = new OptionPageGridConEmuPathsControl();
 
         [Category("ConEmu Integration")]
         [DisplayName("Executable")]
-        [Description("Path to the ConEmu executable (ConEmu.exe) file")]
-        public string ConEmuPath
+        public string ConEmuPath { get; set; }
+
+        [Category("ConEmu Integration")]
+        [DisplayName("Default Task")]
+        public string DefaultTask { get; set; }
+
+        [Category("ConEmu Integration")]
+        [DisplayName("XML configuration")]
+        public string ConEmuXML { get; set; }
+
+        protected override IWin32Window Window
         {
             get
             {
-                return m_ConEmuPath;
-            }
-            set
-            {
-                ValidateTheConemuPath(value);
-                m_ConEmuPath = value;
+                m_Page.optionsPage = this;
+                m_Page.Initialize();
+                return m_Page;
             }
         }
 
-        private void ValidateTheConemuPath(string value)
+        protected override void OnApply(PageApplyEventArgs e)
         {
-            try
+            if(e.ApplyBehavior == ApplyKind.Apply)
             {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    return;
-                }
-
-                var file = new FileInfo(value);
-                if (file.Exists == false)
-                {
-                    throw new Exception("The given ConEmu executable doesn't exists");
-                }
-
-                if (file.Name.ToUpper() != "CONEMU.EXE" && file.Name.ToUpper() != "CONEMU64.EXE")
-                {
-                    throw new Exception("The given path might not be the correct ConEmu executable. " +
-                        "Please use \"ConEmu.exe\" or \"ConEmu64.exe\" for this configuration");
-                }
+                m_Page.OnApply();
             }
-            catch(Exception error)
-            {
-                string message = "ConEmu Integration: Executable configuration not valid: " + error.Message;
-                throw new Exception(message, error);
-            }
+            base.OnApply(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            m_Page.Initialize();
+            base.OnClosed(e);
         }
     }
 }

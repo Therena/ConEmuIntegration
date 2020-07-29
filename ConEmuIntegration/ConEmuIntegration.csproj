@@ -30,8 +30,8 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
-  <UICulture>en-US</UICulture>
-</PropertyGroup>
+    <UICulture>en-US</UICulture>
+  </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
@@ -80,11 +80,29 @@
       <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\Folders.cs" />
+    <Compile Include="Properties\Resources.de-DE.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.de-DE.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.en-US.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings\OptionPageGridConEmuPaths.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Settings\OptionPageGridConEmuSettings.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Settings\OptionPageGridConEmuPathsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\OptionPageGridConEmuPathsControl.Designer.cs">
+      <DependentUpon>OptionPageGridConEmuPathsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="SolutionExplorer\ExecuteInConEmu.cs" />
     <Compile Include="SolutionExplorer\OpenFolderButtonItemNode.cs" />
@@ -125,7 +143,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\alert.png" />
-    <EmbeddedResource Include="Settings\ConEmu.xml">
+    <EmbeddedResource Include="Properties\Resources.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.de-DE.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ConEmu.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <VSCTCompile Include="ConEmuWindowPackage.en-US.vsct">
@@ -139,13 +169,16 @@
     <Content Include="Resources\ConEmuWindowCommand.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Settings\OptionPageGridConEmuPathsControl.resx">
+      <DependentUpon>OptionPageGridConEmuPathsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.de-DE.resx">
-  <MergeWithCTO>true</MergeWithCTO>
-  <LogicalName>VSPackage.de-DE.Resources</LogicalName>
+      <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.de-DE.Resources</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.en-US.resx">
-  <MergeWithCTO>true</MergeWithCTO>
-  <LogicalName>VSPackage.en-US.Resources</LogicalName>
+      <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.en-US.Resources</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +218,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />

@@ -159,7 +159,7 @@ namespace ConEmuIntegration.ConEmuProduct
         {
             if (this.Package != null)
             {
-                var page = (OptionPageGridConEmuSettings)this.Package.GetDialogPage(typeof(OptionPageGridConEmuSettings));
+                var page = (OptionPageGridConEmuPaths)this.Package.GetDialogPage(typeof(OptionPageGridConEmuPaths));
                 if (page != null)
                 {
                     if (string.IsNullOrWhiteSpace(page.ConEmuXML) == false)
@@ -193,7 +193,7 @@ namespace ConEmuIntegration.ConEmuProduct
         {
             if (this.Package != null)
             {
-                var page = (OptionPageGridConEmuSettings)this.Package.GetDialogPage(typeof(OptionPageGridConEmuSettings));
+                var page = (OptionPageGridConEmuPaths)this.Package.GetDialogPage(typeof(OptionPageGridConEmuPaths));
                 if (page != null)
                 {
                     if (string.IsNullOrWhiteSpace(page.DefaultTask) == false)

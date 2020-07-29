@@ -19,8 +19,6 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using ConEmuIntegration.ConEmuProduct;
 using EnvDTE;
-using ConEmuIntegration.Helper;
-using System.IO;
 
 namespace ConEmuIntegration.SolutionExplorer
 {

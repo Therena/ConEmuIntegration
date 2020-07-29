@@ -46,7 +46,6 @@ limitations under the License.
       <Button guid="guidConEmuCommandSet" id="ToolWindow.ConEmuWindowCommand" priority="0x0001" type="Button">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
         <Icon guid="ImageCatalogGuid" id="Console" />
-        <CommandFlag>CommandWellOnly</CommandFlag>
         <CommandFlag>IconAndText</CommandFlag>
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
