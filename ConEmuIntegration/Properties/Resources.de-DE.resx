@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SettingsConEmuCategory" xml:space="preserve">
-    <value>ConEmu Eingabeaufforderung</value>
+  <data name="SettingsConEmuPath" xml:space="preserve">
+    <value>Pfad</value>
+  </data>
+  <data name="SettingsDefaultTask" xml:space="preserve">
+    <value>Standardaufgabe</value>
+  </data>
+  <data name="SettingsXMLConfiguration" xml:space="preserve">
+    <value>XML Konfiguration</value>
   </data>
 </root>

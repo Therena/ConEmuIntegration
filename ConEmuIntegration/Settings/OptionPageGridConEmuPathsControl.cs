@@ -14,7 +14,6 @@
 // limitations under the License.
 //
 using System;
-using System.IO;
 using System.Windows.Forms;
 
 namespace ConEmuIntegration.Settings
@@ -28,6 +27,10 @@ namespace ConEmuIntegration.Settings
             InitializeComponent();
             OpenXMLConfiguration.InitialDirectory = Environment.GetFolderPath(
                 Environment.SpecialFolder.ApplicationData);
+
+            labelExecutable.Text = Properties.Resources.SettingsConEmuPath;
+            labelXMLConfiguration.Text = Properties.Resources.SettingsXMLConfiguration;
+            labelDefaultTask.Text = Properties.Resources.SettingsDefaultTask;
         }
 
         public void Initialize()
@@ -60,6 +63,11 @@ namespace ConEmuIntegration.Settings
             {
                 textBoxXMLConfiguration.Text = OpenXMLConfiguration.FileName;
             }
+        }
+
+        private void buttonXMLConfigurationClear_Click(object sender, EventArgs e)
+        {
+            textBoxXMLConfiguration.Text = string.Empty;
         }
     }
 }
