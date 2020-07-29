@@ -88,7 +88,7 @@ namespace ConEmuIntegration.Helper
 
             if (HasProperty(prop, "DebugSettings"))
             {
-                var debugProps = prop.Item("DebugSettings").Value as Properties;
+                var debugProps = prop.Item("DebugSettings").Value as EnvDTE.Properties;
                 if (HasProperty(debugProps, "CommandArguments"))
                 {
                     return debugProps.Item("CommandArguments").Value.ToString();
@@ -113,7 +113,7 @@ namespace ConEmuIntegration.Helper
 
             if (HasProperty(prop, "DebugSettings"))
             {
-                var debugProps = prop.Item("DebugSettings").Value as Properties;
+                var debugProps = prop.Item("DebugSettings").Value as EnvDTE.Properties;
                 if (HasProperty(debugProps, "Command"))
                 {
                     var file = new FileInfo(debugProps.Item("Command").Value.ToString());
@@ -161,7 +161,7 @@ namespace ConEmuIntegration.Helper
                 return string.Empty;
             }
 
-            Properties prop = null;
+            EnvDTE.Properties prop = null;
             string probKey = string.Empty;
             if (proj.ConfigurationManager.ActiveConfiguration.Properties == null)
             {
@@ -170,7 +170,7 @@ namespace ConEmuIntegration.Helper
                     return string.Empty;
                 }
 
-                prop = proj.Properties.Item("ActiveConfiguration").Value as Properties;
+                prop = proj.Properties.Item("ActiveConfiguration").Value as EnvDTE.Properties;
                 if (HasProperty(prop, "PrimaryOutput"))
                 {
                     probKey = "PrimaryOutput";
@@ -232,7 +232,7 @@ namespace ConEmuIntegration.Helper
             }
         }
 
-        private FileInfo GetExecutableForStartActionProgram(Properties prop)
+        private FileInfo GetExecutableForStartActionProgram(EnvDTE.Properties prop)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -245,8 +245,10 @@ namespace ConEmuIntegration.Helper
             return new FileInfo(path);
         }
 
-        private FileInfo GetExecutableWithAction(Properties prop)
+        private FileInfo GetExecutableWithAction(EnvDTE.Properties prop)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var action = (VSLangProj.prjStartAction)prop.Item("StartAction").Value;
             if (action == VSLangProj.prjStartAction.prjStartActionProgram)
             {
@@ -259,7 +261,7 @@ namespace ConEmuIntegration.Helper
             return null;
         }
 
-        private Properties GetActiveConfigurationProperties(Project proj)
+        private EnvDTE.Properties GetActiveConfigurationProperties(Project proj)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -270,12 +272,12 @@ namespace ConEmuIntegration.Helper
                     return null;
                 }
 
-                return proj.Properties.Item("ActiveConfiguration").Value as Properties;
+                return proj.Properties.Item("ActiveConfiguration").Value as EnvDTE.Properties;
             }
             return proj.ConfigurationManager.ActiveConfiguration.Properties;
         }
 
-        private bool HasProperty(Properties properties, string propertyName)
+        private bool HasProperty(EnvDTE.Properties properties, string propertyName)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
