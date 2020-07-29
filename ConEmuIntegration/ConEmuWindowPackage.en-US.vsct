@@ -43,7 +43,7 @@ limitations under the License.
     </Groups>
 
     <Buttons>
-      <Button guid="guidConEmuCommandSet" id="ToolWindow.ConEmuWindowCommand" priority="0x0100" type="Button">
+      <Button guid="guidConEmuCommandSet" id="ToolWindow.ConEmuWindowCommand" priority="0x0001" type="Button">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
         <Icon guid="ImageCatalogGuid" id="Console" />
         <CommandFlag>CommandWellOnly</CommandFlag>
@@ -53,17 +53,16 @@ limitations under the License.
           <ButtonText>ConEmu Console</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonItemNode" priority="0x0001" type="Button">
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonItemNode" priority="0x0002" type="Button">
         <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupItemNode" />
         <Icon guid="ImageCatalogGuid" id="Console" />
-        <CommandFlag>CommandWellOnly</CommandFlag>
         <CommandFlag>IconAndText</CommandFlag>
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
           <ButtonText>Open containing folder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonSolutionNode" priority="0x0002" type="Button">
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonSolutionNode" priority="0x0003" type="Button">
         <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupSolutionNode" />
         <Icon guid="ImageCatalogGuid" id="Console" />
         <CommandFlag>CommandWellOnly</CommandFlag>
@@ -73,7 +72,7 @@ limitations under the License.
           <ButtonText>Open containing folder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.ExecuteInConEmu" priority="0x0003" type="Button">
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.ExecuteInConEmu" priority="0x0004" type="Button">
         <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupProjectNode" />
         <Icon guid="ImageCatalogGuid" id="Console" />
         <CommandFlag>CommandWellOnly</CommandFlag>
@@ -83,7 +82,7 @@ limitations under the License.
           <ButtonText>Execute output</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonProjectNode" priority="0x0004" type="Button">
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenFolderButtonProjectNode" priority="0x0005" type="Button">
         <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupProjectNode" />
         <Icon guid="ImageCatalogGuid" id="Console" />
         <CommandFlag>CommandWellOnly</CommandFlag>
@@ -93,7 +92,7 @@ limitations under the License.
           <ButtonText>Open containing folder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenOutDirectoryButtonProjectNode" priority="0x0005" type="Button">
+      <Button guid="guidConEmuCommandSet" id="SolutionExplorer.OpenOutDirectoryButtonProjectNode" priority="0x0006" type="Button">
         <Parent guid="guidConEmuCommandSet" id="ConEmuSubMenuGroupProjectNode" />
         <Icon guid="ImageCatalogGuid" id="Console" />
         <CommandFlag>CommandWellOnly</CommandFlag>
@@ -127,6 +126,11 @@ limitations under the License.
     </Menus>
   </Commands>
 
+  <KeyBindings>
+    <KeyBinding guid="guidConEmuCommandSet" id="ToolWindow.ConEmuWindowCommand"
+                editor="guidVSStd97" key1="w" mod1="Control" key2="w" mod2="Control"/>
+  </KeyBindings>
+  
   <Symbols>
     <GuidSymbol name="guidConEmuWindowPackage" value="{ff00f158-c7e9-46b0-a559-e1b3c8996343}" />
 
@@ -148,7 +152,7 @@ limitations under the License.
       <IDSymbol name="SolutionExplorer.OpenOutDirectoryButtonProjectNode" value="0x3004" />
       <IDSymbol name="SolutionExplorer.ExecuteInConEmu" value="0x3005" />
 
-      <IDSymbol name="ToolWindow.ConEmuWindowCommand" value="0x0400" />
+      <IDSymbol name="ToolWindow.ConEmuWindowCommand" value="0x4001" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
