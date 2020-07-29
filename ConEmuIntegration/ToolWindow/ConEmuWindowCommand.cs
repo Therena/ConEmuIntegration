@@ -22,11 +22,12 @@ namespace ConEmuIntegration.ToolWindow
 {
     internal sealed class ConEmuWindowCommand
     {
-        public const int CommandId = 0x0400;
-        private readonly Package package;
+        public const int CommandId = 0x4001;
         public static readonly Guid CommandSet = new Guid("A1662AFB-0383-428D-A77D-DF353609B716");
 
-        private ConEmuWindowCommand(Package package)
+        private readonly AsyncPackage package;
+
+        private ConEmuWindowCommand(AsyncPackage package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
 
@@ -34,7 +35,7 @@ namespace ConEmuIntegration.ToolWindow
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new MenuCommand(this.ShowToolWindow, menuCommandID);
+                var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandID);
                 commandService.AddCommand(menuItem);
             }
         }
@@ -58,7 +59,7 @@ namespace ConEmuIntegration.ToolWindow
             Instance = new ConEmuWindowCommand(package);
         }
 
-        private void ShowToolWindow(object sender, EventArgs e)
+        private void MenuItemCallback(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             ProductEnvironment.Instance.OpenConEmuToolWindow();
