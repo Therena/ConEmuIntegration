@@ -13,8 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using ConEmuIntegration.ConEmuProduct;
+using Microsoft.VisualStudio.Imaging;
+using Microsoft.VisualStudio.Imaging.Interop;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 namespace ConEmuIntegration.Settings
 {
@@ -31,6 +39,10 @@ namespace ConEmuIntegration.Settings
             labelExecutable.Text = Properties.Resources.SettingsConEmuPath;
             labelXMLConfiguration.Text = Properties.Resources.SettingsXMLConfiguration;
             labelDefaultTask.Text = Properties.Resources.SettingsDefaultTask;
+            
+            _ = SetupButtonImagesAsync(KnownMonikers.OpenFileDialog, buttonXMLConfiguration);
+            _ = SetupButtonImagesAsync(KnownMonikers.OpenFileDialog, buttonOpenConEmuFilePath);
+            _ = SetupButtonImagesAsync(KnownMonikers.ClearWindowContent, buttonXMLConfigurationClear);
         }
 
         public void Initialize()
@@ -47,7 +59,57 @@ namespace ConEmuIntegration.Settings
             optionsPage.ConEmuPath = textBoxExecutable.Text;
         }
 
-        private void buttonOpenConEmuFilePath_Click(object sender, EventArgs e)
+        private async System.Threading.Tasks.Task SetupButtonImagesAsync(ImageMoniker moniker, Button button)
+        {
+            var package = ProductEnvironment.Instance.Package;
+            var imageServiceTask = package.GetServiceAsync(typeof(SVsImageService));
+
+            var size = 24;
+            if(button.Height > button.Width)
+            {
+                size = button.Width - 4;
+            }
+            else
+            {
+                size = button.Height - 4;
+            }
+
+            var imageAttributes = new ImageAttributes
+            {
+                Flags = (uint)_ImageAttributesFlags.IAF_RequiredFlags,
+                ImageType = (uint)_UIImageType.IT_Icon,
+                Format = (uint)_UIDataFormat.DF_WPF,
+                Dpi = 96,
+                LogicalHeight = size,
+                LogicalWidth = size,
+                StructSize = Marshal.SizeOf(typeof(ImageAttributes)),
+            };
+
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            var imageService = (await imageServiceTask) as IVsImageService2;
+            var image = imageService.GetImage(moniker, imageAttributes);
+
+            image.get_Data(out object data);
+
+            var dataBitmap = data as BitmapSource;
+            button.Image = BitmapFromSource(dataBitmap);
+        }
+
+        private System.Drawing.Bitmap BitmapFromSource(BitmapSource bitmapsource)
+        {
+            System.Drawing.Bitmap bitmap;
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                BitmapEncoder enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bitmapsource));
+                enc.Save(outStream);
+                bitmap = new System.Drawing.Bitmap(outStream);
+            }
+            return bitmap;
+        }
+
+        private void ButtonOpenConEmuFilePath_Click(object sender, EventArgs e)
         {
             var result = OpenConEmuFilePath.ShowDialog();
             if (result == DialogResult.OK)
@@ -56,7 +118,7 @@ namespace ConEmuIntegration.Settings
             }
         }
 
-        private void buttonXMLConfiguration_Click(object sender, EventArgs e)
+        private void ButtonXMLConfiguration_Click(object sender, EventArgs e)
         {
             var result = OpenXMLConfiguration.ShowDialog();
             if (result == DialogResult.OK)
@@ -65,7 +127,7 @@ namespace ConEmuIntegration.Settings
             }
         }
 
-        private void buttonXMLConfigurationClear_Click(object sender, EventArgs e)
+        private void ButtonXMLConfigurationClear_Click(object sender, EventArgs e)
         {
             textBoxXMLConfiguration.Text = string.Empty;
         }
