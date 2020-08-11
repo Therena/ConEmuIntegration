@@ -51,13 +51,13 @@ namespace ConEmuIntegration.Settings
             this.groupBoxSettings = new System.Windows.Forms.GroupBox();
             this.panelXMLConfiguration = new System.Windows.Forms.Panel();
             this.textBoxXMLConfiguration = new System.Windows.Forms.TextBox();
+            this.buttonXMLConfiguration = new System.Windows.Forms.Button();
             this.buttonXMLConfigurationClear = new System.Windows.Forms.Button();
             this.labelXMLConfiguration = new System.Windows.Forms.Label();
             this.panelDefaultTask = new System.Windows.Forms.Panel();
             this.textBoxDefaultTask = new System.Windows.Forms.TextBox();
             this.labelDefaultTask = new System.Windows.Forms.Label();
             this.OpenXMLConfiguration = new System.Windows.Forms.OpenFileDialog();
-            this.buttonXMLConfiguration = new System.Windows.Forms.Button();
             this.GroupBoxConEmu.SuspendLayout();
             this.groupBoxSettings.SuspendLayout();
             this.panelXMLConfiguration.SuspendLayout();
@@ -105,7 +105,7 @@ namespace ConEmuIntegration.Settings
             this.buttonOpenConEmuFilePath.TabIndex = 2;
             this.buttonOpenConEmuFilePath.Text = "...";
             this.buttonOpenConEmuFilePath.UseVisualStyleBackColor = true;
-            this.buttonOpenConEmuFilePath.Click += new System.EventHandler(this.buttonOpenConEmuFilePath_Click);
+            this.buttonOpenConEmuFilePath.Click += new System.EventHandler(this.ButtonOpenConEmuFilePath_Click);
             // 
             // labelExecutable
             // 
@@ -153,6 +153,18 @@ namespace ConEmuIntegration.Settings
             this.textBoxXMLConfiguration.Size = new System.Drawing.Size(696, 26);
             this.textBoxXMLConfiguration.TabIndex = 1;
             // 
+            // buttonXMLConfiguration
+            // 
+            this.buttonXMLConfiguration.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonXMLConfiguration.Location = new System.Drawing.Point(851, 5);
+            this.buttonXMLConfiguration.MaximumSize = new System.Drawing.Size(50, 26);
+            this.buttonXMLConfiguration.Name = "buttonXMLConfiguration";
+            this.buttonXMLConfiguration.Size = new System.Drawing.Size(50, 26);
+            this.buttonXMLConfiguration.TabIndex = 4;
+            this.buttonXMLConfiguration.Text = "...";
+            this.buttonXMLConfiguration.UseVisualStyleBackColor = true;
+            this.buttonXMLConfiguration.Click += new System.EventHandler(this.ButtonXMLConfiguration_Click);
+            // 
             // buttonXMLConfigurationClear
             // 
             this.buttonXMLConfigurationClear.Dock = System.Windows.Forms.DockStyle.Right;
@@ -163,7 +175,7 @@ namespace ConEmuIntegration.Settings
             this.buttonXMLConfigurationClear.TabIndex = 3;
             this.buttonXMLConfigurationClear.Text = "...";
             this.buttonXMLConfigurationClear.UseVisualStyleBackColor = true;
-            this.buttonXMLConfigurationClear.Click += new System.EventHandler(this.buttonXMLConfigurationClear_Click);
+            this.buttonXMLConfigurationClear.Click += new System.EventHandler(this.ButtonXMLConfigurationClear_Click);
             // 
             // labelXMLConfiguration
             // 
@@ -214,18 +226,6 @@ namespace ConEmuIntegration.Settings
             this.OpenXMLConfiguration.FileName = "ConEmu.xml";
             this.OpenXMLConfiguration.Filter = "ConEmu.xml|*.xml";
             this.OpenXMLConfiguration.ReadOnlyChecked = true;
-            // 
-            // buttonXMLConfiguration
-            // 
-            this.buttonXMLConfiguration.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonXMLConfiguration.Location = new System.Drawing.Point(851, 5);
-            this.buttonXMLConfiguration.MaximumSize = new System.Drawing.Size(50, 26);
-            this.buttonXMLConfiguration.Name = "buttonXMLConfiguration";
-            this.buttonXMLConfiguration.Size = new System.Drawing.Size(50, 26);
-            this.buttonXMLConfiguration.TabIndex = 4;
-            this.buttonXMLConfiguration.Text = "...";
-            this.buttonXMLConfiguration.UseVisualStyleBackColor = true;
-            this.buttonXMLConfiguration.Click += new System.EventHandler(this.buttonXMLConfiguration_Click);
             // 
             // OptionPageGridConEmuPathsControl
             // 
