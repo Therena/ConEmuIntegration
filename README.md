@@ -15,6 +15,7 @@ See the ConEmu section for further detail about the console emulator.
 If you want to use your own ConEmu Settings or change the default settings please use your own configuration file.
 To define custom Task please also use an external configuration file.
 See "Optional: External ConEmu configuration XML" how to do this.
+
 ## Supported languages
 
 - en-US American English
