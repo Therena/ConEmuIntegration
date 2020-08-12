@@ -229,7 +229,6 @@ namespace ConEmuIntegration.ConEmuProduct
             }
         }
 
-
         private void SendInvokeCommand(string command)
         {
             ThreadHelper.ThrowIfNotOnUIThread();

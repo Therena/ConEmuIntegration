@@ -16,12 +16,12 @@
 using ConEmu.WinForms;
 using ConEmuIntegration.Settings;
 using ConEmuIntegration.ToolWindow;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace ConEmuIntegration.ConEmuProduct
 {
@@ -33,15 +33,7 @@ namespace ConEmuIntegration.ConEmuProduct
 
         public ConEmuWindowPackage Package { get; set; }
         public ConEmuControl ConEmu { get; set; }
-
-        private static ProductEnvironment m_Instance = new ProductEnvironment();
-        public static ProductEnvironment Instance
-        {
-            get
-            {
-                return m_Instance;
-            }
-        }
+        public static ProductEnvironment Instance { get; } = new ProductEnvironment();
 
         private ProductEnvironment()
         {
@@ -60,10 +52,26 @@ namespace ConEmuIntegration.ConEmuProduct
                 File.Delete(file);
             }
         }
+        private bool IsConEmuToolWindowVisible(IVsWindowFrame windowFrame)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (windowFrame != null && VSConstants.S_OK != windowFrame.IsVisible())
+            {
+                return false;
+            }
+
+            if (Instance.ConEmu == null)
+            {
+                return false;
+            }
+
+            return Instance.ConEmu.IsConsoleEmulatorOpen;
+        }
 
         public void OpenConEmuToolWindow()
         {
-            if(this.Package == null || this.Package.Zombied)
+            if (this.Package == null || this.Package.Zombied)
             {
                 return;
             }
@@ -75,7 +83,7 @@ namespace ConEmuIntegration.ConEmuProduct
                     return;
                 }
 
-                ToolWindowPane window = this.Package.FindToolWindow(typeof(ConEmuWindow), 0, true);
+                var window = this.Package.FindToolWindow(typeof(ConEmuWindow), 0, true) as ConEmuWindow;
                 if ((null == window) || (null == window.Frame))
                 {
                     throw new NotSupportedException("Cannot create tool window");
@@ -84,7 +92,12 @@ namespace ConEmuIntegration.ConEmuProduct
                 ThreadHelper.ThrowIfNotOnUIThread();
 
                 IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-                Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+                ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+                if (IsConEmuToolWindowVisible(windowFrame) == false)
+                {
+                    window.ConEmuControl.RunConEmu();
+                }
             }
             catch (Exception error)
             {
@@ -109,21 +122,14 @@ namespace ConEmuIntegration.ConEmuProduct
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (ProductEnvironment.Instance.ConEmu == null)
+            if (IsConEmuToolWindowVisible(null) == false)
             {
                 OpenConEmuToolWindow();
                 m_StoredGUIMacros.Add(macro);
                 return;
             }
 
-            if (ProductEnvironment.Instance.ConEmu.IsConsoleEmulatorOpen == false)
-            {
-                OpenConEmuToolWindow();
-                m_StoredGUIMacros.Add(macro);
-                return;
-            }
-
-            ProductEnvironment.Instance.ConEmu.RunningSession.ExecuteGuiMacroTextSync(macro);
+            Instance.ConEmu.RunningSession.ExecuteGuiMacroTextSync(macro);
         }
 
         public bool CheckConEmu()
@@ -142,8 +148,6 @@ namespace ConEmuIntegration.ConEmuProduct
             bool result = CheckConEmu();
             if (result == false)
             {
-                var caption = GetWindowCaption();
-
                 var conemu = GetConEmuExecutable();
                 ExceptionMessageBox box = new ExceptionMessageBox();
                 box.SetException("Unable to find the ConEmu installation",

@@ -48,7 +48,7 @@ namespace ConEmuIntegration
             SolutionExplorer.OpenFolderButtonSolutionNode.Initialize(this);
             SolutionExplorer.OpenOutDirectoryButtonProjectNode.Initialize(this);
 
-            base.Initialize();
+            Initialize();
 
             return System.Threading.Tasks.Task.CompletedTask;
         }
