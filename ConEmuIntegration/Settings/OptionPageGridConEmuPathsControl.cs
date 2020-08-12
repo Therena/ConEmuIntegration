@@ -64,8 +64,8 @@ namespace ConEmuIntegration.Settings
             var package = ProductEnvironment.Instance.Package;
             var imageServiceTask = package.GetServiceAsync(typeof(SVsImageService));
 
-            var size = 24;
-            if(button.Height > button.Width)
+            int size;
+            if (button.Height > button.Width)
             {
                 size = button.Width - 4;
             }

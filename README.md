@@ -15,6 +15,10 @@ See the ConEmu section for further detail about the console emulator.
 If you want to use your own ConEmu Settings or change the default settings please use your own configuration file.
 To define custom Task please also use an external configuration file.
 See "Optional: External ConEmu configuration XML" how to do this.
+## Supported languages
+
+- en-US American English
+- de-DE Standard German
 
 ## System Requirements
 
@@ -22,7 +26,7 @@ See "Optional: External ConEmu configuration XML" how to do this.
 - Installed or portable version of ConEmu
 - ConEmu build 151201 or higher is required
 - ConEmu.exe can be used in x86 as well as in x64 version
-- Optional: Path to ConEmu[64].exe set in the Visual Studio settings
+- Path to ConEmu[64].exe set in the Visual Studio settings
 
 ## ConEmu
 
@@ -73,15 +77,13 @@ The current opened folder in ConEmu can be changed directly from solution explor
 
 ## Settings
 
+![ConEmu executable path in Visual Studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmu.png?raw=true)
+
 ### Path settings
 
 Please download / install the ConEmu separately. It isn't part of this extension.
 After you have downloaded / installed ConEmu please set the paths in the settings of this extension.
 Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
-
-Please set the path to the ConEmu executable file in the section of the configuration:
-
-![ConEmu executable path in Visual Studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuExe.png?raw=true)
 
 ### Optional: ConEmu settings
 
@@ -92,14 +94,10 @@ Visual Studio settings page to make it possible to change settings of ConEmu.
 Using this configuration it is possible to change the startup or default task which is used by the embedded ConEmu
 The default setting for this is {cmd}.
 
-![Default ConEmu task in the visual studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuShell.png?raw=true)
-
 #### External ConEmu configuration XML
 
 The extension contains an internal configuration which isn't changeable.
 If you want to change this configuration or use an custom configuration please set the path to your configuration in the Visual Studio settings.
-
-![External ConEmu configuration XML](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmuShell.png?raw=true)
 
 Please keep in mind that the extension doesn't support all configuration settings of ConEmu.
 Don't using the internal configuration could cause incompatibilities.
