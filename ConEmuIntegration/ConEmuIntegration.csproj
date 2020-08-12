@@ -123,7 +123,12 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\ConEmuWindowPackage.ico" />
+    <Content Include="Resources\Icon.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\Preview.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="app.config" />
     <None Include="Key.snk" />
     <None Include="packages.config" />
@@ -166,7 +171,6 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
     </VSCTCompile>
-    <Content Include="Resources\ConEmuWindowCommand.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Settings\OptionPageGridConEmuPathsControl.resx">
