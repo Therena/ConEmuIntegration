@@ -25,17 +25,14 @@ namespace ConEmuIntegration.ToolWindow
     [Guid("F4D34FFE-6D41-47F1-BD2C-7897995974AB")]
     public class ConEmuWindow : ToolWindowPane
     {
-        private ConEmuWindowControl m_Control;
-
-        public WindowEvents WindowEvents { get; private set; }
+        public ConEmuWindowControl ConEmuControl { get; } = new ConEmuWindowControl();
 
         public ConEmuWindow() : base(null)
         {
             this.Caption = ProductEnvironment.Instance.GetWindowCaption();
 
-            m_Control = new ConEmuWindowControl();
-            m_Control.ConEmuClosed += ConEmuClosed;
-            this.Content = m_Control;
+            ConEmuControl.ConEmuClosed += ConEmuClosed;
+            this.Content = ConEmuControl;
         }
 
         private void ConEmuClosed(object sender, EventArgs e)
