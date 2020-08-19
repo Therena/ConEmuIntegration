@@ -96,7 +96,7 @@ namespace ConEmuIntegration.ConEmuProduct
 
                 if (IsConEmuToolWindowVisible(windowFrame) == false)
                 {
-                    window.ConEmuControl.RunConEmu();
+                    window.RunConEmu();
                 }
             }
             catch (Exception error)
