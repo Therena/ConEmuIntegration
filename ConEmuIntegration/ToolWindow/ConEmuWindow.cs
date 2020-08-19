@@ -43,6 +43,8 @@ namespace ConEmuIntegration.ToolWindow
                 return false;
             }
 
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             return m_ConEmuControl.RunConEmu();
         }
 
