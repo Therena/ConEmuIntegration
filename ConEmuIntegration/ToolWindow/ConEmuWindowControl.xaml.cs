@@ -19,24 +19,23 @@ using Microsoft.VisualStudio.Shell;
 using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Xml;
 
 namespace ConEmuIntegration.ToolWindow
 {
-    public partial class ConEmuWindowControl : UserControl
+    public partial class ConEmuWindowControl
     {
         public event EventHandler ConEmuClosed;
-        private bool m_HasExited = false;
+        private bool m_HasExited;
 
         public ConEmuWindowControl()
         {
             this.InitializeComponent();
 
-            wfhConEmu.Loaded += WfhConEmu_Loaded;
+            WfhConEmu.Loaded += WfhConEmu_Loaded;
         }
 
-        private void WfhConEmu_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void WfhConEmu_Loaded(object sender, RoutedEventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             if (RunConEmu() == false)
@@ -89,13 +88,16 @@ namespace ConEmuIntegration.ToolWindow
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            ProductEnvironment.Instance.ConEmu = new ConEmuControl();
-            ProductEnvironment.Instance.ConEmu.MinimumSize = new System.Drawing.Size(1, 1);
-            ProductEnvironment.Instance.ConEmu.Dock = System.Windows.Forms.DockStyle.Fill;
+            ProductEnvironment.Instance.ConEmu = new ConEmuControl
+            {
+                MinimumSize = new System.Drawing.Size(1, 1), Dock = System.Windows.Forms.DockStyle.Fill
+            };
 
-            var info = new ConEmuStartInfo();
-            info.ConEmuExecutablePath = ProductEnvironment.Instance.GetConEmuExecutable();
-            info.ConsoleProcessCommandLine = ProductEnvironment.Instance.GetDefaultTask();
+            var info = new ConEmuStartInfo
+            {
+                ConEmuExecutablePath = ProductEnvironment.Instance.GetConEmuExecutable(),
+                ConsoleProcessCommandLine = ProductEnvironment.Instance.GetDefaultTask()
+            };
 
             try
             {
@@ -111,7 +113,7 @@ namespace ConEmuIntegration.ToolWindow
             }
 
             ProductEnvironment.Instance.ConEmu.Start(info);
-            wfhConEmu.Child = ProductEnvironment.Instance.ConEmu;
+            WfhConEmu.Child = ProductEnvironment.Instance.ConEmu;
 
             if(ProductEnvironment.Instance.ConEmu.RunningSession != null)
             {
@@ -127,11 +129,6 @@ namespace ConEmuIntegration.ToolWindow
         {
             this.ConEmuClosed?.Invoke(this, new EventArgs());
             m_HasExited = true;
-        }
-
-        public void FocusConEmu()
-        {
-            ProductEnvironment.Instance.ConEmu.Focus();
         }
     }
 }

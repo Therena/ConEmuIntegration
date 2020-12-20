@@ -28,7 +28,7 @@ namespace ConEmuIntegration.Helper
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var slnFile = new FileInfo(sln.FullName);
-            if (slnFile.Directory.Exists)
+            if (slnFile.Directory != null && slnFile.Directory.Exists)
             {
                 return slnFile.Directory.FullName;
             }
@@ -44,7 +44,7 @@ namespace ConEmuIntegration.Helper
             {
                 var filePath = proj.Properties.Item("FullPath").Value.ToString();
                 var fullPath = new FileInfo(filePath);
-                return fullPath.Directory.FullName;
+                return fullPath.Directory?.FullName;
             }
 
             // C++ Project has the ProjectFile property
@@ -52,7 +52,7 @@ namespace ConEmuIntegration.Helper
             {
                 var filePath = proj.Properties.Item("ProjectFile").Value.ToString();
                 var fullPath = new FileInfo(filePath);
-                return fullPath.Directory.FullName;
+                return fullPath.Directory?.FullName;
             }
             return string.Empty;
         }
@@ -73,7 +73,7 @@ namespace ConEmuIntegration.Helper
             }
 
             var fullPath = new FileInfo(fullPathProperty.Value.ToString());
-            return fullPath.Directory.FullName;
+            return fullPath.Directory?.FullName;
         }
 
         public string GetExecutableParameter(Project project)
@@ -91,7 +91,7 @@ namespace ConEmuIntegration.Helper
                 var debugProps = prop.Item("DebugSettings").Value as EnvDTE.Properties;
                 if (HasProperty(debugProps, "CommandArguments"))
                 {
-                    return debugProps.Item("CommandArguments").Value.ToString();
+                    return debugProps?.Item("CommandArguments").Value.ToString();
                 }
             }
             return string.Empty;
@@ -116,7 +116,7 @@ namespace ConEmuIntegration.Helper
                 var debugProps = prop.Item("DebugSettings").Value as EnvDTE.Properties;
                 if (HasProperty(debugProps, "Command"))
                 {
-                    var file = new FileInfo(debugProps.Item("Command").Value.ToString());
+                    var file = new FileInfo(debugProps?.Item("Command").Value.ToString() ?? string.Empty);
                     if (file.Exists)
                     {
                         return file;
@@ -161,7 +161,7 @@ namespace ConEmuIntegration.Helper
                 return string.Empty;
             }
 
-            EnvDTE.Properties prop = null;
+            EnvDTE.Properties prop;
             string probKey = string.Empty;
             if (proj.ConfigurationManager.ActiveConfiguration.Properties == null)
             {
@@ -190,7 +190,7 @@ namespace ConEmuIntegration.Helper
                 return string.Empty;
             }
 
-            var filePath = prop.Item(probKey).Value.ToString();
+            var filePath = prop?.Item(probKey).Value.ToString();
             try
             {
                 if (Path.IsPathRooted(filePath) == false)
@@ -204,7 +204,7 @@ namespace ConEmuIntegration.Helper
                 }
                 else
                 {
-                    return new FileInfo(filePath).Directory.FullName;
+                    return new FileInfo(filePath ?? string.Empty).Directory?.FullName;
                 }
             }
             catch (IOException)

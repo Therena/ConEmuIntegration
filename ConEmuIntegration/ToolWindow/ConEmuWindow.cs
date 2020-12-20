@@ -18,14 +18,13 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using ConEmuIntegration.ConEmuProduct;
-using EnvDTE;
 
 namespace ConEmuIntegration.ToolWindow
 {
     [Guid("F4D34FFE-6D41-47F1-BD2C-7897995974AB")]
-    public class ConEmuWindow : ToolWindowPane
+    public sealed class ConEmuWindow : ToolWindowPane
     {
-        private ConEmuWindowControl m_ConEmuControl;
+        private readonly ConEmuWindowControl m_ConEmuControl;
 
         public ConEmuWindow() : base(null)
         {

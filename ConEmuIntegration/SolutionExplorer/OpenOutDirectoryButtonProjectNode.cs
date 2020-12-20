@@ -16,7 +16,6 @@
 using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using EnvDTE;
 using ConEmuIntegration.Helper;
 using ConEmuIntegration.ConEmuProduct;
@@ -28,17 +27,16 @@ namespace ConEmuIntegration.SolutionExplorer
         public const int CommandId = 0x3004;
         public static readonly Guid CommandSet = new Guid("A1662AFB-0383-428D-A77D-DF353609B716");
 
-        private readonly AsyncPackage package;
+        private readonly AsyncPackage m_Package;
 
         private OpenOutDirectoryButtonProjectNode(AsyncPackage package)
         {
-            this.package = package ?? throw new ArgumentNullException("package");
+            this.m_Package = package ?? throw new ArgumentNullException(nameof(package));
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
+            if (this.ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
             {
-                var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
+                var menuCommandId = new CommandID(CommandSet, CommandId);
+                var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandId);
                 menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
@@ -49,9 +47,13 @@ namespace ConEmuIntegration.SolutionExplorer
             ThreadHelper.ThrowIfNotOnUIThread();
 
             OleMenuCommand menuItem = (OleMenuCommand)sender;
-            IVsMonitorSelection vsMonSel = (IVsMonitorSelection)this.ServiceProvider.GetService(typeof(SVsShellMonitorSelection));
 
             var dte = this.ServiceProvider.GetService(typeof(DTE)) as DTE;
+            if (dte == null)
+            {
+                return;
+            }
+            
             if (dte.SelectedItems.Count <= 0)
             {
                 menuItem.Visible = false;
@@ -80,7 +82,7 @@ namespace ConEmuIntegration.SolutionExplorer
         {
             get
             {
-                return this.package;
+                return this.m_Package;
             }
         }
 

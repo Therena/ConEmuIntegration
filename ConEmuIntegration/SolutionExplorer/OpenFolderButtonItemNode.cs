@@ -25,20 +25,19 @@ namespace ConEmuIntegration.SolutionExplorer
         public const int CommandId = 0x3001;
         public static readonly Guid CommandSet = new Guid("A1662AFB-0383-428D-A77D-DF353609B716");
 
-        private readonly AsyncPackage package;
+        private readonly AsyncPackage m_Package;
 
-        private OpenInConEmu m_OpenInConEmu;
+        private readonly OpenInConEmu m_OpenInConEmu;
 
         private OpenFolderButtonItemNode(AsyncPackage package)
         {
-            this.package = package ?? throw new ArgumentNullException("package");
+            this.m_Package = package ?? throw new ArgumentNullException(nameof(package));
             m_OpenInConEmu = new OpenInConEmu();
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
+            if (ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
             {
-                var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandID);
+                var menuCommandId = new CommandID(CommandSet, CommandId);
+                var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandId);
                 commandService.AddCommand(menuItem);
             }
         }
@@ -49,13 +48,7 @@ namespace ConEmuIntegration.SolutionExplorer
             private set;
         }
 
-        private IServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
-        }
+        private IServiceProvider ServiceProvider => m_Package;
 
         public static void Initialize(AsyncPackage package)
         {
