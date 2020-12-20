@@ -27,9 +27,9 @@ namespace ConEmuIntegration.ConEmuProduct
 {
     internal class ProductEnvironment
     {
-        private List<string> m_TempFiles;
-        private List<string> m_SearchPaths;
-        private List<string> m_StoredGUIMacros;
+        private readonly List<string> m_TempFiles;
+        private readonly List<string> m_SearchPaths;
+        private readonly List<string> m_StoredGuiMacros;
 
         public ConEmuWindowPackage Package { get; set; }
         public ConEmuControl ConEmu { get; set; }
@@ -38,10 +38,9 @@ namespace ConEmuIntegration.ConEmuProduct
         private ProductEnvironment()
         {
             m_TempFiles = new List<string>();
-            m_StoredGUIMacros = new List<string>();
+            m_StoredGuiMacros = new List<string>();
 
-            m_SearchPaths = new List<string>();
-            m_SearchPaths.Add(Directory.GetCurrentDirectory());
+            m_SearchPaths = new List<string> {Directory.GetCurrentDirectory()};
             m_SearchPaths.AddRange(Environment.ExpandEnvironmentVariables("%PATH%").Split(';'));
         }
 
@@ -84,7 +83,7 @@ namespace ConEmuIntegration.ConEmuProduct
                 }
 
                 var window = this.Package.FindToolWindow(typeof(ConEmuWindow), 0, true) as ConEmuWindow;
-                if ((null == window) || (null == window.Frame))
+                if (window?.Frame == null)
                 {
                     throw new NotSupportedException("Cannot create tool window");
                 }
@@ -111,11 +110,11 @@ namespace ConEmuIntegration.ConEmuProduct
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            foreach (var macro in m_StoredGUIMacros)
+            foreach (var macro in m_StoredGuiMacros)
             {
                 ExecuteGuiMacro(macro);
             }
-            m_StoredGUIMacros.Clear();
+            m_StoredGuiMacros.Clear();
         }
 
         public void ExecuteGuiMacro(string macro)
@@ -125,11 +124,11 @@ namespace ConEmuIntegration.ConEmuProduct
             if (IsConEmuToolWindowVisible(null) == false)
             {
                 OpenConEmuToolWindow();
-                m_StoredGUIMacros.Add(macro);
+                m_StoredGuiMacros.Add(macro);
                 return;
             }
 
-            Instance.ConEmu.RunningSession.ExecuteGuiMacroTextSync(macro);
+            Instance.ConEmu.RunningSession?.ExecuteGuiMacroTextSync(macro);
         }
 
         public bool CheckConEmu()
@@ -186,15 +185,12 @@ namespace ConEmuIntegration.ConEmuProduct
 
         public string GetDefaultTask()
         {
-            if (this.Package != null)
+            var page = (OptionPageGridConEmuPaths) Package?.GetDialogPage(typeof(OptionPageGridConEmuPaths));
+            if (page != null)
             {
-                var page = (OptionPageGridConEmuPaths)this.Package.GetDialogPage(typeof(OptionPageGridConEmuPaths));
-                if (page != null)
+                if (string.IsNullOrWhiteSpace(page.DefaultTask) == false)
                 {
-                    if (string.IsNullOrWhiteSpace(page.DefaultTask) == false)
-                    {
-                        return page.DefaultTask;
-                    }
+                    return page.DefaultTask;
                 }
             }
             return "{Shells::PowerShell}";
@@ -213,18 +209,15 @@ namespace ConEmuIntegration.ConEmuProduct
 
         public string GetConEmuExecutable()
         {
-            if (this.Package != null)
+            var page = (OptionPageGridConEmuPaths) Package?.GetDialogPage(typeof(OptionPageGridConEmuPaths));
+            if (page != null)
             {
-                var page = (OptionPageGridConEmuPaths)this.Package.GetDialogPage(typeof(OptionPageGridConEmuPaths));
-                if (page != null)
+                if (string.IsNullOrWhiteSpace(page.ConEmuPath) == false)
                 {
-                    if (string.IsNullOrWhiteSpace(page.ConEmuPath) == false)
+                    string path = page.ConEmuPath.Trim(' ', '\n', '\r', '\"', '\'');
+                    if (string.IsNullOrWhiteSpace(path) == false)
                     {
-                        string path = page.ConEmuPath.Trim(' ', '\n', '\r', '\"', '\'');
-                        if (string.IsNullOrWhiteSpace(path) == false)
-                        {
-                            return path;
-                        }
+                        return path;
                     }
                 }
             }

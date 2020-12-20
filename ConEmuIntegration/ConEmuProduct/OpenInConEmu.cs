@@ -36,13 +36,13 @@ namespace ConEmuIntegration.ConEmuProduct
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
-            if (dte.SelectedItems.Count <= 0)
+            if (dte != null && dte.SelectedItems.Count <= 0)
             {
                 return;
             }
 
             var folders = new Folders();
-            var path = folders.GetSolutionPath(dte.Solution);
+            var path = folders.GetSolutionPath(dte?.Solution);
 
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -63,6 +63,11 @@ namespace ConEmuIntegration.ConEmuProduct
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
+            if (dte == null)
+            {
+                return;
+            }
+            
             if (dte.SelectedItems.Count <= 0)
             {
                 return;
@@ -116,6 +121,11 @@ namespace ConEmuIntegration.ConEmuProduct
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
+            if (dte == null)
+            {
+                return;
+            }
+            
             if (dte.SelectedItems.Count <= 0)
             {
                 return;
@@ -203,13 +213,12 @@ namespace ConEmuIntegration.ConEmuProduct
             if (attr.HasFlag(FileAttributes.Directory) == false)
             {
                 var file = new FileInfo(path);
-                path = file.Directory.FullName;
+                path = file.Directory?.FullName;
             }
 
             if (string.IsNullOrWhiteSpace(path) == false)
             {
                 SendChangeFolder(path);
-                return;
             }
         }
 
