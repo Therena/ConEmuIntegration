@@ -37,7 +37,7 @@ jobs:
       with:
         languages: ${{ matrix.language }}
       
-    - name: Build the Open Folder Extension
+    - name: Build the ConEmu Integration
       run: |
         nuget restore ${{ github.workspace }}\ConEmuIntegration\packages.config -SolutionDirectory ${{ github.workspace }} -NonInteractive
         nuget restore ${{ github.workspace }}\ConEmuIntegration.sln -NonInteractive
