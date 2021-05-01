@@ -37,10 +37,16 @@ jobs:
       with:
         languages: ${{ matrix.language }}
       
-    - name: Build the ConEmu Integration
-      run: |
+    - name: Nuget restore packages
+      run:
         nuget restore ${{ github.workspace }}\ConEmuIntegration\packages.config -SolutionDirectory ${{ github.workspace }} -NonInteractive
+        
+    - name: Nuget restore solution packages
+      run:
         nuget restore ${{ github.workspace }}\ConEmuIntegration.sln -NonInteractive
+        
+    - name: Build solution
+      run:
         msbuild ${{ github.workspace }}\ConEmuIntegration.sln /t:rebuild /p:Platform="Any CPU" /p:Configuration="Debug"
 
     - name: Perform CodeQL Analysis
