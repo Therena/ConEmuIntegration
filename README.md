@@ -4,6 +4,8 @@
 
 Using the console emulator ConEmu within Visual Studio.
 
+![CodeQL](https://github.com/Therena/ConEmuIntegration/actions/workflows/codeql-analysis.yml/badge.svg)
+
 Download this extension from the Visual Studio Marketplace
 - Visual Studio 2015 - Visual Studio 2017: [ConEmu Integration 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration)
 - Visual Studio 2019: [ConEmu Integration 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration2019)
