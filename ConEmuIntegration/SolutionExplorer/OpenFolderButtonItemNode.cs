@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2020 David Roller 
+// Copyright 2021 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ namespace ConEmuIntegration.SolutionExplorer
             ThreadHelper.ThrowIfNotOnUIThread();
 
             ProductEnvironment.Instance.OpenConEmuToolWindow();
-            m_OpenInConEmu.Open();
+            m_OpenInConEmu.OpenItem();
         }
     }
 }

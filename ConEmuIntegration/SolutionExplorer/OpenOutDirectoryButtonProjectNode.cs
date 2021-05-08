@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2020 David Roller 
+// Copyright 2021 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -95,32 +95,27 @@ namespace ConEmuIntegration.SolutionExplorer
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var dte = this.ServiceProvider.GetService(typeof(DTE)) as DTE;
-            if (dte.SelectedItems.Count <= 0)
+            if (dte == null || dte.SelectedItems.Count <= 0)
             {
                 return;
             }
 
-            var folders = new Folders();
             foreach (SelectedItem selectedItem in dte.SelectedItems)
             {
                 if (selectedItem.Project != null)
                 {
-                    var path = folders.GetOutputPath(selectedItem.Project);
-                    if (string.IsNullOrWhiteSpace(path))
-                    {
-                        return;
-                    }
+                    var path = ProjectSettings.GetOutputFileName(selectedItem.Project);
 
                     var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
                     if (cd)
                     {
                         ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
-                            path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                            path.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
                     }
                     else
                     {
                         ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
-                            path.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                            path.Directory.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
                     }
                 }
             }
