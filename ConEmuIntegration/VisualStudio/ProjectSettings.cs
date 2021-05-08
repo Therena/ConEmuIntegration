@@ -173,58 +173,27 @@ namespace ConEmuIntegration.Helper
 
             if (propertyList.ContainsKey("StartArguments"))
             {
+                // Debug settings in DotNet Framework projects
                 return propertyList["StartArguments"].ToString();
             }
 
             if (propertyList.ContainsKey("DebugSettings"))
             {
+                // Debug settings in C++ projects
                 var propertyListDebugSettings = GetAllProperty(prop.Item("DebugSettings").Value as EnvDTE.Properties);
                 if (propertyListDebugSettings.ContainsKey("CommandArguments"))
                 {
-                    return propertyList["CommandArguments"].ToString();
+                    return propertyListDebugSettings["CommandArguments"].ToString();
                 }
             }
 
-            throw new FileNotFoundException("Unable to find the project start parameters");
+            return string.Empty;
         }
 
-        //private static FileInfo GetExecutableForStartActionProgram(EnvDTE.Properties prop)
-        //{
-        //    ThreadHelper.ThrowIfNotOnUIThread();
-
-        //    var propertyList = GetAllProperty(prop);
-
-        //    if (propertyList.ContainsKey("DebugSettings") == false)
-        //    {
-        //        return null;
-        //    }
-
-        //    string path = prop.Item("StartProgram").Value.ToString();
-        //    return new FileInfo(path);
-        //}
-
-        //private static FileInfo GetProjectDebugApplicationFromAction(EnvDTE.Properties prop)
-        //{
-        //    ThreadHelper.ThrowIfNotOnUIThread();
-
-        //    var propertyList = GetAllProperty(prop);
-        //    if (propertyList.ContainsKey("StartAction"))
-        //    {
-        //        return GetProjectDebugApplicationFromAction(prop.Item("StartAction").Value as EnvDTE.Properties);
-        //    }
-
-        //    var action = (VSLangProj.prjStartAction)prop.Item("StartAction").Value;
-        //    if (action == VSLangProj.prjStartAction.prjStartActionProgram)
-        //    {
-        //        return GetExecutableForStartActionProgram(prop);
-        //    }
-        //    else if (action == VSLangProj.prjStartAction.prjStartActionURL)
-        //    {
-        //        throw new Exception("Unable to open a URL in the conemu console");
-        //    }
-
-        //    throw new FileNotFoundException("Unable to find the start action");
-        //}
+        private static bool IsValidFilePath(string path)
+        {
+            return string.IsNullOrEmpty(path) == false && File.Exists(path);
+        }
 
         public static FileInfo GetProjectDebugApplication(Project proj)
         {
@@ -234,21 +203,45 @@ namespace ConEmuIntegration.Helper
 
             var propertyList = GetAllProperty(prop);
 
-            //if (propertyList.ContainsKey("StartAction"))
-            //{
-            //    return GetProjectDebugApplicationFromAction(prop.Item("StartAction").Value as EnvDTE.Properties);
-            //}
-            
-            if (propertyList.ContainsKey("DebugSettings"))
+            var path = string.Empty;
+
+            if (IsValidFilePath(path) == false && propertyList.ContainsKey("StartProgram"))
             {
+                // Debug settings in DotNet Framework projects
+                path = propertyList["StartProgram"].ToString();
+            }
+
+            if (IsValidFilePath(path) == false && propertyList.ContainsKey("DebugSettings"))
+            {
+                // Debug settings in C++ projects
                 var propertyListDebugSettings = GetAllProperty(prop.Item("DebugSettings").Value as EnvDTE.Properties);
                 if (propertyListDebugSettings.ContainsKey("Command"))
                 {
-                    return new FileInfo(propertyListDebugSettings["Command"].ToString());
+                    path = propertyListDebugSettings["Command"].ToString();
                 }
             }
 
-            return GetOutputFileName(proj);
+            FileInfo pathInfo;
+            if (IsValidFilePath(path))
+            {
+                pathInfo = new FileInfo(path);
+            }
+            else
+            {
+                pathInfo = GetOutputFileName(proj);
+            }
+
+            if (pathInfo.Extension.ToUpper() != ".EXE")
+            {
+                // Workaround for DotNet Core projects
+                var pathInfoExe = pathInfo.FullName.Remove(pathInfo.FullName.Length - pathInfo.Extension.Length) + ".exe";
+                if(File.Exists(pathInfoExe))
+                {
+                    return new FileInfo(pathInfoExe);
+                }
+            }
+
+            return pathInfo;
         }
 
         public static FileInfo GetOutputFileName(Project proj)
