@@ -15,9 +15,7 @@
 //
 using ConEmuIntegration.Helper;
 using EnvDTE;
-using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.IO;
 
@@ -31,14 +29,14 @@ namespace ConEmuIntegration.ConEmuProduct
 
             if (ProductEnvironment.Instance.Package == null)
             {
-                return;
+                throw new NullReferenceException("The package shouldn't be empty");
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
-            if (dte != null && dte.SelectedItems.Count <= 0)
+            if(dte == null)
             {
-                return;
+                throw new NullReferenceException("The Visual Stufio DTE should't be empty");
             }
 
             var path = ProjectSettings.GetSolutionPath(dte?.Solution);
@@ -51,19 +49,19 @@ namespace ConEmuIntegration.ConEmuProduct
 
             if (ProductEnvironment.Instance.Package == null)
             {
-                return;
+                throw new NullReferenceException("The package shouldn't be empty");
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
             if (dte == null)
             {
-                return;
+                throw new NullReferenceException("The Visual Stufio DTE should't be empty");
             }
-            
+
             if (dte.SelectedItems.Count <= 0)
             {
-                return;
+                throw new Exception("Please select item in the solution explorer");
             }
 
             foreach (SelectedItem selectedItem in dte.SelectedItems)
@@ -74,10 +72,6 @@ namespace ConEmuIntegration.ConEmuProduct
                 }
 
                 var exePath = ProjectSettings.GetProjectDebugApplication(selectedItem.Project);
-                if (exePath == null)
-                {
-                    continue;
-                }
 
                 var attr = File.GetAttributes(exePath.FullName);
                 if (attr.HasFlag(FileAttributes.Directory))
@@ -107,26 +101,25 @@ namespace ConEmuIntegration.ConEmuProduct
 
             if (ProductEnvironment.Instance.Package == null)
             {
-                return;
+                throw new NullReferenceException("The package shouldn't be empty");
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
             if (dte == null)
             {
-                return;
+                throw new NullReferenceException("The Visual Stufio DTE should't be empty");
             }
 
             if (dte.SelectedItems.Count <= 0)
             {
-                return;
+                throw new Exception("Please select item in the solution explorer");
             }
 
             foreach (SelectedItem selectedItem in dte.SelectedItems)
             {
                 var path = ProjectSettings.GetSelectedItemPath(selectedItem);
                 SendChangeFolder(path.Directory);
-                return;
             }
         }
 
@@ -136,19 +129,19 @@ namespace ConEmuIntegration.ConEmuProduct
 
             if (ProductEnvironment.Instance.Package == null)
             {
-                return;
+                throw new NullReferenceException("The package shouldn't be empty");
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
             if (dte == null)
             {
-                return;
+                throw new NullReferenceException("The Visual Stufio DTE should't be empty");
             }
-            
+
             if (dte.SelectedItems.Count <= 0)
             {
-                return;
+                throw new Exception("Please select item in the solution explorer");
             }
 
             FileInfo path = null;
@@ -189,7 +182,7 @@ namespace ConEmuIntegration.ConEmuProduct
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {
-                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"Invoke-Item " + command + "\",\"\n\")");
+                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"& " + command + "\",\"\n\")");
             }
             else
             {
