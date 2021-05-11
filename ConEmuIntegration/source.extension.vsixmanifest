@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="D643A537-A9F4-43A6-9374-2C452B46300E" Version="2.2019.0.5" Language="en-US" Publisher="David Roller" />
+        <Identity Id="D643A537-A9F4-43A6-9374-2C452B46300E" Version="2.2019.0.6" Language="en-US" Publisher="David Roller" />
         <DisplayName>ConEmu Integration 2019</DisplayName>
         <Description xml:space="preserve">Integrate the console emulator ConEmu in Visual Studio</Description>
         <License>Resources\LICENSE</License>
