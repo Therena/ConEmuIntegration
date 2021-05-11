@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2020 David Roller 
+// Copyright 2021 David Roller 
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,9 +15,7 @@
 //
 using ConEmuIntegration.Helper;
 using EnvDTE;
-using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.IO;
 
@@ -31,25 +29,18 @@ namespace ConEmuIntegration.ConEmuProduct
 
             if (ProductEnvironment.Instance.Package == null)
             {
-                return;
+                throw new NullReferenceException("The package shouldn't be empty");
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
-            if (dte != null && dte.SelectedItems.Count <= 0)
+            if(dte == null)
             {
-                return;
+                throw new NullReferenceException("The Visual Stufio DTE should't be empty");
             }
 
-            var folders = new Folders();
-            var path = folders.GetSolutionPath(dte?.Solution);
-
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                return;
-            }
-
-            SendChangeFolder(path);
+            var path = ProjectSettings.GetSolutionPath(dte?.Solution);
+            SendChangeFolder(path.Directory);
         }
 
         public void Execute()
@@ -58,22 +49,21 @@ namespace ConEmuIntegration.ConEmuProduct
 
             if (ProductEnvironment.Instance.Package == null)
             {
-                return;
+                throw new NullReferenceException("The package shouldn't be empty");
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
             if (dte == null)
             {
-                return;
-            }
-            
-            if (dte.SelectedItems.Count <= 0)
-            {
-                return;
+                throw new NullReferenceException("The Visual Stufio DTE should't be empty");
             }
 
-            var folders = new Folders();
+            if (dte.SelectedItems.Count <= 0)
+            {
+                throw new Exception("Please select item in the solution explorer");
+            }
+
             foreach (SelectedItem selectedItem in dte.SelectedItems)
             {
                 if (selectedItem.Project == null)
@@ -81,22 +71,17 @@ namespace ConEmuIntegration.ConEmuProduct
                     continue;
                 }
 
-                var exe = folders.GetExecutable(selectedItem.Project);
+                var exePath = ProjectSettings.GetProjectDebugApplication(selectedItem.Project);
 
-                if (exe == null)
-                {
-                    return;
-                }
-
-                var attr = File.GetAttributes(exe.FullName);
+                var attr = File.GetAttributes(exePath.FullName);
                 if (attr.HasFlag(FileAttributes.Directory))
                 {
-                    return;
+                    continue;
                 }
 
-                string command = "\"\"" + exe.FullName.Replace("\"", "\"\"") + "\"\"";
+                string command = "\"\"" + exePath.FullName.Replace("\"", "\"\"") + "\"\"";
 
-                var parameter = folders.GetExecutableParameter(selectedItem.Project);
+                var parameter = ProjectSettings.GetProjectDebugParameter(selectedItem.Project);
                 if (string.IsNullOrWhiteSpace(parameter) == false)
                 {
                     command += " " + parameter;
@@ -110,131 +95,84 @@ namespace ConEmuIntegration.ConEmuProduct
             }
         }
 
-        public void Open()
+        public void OpenProject()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             if (ProductEnvironment.Instance.Package == null)
             {
-                return;
+                throw new NullReferenceException("The package shouldn't be empty");
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
             var dte = provider.GetService(typeof(DTE)) as DTE;
             if (dte == null)
             {
-                return;
+                throw new NullReferenceException("The Visual Stufio DTE should't be empty");
             }
-            
+
             if (dte.SelectedItems.Count <= 0)
             {
-                return;
+                throw new Exception("Please select item in the solution explorer");
             }
 
-            var folders = new Folders();
             foreach (SelectedItem selectedItem in dte.SelectedItems)
             {
-                var path = "";
-                if (selectedItem.Project != null)
-                {
-                    path = folders.GetProjectPath(selectedItem.Project);
-                }
-
-                if (selectedItem.ProjectItem != null)
-                {
-                    path = folders.GetProjectItemPath(selectedItem.ProjectItem);
-                }
-
-                if (string.IsNullOrWhiteSpace(path) == false)
-                {
-                    SendChangeFolder(path);
-                    return;
-                }
+                var path = ProjectSettings.GetSelectedItemPath(selectedItem);
+                SendChangeFolder(path.Directory);
             }
         }
 
-        public void OpenFolderView()
+        public void OpenItem()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (ProductEnvironment.Instance.Package == null)
             {
-                return;
+                throw new NullReferenceException("The package shouldn't be empty");
             }
 
             var provider = ProductEnvironment.Instance.Package as IServiceProvider;
-            IVsUIHierarchyWindow hierarchyWindow = VsShellUtilities.GetUIHierarchyWindow(provider,
-                VSConstants.StandardToolWindows.SolutionExplorer);
-
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            var pane = hierarchyWindow as WindowPane;
-            if(pane == null)
+            var dte = provider.GetService(typeof(DTE)) as DTE;
+            if (dte == null)
             {
-                throw new Exception("Cannot find the hirarchy pane in solution explorer");
+                throw new NullReferenceException("The Visual Stufio DTE should't be empty");
             }
 
-            var paneContent = pane.Content as System.Windows.Controls.Panel;
-            if (paneContent == null || paneContent.Children.Count == 0)
+            if (dte.SelectedItems.Count <= 0)
             {
-                throw new Exception("Cannot find the control panel in solution explorer");
+                throw new Exception("Please select item in the solution explorer");
             }
 
-            var contentPresenter = paneContent.Children[0] as System.Windows.Controls.ContentPresenter;
-            if (contentPresenter == null)
+            FileInfo path = null;
+            try
             {
-                throw new Exception("Cannot find the content presenter in solution explorer");
+                foreach (SelectedItem selectedItem in dte.SelectedItems)
+                {
+                    path = ProjectSettings.GetSelectedItemPath(selectedItem);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                path = ProjectSettings.LookingForSelectedItem(provider);
             }
 
-            var listBox = contentPresenter.Content as System.Windows.Controls.ListBox;
-            if (listBox == null || listBox.SelectedItem == null)
-            {
-                throw new Exception("Cannot find the listbox in solution explorer");
-            }
-
-            var selectedItemNode = listBox.SelectedItem as Microsoft.Internal.VisualStudio.PlatformUI.IVirtualizingTreeNode;
-            if (selectedItemNode == null)
-            {
-                throw new Exception("Cannot find the selected tree node in solution explorer");
-            }
-
-            var selectedItem = selectedItemNode.Item as Microsoft.VisualStudio.Workspace.VSIntegration.UI.IUINode;
-            if (selectedItem == null)
-            {
-                throw new Exception("Cannot find the selected UI node in solution explorer");
-            }
-
-            var fileSystemItem = selectedItem.WorkspaceVisualNode as Microsoft.VisualStudio.Workspace.VSIntegration.UI.IFileSystemNode;
-            if (fileSystemItem == null)
-            {
-                throw new Exception("Cannot find the selected file system item in solution explorer");
-            }
-
-            string path = fileSystemItem.FullPath;
-            FileAttributes attr = File.GetAttributes(path);
-            if (attr.HasFlag(FileAttributes.Directory) == false)
-            {
-                var file = new FileInfo(path);
-                path = file.Directory?.FullName;
-            }
-
-            if (string.IsNullOrWhiteSpace(path) == false)
-            {
-                SendChangeFolder(path);
-            }
+            SendChangeFolder(path.Directory);
         }
 
-        private void SendChangeFolder(string folder)
+        private void SendChangeFolder(DirectoryInfo folder)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {
                 ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd \"\"" +
-                    folder.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                    folder.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
             }
             else
             {
                 ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"cd /d \"\"" +
-                    folder.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
+                    folder.FullName.Replace("\"", "\"\"") + "\"\"\",\"\n\")");
             }
         }
 
@@ -244,7 +182,7 @@ namespace ConEmuIntegration.ConEmuProduct
             var cd = ProductEnvironment.Instance.UseNormalChangeDirectory();
             if (cd)
             {
-                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"Invoke-Item " + command + "\",\"\n\")");
+                ProductEnvironment.Instance.ExecuteGuiMacro("Print(@\"& " + command + "\",\"\n\")");
             }
             else
             {
