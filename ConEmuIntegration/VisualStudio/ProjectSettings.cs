@@ -52,6 +52,7 @@ namespace ConEmuIntegration.Helper
                     propertyList.Add(item.Name, item.Value);
                 }
                 catch (COMException) { }
+                catch (NotSupportedException) { }
                 catch (NotImplementedException) { }
                 catch (TargetParameterCountException) { }
             }
