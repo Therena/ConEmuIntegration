@@ -9,6 +9,7 @@ Using the console emulator ConEmu within Visual Studio.
 Download this extension from the Visual Studio Marketplace
 - Visual Studio 2015 - Visual Studio 2017: [ConEmu Integration 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration)
 - Visual Studio 2019: [ConEmu Integration 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration2019)
+- Visual Studio 2022: [ConEmu Integration 2022](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration2022)
 
 This project integrates the console emulator ConEmu in Visual Studio.
 ConEmu is not part of this extension and needs to be downloaded / installed separately.
