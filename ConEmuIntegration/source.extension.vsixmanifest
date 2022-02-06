@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="D643A537-A9F4-43A6-9374-2C452B46300E" Version="2.2022.0.1" Language="en-US" Publisher="David Roller" />
+        <Identity Id="86F03D5D-6F64-49CD-85A4-871433C5665B" Version="2.2022.0.1" Language="en-US" Publisher="David Roller" />
         <DisplayName>ConEmu Integration 2022</DisplayName>
         <Description xml:space="preserve">Integrate the console emulator ConEmu in Visual Studio</Description>
         <License>Resources\LICENSE</License>
@@ -10,15 +10,6 @@
         <Tags>console, ConEmu,  command-line, PowerShell, node, command prompt, cmd, Solution Explorer, Git, ConEmu, irb </Tags>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,18.0)">
-            <ProductArchitecture>x86</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Pro">
-            <ProductArchitecture>x86</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Enterprise">
-            <ProductArchitecture>x86</ProductArchitecture>
-        </InstallationTarget>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,18.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
