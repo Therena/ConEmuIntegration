@@ -9,14 +9,23 @@
         <PreviewImage>Resources\Preview.png</PreviewImage>
         <Tags>console, ConEmu,  command-line, PowerShell, node, command prompt, cmd, Solution Explorer, Git, ConEmu, irb </Tags>
     </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.14,19.0)">
+    <Installation InstalledByMsi="false">
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,19.0)">
+            <ProductArchitecture>arm64</ProductArchitecture>
+        </InstallationTarget>
+        <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[17.0,19.0)">
+            <ProductArchitecture>arm64</ProductArchitecture>
+        </InstallationTarget>
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[17.0,19.0)">
+            <ProductArchitecture>arm64</ProductArchitecture>
+        </InstallationTarget>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,19.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
-        <InstallationTarget Version="[17.14,19.0)" Id="Microsoft.VisualStudio.Pro">
+        <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[17.0,19.0)" >
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
-        <InstallationTarget Version="[17.14,19.0)" Id="Microsoft.VisualStudio.Enterprise">
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[17.0,19.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
@@ -24,8 +33,8 @@
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.8,)" />
     </Dependencies>
     <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.14,19.0)" DisplayName="Visual Studio-Kern-Editor" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.DiagnosticTools" Version="[17.14,19.0)" DisplayName="Profilerstellungstools" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,19.0)" DisplayName="Visual Studio-Kern-Editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.DiagnosticTools" Version="[17.0,19.0)" DisplayName="Profilerstellungstools" />
     </Prerequisites>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
