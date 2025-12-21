@@ -34,7 +34,7 @@ Choose the version that matches your Visual Studio environment:
 * **Visual Studio:** Version 2015 or newer (latest updates recommended).
 * **ConEmu:** Build 151201 or higher (Compatible with Installed or Portable versions).
 * **Architecture:** Supports both `x86` and `x64` versions of `ConEmu.exe`.
-* **ARM64 Support:** Visual Studio on ARM64 is currently not supported due to missing native support in [ConEmu #1488](https://github.com/ConEmu/ConEmu/issues/1488).
+* **Visual Studio on ARM64:**  Currently not supported due to missing native support in [ConEmu #1488](https://github.com/ConEmu/ConEmu/issues/1488).
 * **Configuration:** Requires the path to `ConEmu[64].exe` to be defined in the Visual Studio settings.
 
 ---
@@ -86,4 +86,4 @@ ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple
 ## 📜 License
 This project is licensed under the [Apache 2.0 License](https://github.com/Therena/ConEmuIntegration/blob/master/LICENSE). 
 
-*Note: ConEmu and ConEmu Inside are governed by their own respective licenses. Please refer to their project repositories for details.*
+*Note: "ConEmu" and "ConEmu Inside" are governed by their own respective licenses. Please refer to their project repositories for details.*
