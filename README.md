@@ -1,114 +1,91 @@
-# ConEmu Integration
+﻿# ConEmu Integration
 
 ![ConEmu Integration Icon](https://github.com/Therena/ConEmuIntegration/blob/master/Images/extension.png?raw=true)
 
-Using the console emulator ConEmu within Visual Studio.
+**ConEmu Integration** provides a seamless experience for using the [ConEmu](https://conemu.github.io/) console emulator directly within the Visual Studio IDE.
 
 ![CodeQL](https://github.com/Therena/ConEmuIntegration/actions/workflows/codeql-analysis.yml/badge.svg)
 
-Download this extension from the Visual Studio Marketplace
-- Visual Studio 2015 - Visual Studio 2017: [ConEmu Integration 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration)
-- Visual Studio 2019: [ConEmu Integration 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration2019)
-- Visual Studio 2022: [ConEmu Integration 2022](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration2022)
+## ⬇️ Download from the Visual Studio Marketplace
 
-This project integrates the console emulator ConEmu in Visual Studio.
-ConEmu is not part of this extension and needs to be downloaded / installed separately.
-See the ConEmu section for further detail about the console emulator.
+Choose the version that matches your Visual Studio environment:
 
-If you want to use your own ConEmu Settings or change the default settings please use your own configuration file.
-To define custom Task please also use an external configuration file.
-See "Optional: External ConEmu configuration XML" how to do this.
+* **Visual Studio 2026:** [ConEmu Integration 2026](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration2026)
+* **Visual Studio 2022:** [ConEmu Integration 2022](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration2022)
+* **Visual Studio 2019:** [ConEmu Integration 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration2019)
+* **Visual Studio 2017:** [ConEmu Integration 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration)
+* **Visual Studio 2015:** [ConEmu Integration 2015](https://marketplace.visualstudio.com/items?itemName=DavidRoller.ConEmuIntegration)
 
-## Supported languages
+---
 
-- en-US American English
-- de-DE Standard German
+## ✨ Features
 
-## System Requirements
+* **🖥️ Integrated Tool Window:** Host ConEmu as a native, dockable tool window within Visual Studio.
+* **📂 Solution Explorer Integration:**
+    * Open the containing folder of any file or project directly in ConEmu.
+    * Open the project's build output directory.
+    * Execute the project's compiled binary using ConEmu.
+    * Fully compatible with the **Folder View** mode in Solution Explorer.
+* **🚀 Quick Access:** Launch or focus the ConEmu tool window instantly from the **View** menu.
+* **⚙️ Advanced Customization:** Dedicated options page for managing ConEmu executable paths, shell settings, and custom tasks.
 
-- Installed Visual Studio (best: newest and updated - min. 2015)
-- Installed or portable version of ConEmu
-- ConEmu build 151201 or higher is required
-- ConEmu.exe can be used in x86 as well as in x64 version
-- Path to ConEmu[64].exe set in the Visual Studio settings
+---
 
-## ConEmu
+## 💻 System Requirements
 
-ConEmu is a Windows console emulator which is not part of this Visual Studio extension. Please download and install it separately. You can find them using the links below.
+* **Visual Studio:** Version 2015 or newer (latest updates recommended).
+* **ConEmu:** Build 151201 or higher (Compatible with Installed or Portable versions).
+* **Architecture:** Supports both `x86` and `x64` versions of `ConEmu.exe`.
+* **ARM64 Support:** Visual Studio on ARM64 is currently not supported due to missing native support in [ConEmu #1488](https://github.com/ConEmu/ConEmu/issues/1488).
+* **Configuration:** Requires the path to `ConEmu[64].exe` to be defined in the Visual Studio settings.
 
-<img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width=100>
+---
 
-ConEmu project: [GitHub](https://github.com/Maximus5/ConEmu)
+## 📸 Usage & Screenshots
 
-ConEmu integration: [GitHub](https://github.com/Maximus5/ConEmu-inside)
-and [NuGet Package](https://www.nuget.org/packages/ConEmu.Control.WinForms/)
-
-## Features
-
-- Integration of ConEmu as ToolWindow to Visual Studio
-- ConEmu Tool Window can be opens from "View" menu
-- Integration of ConEmu in Solution Explorer
-  - Open the containing folder of the item in ConEmu
-  - Open the output path of the project in ConEmu
-  - Execute the from the project created binary using ConEmu
-  - Integration in the folder view mode of solution explorer
-- Setting page for ConEmu and Shell settings
-
-### Integration of ConEmu as ToolWindow to Visual Studio
-
-This extension integrates ConEmu as tool window in Visual Studio.
+### Integrated Tool Window
+The extension hosts ConEmu as a first-class tool window, allowing you to use your favorite terminal alongside your code.
 
 ![ConEmu integrated in Visual Studio](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuVisualStudio.png?raw=true)
 
-### ConEmu Tool Window can be opens from "View" menu
-
-The ConEmu tool window can be open from the view menu of Visual Studio
-
-![Open ConEmu integrated in Visual Studio](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ComEmuInViewMenu.png?raw=true)
-
-### Integration of ConEmu in Solution Explorer
-
-The current opened folder in ConEmu can be changed directly from solution explorer.
-The output file of your project can be also executed in ConEmu.
+### Context Menu Integration
+Right-click on any item in the Solution Explorer to access ConEmu-specific commands, including opening folders or executing binaries.
 
 ![ConEmu integration in solution explorer](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuSolutionExplorer.png?raw=true)
 
-### Integration in the folder view mode of solution explorer
+---
 
-The current opened folder in ConEmu can be changed directly from solution explorer in folder view mode.
+## 🔧 Configuration
 
-![ConEmu integration in folder view mode](https://github.com/Therena/ConEmuIntegration/blob/master/Images/ConEmuFolderView.png?raw=true)
-
-## Settings
+### Executable Path
+ConEmu is not bundled with this extension. After installation, navigate to **Tools > Options > ConEmu Integration** to specify the path to your ConEmu executable.
 
 ![ConEmu executable path in Visual Studio settings](https://github.com/Therena/ConEmuIntegration/blob/master/Images/SettingsConEmu.png?raw=true)
 
-### Path settings
+### Custom Tasks and XML Settings
+* **Default Task:** You can customize the startup or default task (e.g., `{cmd}`, `{powershell}`, or `{bash}`).
+* **External Configuration:** If you wish to use a custom `ConEmu.xml`, you can specify the path in the extension settings.
 
-Please download / install the ConEmu separately. It isn't part of this extension.
-After you have downloaded / installed ConEmu please set the paths in the settings of this extension.
-Therefor open the settings of Visual Studio and navigate to the "ConEmu Integration" section.
+> [!CAUTION]
+> The extension utilizes an internal configuration for stability. Using an external XML file may lead to layout or compatibility issues if specific hosting settings are modified.
 
-### Optional: ConEmu settings
+---
 
-Visual Studio settings page to make it possible to change settings of ConEmu.
+## ℹ️ About ConEmu
 
-#### Change the default ConEmu task
+ConEmu-Maximus5 is a Windows console emulator with tabs, which presents multiple consoles and GUI applications as one customizable GUI window.
 
-Using this configuration it is possible to change the startup or default task which is used by the embedded ConEmu
-The default setting for this is {cmd}.
+<img src="https://avatars0.githubusercontent.com/u/1222388?v=3&s=460" width=100>
 
-#### External ConEmu configuration XML
+* **Project Home:** [GitHub](https://github.com/Maximus5/ConEmu)
+* **ConEmu Inside:** [GitHub](https://github.com/Maximus5/ConEmu-inside)
+* **NuGet Package:** [ConEmu.Control.WinForms](https://www.nuget.org/packages/ConEmu.Control.WinForms/)
 
-The extension contains an internal configuration which isn't changeable.
-If you want to change this configuration or use an custom configuration please set the path to your configuration in the Visual Studio settings.
+## 🌐 Localization
+* `en-US` (English)
+* `de-DE` (German)
 
-Please keep in mind that the extension doesn't support all configuration settings of ConEmu.
-Don't using the internal configuration could cause incompatibilities.
+## 📜 License
+This project is licensed under the [Apache 2.0 License](https://github.com/Therena/ConEmuIntegration/blob/master/LICENSE). 
 
-## License
-
-[Apache 2.0](https://github.com/Therena/ConEmuIntegration/blob/master/LICENSE)
-
-ConEmu and ConEmu Inside has different licenses.
-Please have a look on their Github pages for the license details.
+*Note: ConEmu and ConEmu Inside are governed by their own respective licenses. Please refer to their project repositories for details.*
