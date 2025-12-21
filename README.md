@@ -4,8 +4,6 @@
 
 **ConEmu Integration** provides a seamless experience for using the [ConEmu](https://conemu.github.io/) console emulator directly within the Visual Studio IDE.
 
-![CodeQL](https://github.com/Therena/ConEmuIntegration/actions/workflows/codeql-analysis.yml/badge.svg)
-
 ## ⬇️ Download from the Visual Studio Marketplace
 
 Choose the version that matches your Visual Studio environment:
